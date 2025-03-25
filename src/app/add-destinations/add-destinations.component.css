@@ -1,0 +1,36 @@
+/* Toast Container */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
+/* Custom Toast Styling */
+.custom-toast {
+  background: #198754; /* Bootstrap success green */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+  min-width: 250px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Close Button */
+.custom-toast .btn-close {
+  filter: invert(1);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.cont{
+  margin: 10px;
+  border: rgb(114, 111, 111) 2px solid;
+}

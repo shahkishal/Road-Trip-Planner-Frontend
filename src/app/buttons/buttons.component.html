@@ -1,0 +1,20 @@
+<div>
+  <div class="text-center d-flex justify-content-center gap-5 my-5">
+    <button
+      class="btn btn-dark"
+      type="button"
+      (click)="onAddDestinationButtonCLicked()"
+    >
+      Add Destination
+    </button>
+
+    <button
+      class="btn btn-dark"
+      type="button"
+      *ngIf="showBdBtn"
+      (click)="onBrowseDestinationButtonCLicked()"
+    >
+      Browse Destinations
+    </button>
+  </div>
+</div>

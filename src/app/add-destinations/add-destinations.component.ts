@@ -1,0 +1,160 @@
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { DestinationService } from '../shared/destination.service';
+
+@Component({
+  selector: 'app-add-destinations',
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  templateUrl: './add-destinations.component.html',
+  styleUrl: './add-destinations.component.css',
+})
+export class AddDestinationsComponent implements OnInit {
+  // @ViewChild('addButtonCenter', { static: false }) modalRef!: ElementRef;
+
+  @Output() closeForm = new EventEmitter<void>(); ///this is the event emitter that will notify parent component that close button is clicked
+
+  // isModalOpen = false;
+
+  constructor(
+    private router: Router,
+    private destinationDataService: DestinationService
+  ) {}
+
+  form = new FormGroup({
+    add_destination: new FormControl('', { validators: [Validators.required] }),
+    date_from: new FormControl('', { validators: [Validators.required] }),
+    date_to: new FormControl('', { validators: [Validators.required] }),
+    duration: new FormControl('', { validators: [Validators.minLength(1)] }),
+    description: new FormControl('', { validators: [Validators.minLength(5)] }),
+  });
+
+  // addDestinationData: AddDestination = {
+  //   destination: '',
+  //   dateFrom: '',
+  //   dateTo: '',
+  //   duration: '',
+  //   description: '',
+  // };
+
+  // showSuccessAlert = false;
+
+  get destinationIsInvalid() {
+    return (
+      this.form.controls.add_destination.invalid &&
+      this.form.controls.add_destination.touched
+    );
+  }
+
+  get dateFromIsInvalid() {
+    return (
+      this.form.controls.date_from.invalid &&
+      this.form.controls.date_from.touched
+    );
+  }
+
+  get dateToIsInvalid() {
+    return (
+      this.form.controls.date_to.invalid && this.form.controls.date_to.touched
+    );
+  }
+
+  get durationErrors() {
+    const durationControl = this.form.get('duration');
+    if (durationControl?.hasError('min') && durationControl.touched) {
+      return 'Duration must be greater than 1!';
+    }
+    return null;
+  }
+
+  onclick() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      alert('Please fill in all required feilds correctly!');
+    } else {
+      this.destinationDataService.cancel();
+      // const enteredDestination = this.form.value.add_destination;
+
+      // console.log(enteredDestination);
+
+      console.log('submitted data', this.form.value);
+
+      // this.destinationDataService.updateDestination(this.form.value); //////stores the new data and send it to another component with the help of the method we initialised in our service.ts file.
+
+      this.destinationDataService.createDestination(this.form.value).subscribe(
+        (response) => {
+          console.log('trip created:', response);
+          alert('Trip successfully added!');
+
+          // this.showSuccessAlert = true;
+
+          // setTimeout(() => {
+          //   this.showSuccessAlert = false;
+          // }, 5000);
+          // console.log('toastworks');
+
+          // setTimeout(() => {
+          //   this.closeForm.emit();
+          // }, 1000);
+
+          this.form.reset();
+
+          this.router.navigate(['/dashboard']);
+          // if (this.modalRef) {
+          //   const modalInstance = Modal.getInstance(this.modalRef.nativeElement);
+          //   modalInstance?.hide();
+          // }
+
+          // this.closeForm.emit(); ////event emit to show add destination button again when the button submit is clicked.
+        },
+        (error) => {
+          console.log('error', error);
+          alert('something went wrong');
+        }
+      );
+    }
+  }
+
+  ngOnInit() {
+    //this.isModalOpen = true;
+    // setTimeout(() => {
+    //   if (this.modalRef) {
+    //     const modalInstance = new Modal(this.modalRef.nativeElement);
+    //     modalInstance.show();
+    //   }
+    // });
+    this.destinationDataService.addClicked();
+  }
+
+  // closeModal() {
+  //   this.isModalOpen = false;
+  //   this.router.navigate(['/']);
+  //   this.closeForm.emit();
+  // }
+
+  // closeModal() {
+  //   if (this.modalRef) {
+  //     const modalInstance = Modal.getInstance(this.modalRef.nativeElement);
+  //     modalInstance?.hide();
+  //   }
+
+  //   this.closeForm.emit();  ////event emit to show add destination button again when cancel is clicked.
+  // }
+
+  // onCancelClickShowHomePage() {
+  //   console.log('this works')
+  //   this.showAddDestinationBtn = true;
+  // }
+}

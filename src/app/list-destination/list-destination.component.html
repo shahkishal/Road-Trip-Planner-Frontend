@@ -1,0 +1,26 @@
+<div>
+  <app-buttons />
+</div>
+
+<div class="container">
+  <div class="container">
+    <h4>Your Saved Destinations</h4>
+
+    <div *ngIf="receivedData?.length > 0; else fallback">
+      <div
+        *ngFor="let destination of receivedData"
+        class="card mt-3 p-3 shadow"
+      >
+        <h4>{{ destination.add_destination }}</h4>
+        <p><strong>Date From : </strong>{{ destination.date_from }}</p>
+        <p><strong>To : </strong>{{ destination.date_to }}</p>
+        <p><strong>Duration : </strong>{{ destination.duration }}</p>
+        <p><strong>Description : </strong>{{ destination.description }}</p>
+      </div>
+    </div>
+
+    <ng-template #fallback>
+      <p class="text-muted">No destinations added yet.</p>
+    </ng-template>
+  </div>
+</div>

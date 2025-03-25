@@ -1,0 +1,89 @@
+<div class="container mt-5 w-75">
+  <h4 id="addDestinationTitle">Add Your Desired Destination</h4>
+
+  <div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="mt-3">
+        <label for="add-destination" class="form-label fw-semibold mt-2"
+          >Add Destination :</label
+        >
+        <input
+          id="add-destination"
+          class="form-control"
+          type="text"
+          placeholder="Enter destination you would like to visit."
+          formControlName="add_destination"
+        />
+        <div class="text-danger mt-1" *ngIf="destinationIsInvalid">
+          Destination is Required!
+        </div>
+
+        <div class="">
+          <label for="date-from" class="form-label fw-semibold mt-2"
+            >Date From :</label
+          >
+          <input
+            id="date-from"
+            class="form-control w-25"
+            type="date"
+            formControlName="date_from"
+          />
+          <div class="text-danger w-100" *ngIf="dateFromIsInvalid">
+            Date From is Required!
+          </div>
+
+          <label for="date-to" class="form-label mt-2 fw-semibold">To :</label>
+          <input
+            id="date-to"
+            class="form-control w-25"
+            type="date"
+            formControlName="date_to"
+          />
+          <div class="text-danger w-100" *ngIf="dateToIsInvalid">
+            Date To is Required!
+          </div>
+        </div>
+      </div>
+
+      <label for="duration" class="form-label mt-2 fw-semibold"
+        >Duration (days) :</label
+      >
+      <input
+        id="duration"
+        class="form-control"
+        type="number"
+        placeholder="Enter duration."
+        formControlName="duration"
+      />
+      <div *ngIf="durationErrors" class="text-danger">
+        {{ durationErrors }}
+      </div>
+
+      <label for="description" class="form-label mt-2 fw-semibold"
+        >Description :</label
+      >
+      <textarea
+        id="description"
+        class="form-control"
+        placeholder="Enter description."
+        formControlName="description"
+      ></textarea>
+
+      <div class="mt-4 mb-4">
+        <button
+          type="button"
+          class="btn border me-2 fw-semibold"
+          (click)="onclick()"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- <div *ngIf="showSuccessAlert">
+  toastworks!
+</div> -->
