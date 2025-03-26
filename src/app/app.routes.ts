@@ -20,11 +20,11 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'add-destination',
+    path: 'add-new-trip',
     component: AddDestinationsComponent,
   },
   {
-    path: 'browse-destination',
+    path: 'browse-trips',
     component: BrowseDestinationComponent,
   },
   {

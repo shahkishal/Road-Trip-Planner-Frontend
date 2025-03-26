@@ -36,7 +36,7 @@ export class ButtonsComponent implements AfterViewInit {
     // this.showBrowseDestination = !this.showBrowseDestination;
     // this.showBdBtn = false;
     this.destinationService.addClicked();     //////here addCLicked value is false and thats what make title disappear.
-    this.router.navigate(['/browse-destination'], {relativeTo: this.route});
+    this.router.navigate(['/browse-trips'], {relativeTo: this.route});
 
   }
 
@@ -49,7 +49,7 @@ export class ButtonsComponent implements AfterViewInit {
     // }
     // this.showAddDestination = true;
     this.destinationService.addClicked();
-    this.router.navigate(['/add-destination'], {relativeTo: this.route});
+    this.router.navigate(['/add-new-trip'], {relativeTo: this.route});
   }
 
   handleAddDestinationBtnWhenClose() {

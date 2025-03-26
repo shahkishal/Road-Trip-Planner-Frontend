@@ -23,9 +23,11 @@ export class DestinationService {
   createDestination(tripData: any): Observable<any> {
     return this.http.post(this.apiUrl, tripData);
   }
+
   addClicked() {
     this.showTitle.emit(false); ////stores false in showTitle
   }
+
   cancel() {
     this.showTitle.emit(true); ////stores true in showTitle
   }

@@ -31,7 +31,8 @@ export class AddDestinationsComponent implements OnInit {
   ) {}
 
   form = new FormGroup({
-    add_destination: new FormControl('', { validators: [Validators.required] }),
+    source: new FormControl('', { validators: [Validators.required] }),
+    destination: new FormControl('', { validators: [Validators.required] }),
     date_from: new FormControl('', { validators: [Validators.required] }),
     date_to: new FormControl('', { validators: [Validators.required] }),
     duration: new FormControl('', { validators: [Validators.minLength(1)] }),
@@ -48,10 +49,16 @@ export class AddDestinationsComponent implements OnInit {
 
   // showSuccessAlert = false;
 
+  get sourceIsInvalid() {
+    return (
+      this.form.controls.source.invalid && this.form.controls.source.touched
+    );
+  }
+
   get destinationIsInvalid() {
     return (
-      this.form.controls.add_destination.invalid &&
-      this.form.controls.add_destination.touched
+      this.form.controls.destination.invalid &&
+      this.form.controls.destination.touched
     );
   }
 
@@ -76,7 +83,7 @@ export class AddDestinationsComponent implements OnInit {
     return null;
   }
 
-  onclick() {
+  oncancel() {
     this.router.navigate(['/dashboard']);
   }
 

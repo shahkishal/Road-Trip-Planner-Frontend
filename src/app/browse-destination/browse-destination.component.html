@@ -1,7 +1,10 @@
-<div class="container mt-5 mb-5">
+<div class="container mt-3">
+  <h3>Browse Road Trips</h3>
+</div>
+<div class="container mt-4 mb-5">
   <div class="row g-4">
     <div class="col-md-3" *ngFor="let trip of trips">
-      <div class="card h-100 dark-shadow">
+      <div class="card h-100 shadow">
         <div class="card-body">
           <h5 class="card-title">{{ trip.title }}</h5>
           <p class="card-text">
@@ -10,10 +13,10 @@
           <p class="card-text">
             <strong>Estimated Travel Time:</strong> ~{{ trip.time }}
           </p>
-          <p class="card-text"><strong>Best Route:</strong> {{ trip.route }}</p>
+          <!-- <p class="card-text"><strong>Best Route:</strong> {{ trip.route }}</p>
           <p class="card-text">
             <strong>Highlights:</strong> {{ trip.highlights }}
-          </p>
+          </p> -->
           <a href="#" class="btn btn-dark">Explore</a>
         </div>
       </div>

@@ -4,6 +4,22 @@
   <div class="container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mt-3">
+        <!-- add sourcee -->
+        <label for="add-destination" class="form-label fw-semibold mt-2"
+          >Add Source :</label
+        >
+        <input
+          id="add-source"
+          class="form-control"
+          type="text"
+          placeholder="Enter source from where you want to start from."
+          formControlName="source"
+        />
+        <div class="text-danger mt-1" *ngIf="sourceIsInvalid">
+          Source is Required!
+        </div>
+
+        <!-- add destination -->
         <label for="add-destination" class="form-label fw-semibold mt-2"
           >Add Destination :</label
         >
@@ -12,39 +28,45 @@
           class="form-control"
           type="text"
           placeholder="Enter destination you would like to visit."
-          formControlName="add_destination"
+          formControlName="destination"
         />
         <div class="text-danger mt-1" *ngIf="destinationIsInvalid">
           Destination is Required!
         </div>
 
-        <div class="">
-          <label for="date-from" class="form-label fw-semibold mt-2"
-            >Date From :</label
-          >
-          <input
-            id="date-from"
-            class="form-control w-25"
-            type="date"
-            formControlName="date_from"
-          />
-          <div class="text-danger w-100" *ngIf="dateFromIsInvalid">
-            Date From is Required!
+        <!-- date -->
+        <div class="row mt-2">
+          <div class="col-md-5">
+            <label for="date-from" class="form-label fw-semibold"
+              >Date From :</label
+            >
+            <input
+              id="date-from"
+              class="form-control"
+              type="date"
+              formControlName="date_from"
+            />
+            <div class="text-danger" *ngIf="dateFromIsInvalid">
+              Date From is Required!
+            </div>
           </div>
 
-          <label for="date-to" class="form-label mt-2 fw-semibold">To :</label>
-          <input
-            id="date-to"
-            class="form-control w-25"
-            type="date"
-            formControlName="date_to"
-          />
-          <div class="text-danger w-100" *ngIf="dateToIsInvalid">
-            Date To is Required!
+          <div class="col-md-5">
+            <label for="date-to" class="form-label fw-semibold">To :</label>
+            <input
+              id="date-to"
+              class="form-control"
+              type="date"
+              formControlName="date_to"
+            />
+            <div class="text-danger" *ngIf="dateToIsInvalid">
+              Date To is Required!
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- durationn -->
       <label for="duration" class="form-label mt-2 fw-semibold"
         >Duration (days) :</label
       >
@@ -59,6 +81,7 @@
         {{ durationErrors }}
       </div>
 
+      <!-- descriptionn -->
       <label for="description" class="form-label mt-2 fw-semibold"
         >Description :</label
       >
@@ -73,7 +96,7 @@
         <button
           type="button"
           class="btn border me-2 fw-semibold"
-          (click)="onclick()"
+          (click)="oncancel()"
         >
           Cancel
         </button>
