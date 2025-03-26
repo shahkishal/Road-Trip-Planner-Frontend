@@ -3,24 +3,19 @@
 </div>
 
 <div class="container">
-  <div class="container">
-    <h4>Your Saved Trips</h4>
+  <h4>Your Saved Trips</h4>
 
-    <div *ngIf="receivedData?.length > 0; else fallback">
-      <div
-        *ngFor="let destination of receivedData"
-        class="card mt-3 p-3 shadow"
-      >
-        <h4>{{ destination.add_destination }}</h4>
-        <p><strong>Date From : </strong>{{ destination.date_from }}</p>
-        <p><strong>To : </strong>{{ destination.date_to }}</p>
-        <p><strong>Duration : </strong>{{ destination.duration }}</p>
-        <p><strong>Description : </strong>{{ destination.description }}</p>
-      </div>
+  <div *ngIf="tripsData; else fallback">
+    <div *ngFor="let trip of tripsData" class="card mt-3 p-3 shadow">
+      <h4>{{ trip.destination }}</h4>
+      <p><strong>Date From : </strong>{{ trip.date_from }}</p>
+      <p><strong>To : </strong>{{ trip.date_to }}</p>
+      <p><strong>Duration : </strong>{{ trip.duration }}</p>
+      <p><strong>Description : </strong>{{ trip.description }}</p>
     </div>
-
-    <ng-template #fallback>
-      <p class="text-muted">No road trips added yet.</p>
-    </ng-template>
   </div>
+
+  <ng-template #fallback>
+    <p class="text-muted">No road trips added yet.</p>
+  </ng-template>
 </div>

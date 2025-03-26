@@ -7,8 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class DestinationService {
   private destinationData = new BehaviorSubject<any[]>([]);
-  private apiUrl = 'http://localhost:3000/trips'; ////backend url
-
+  private apiUrl = 'http://localhost:5001/trips'; ////backend url
   public showTitle = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient) {}
@@ -22,6 +21,10 @@ export class DestinationService {
 
   createDestination(tripData: any): Observable<any> {
     return this.http.post(this.apiUrl, tripData);
+  }
+
+  getTripsData(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 
   addClicked() {
