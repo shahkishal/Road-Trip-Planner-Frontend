@@ -1,8 +1,9 @@
 export interface Trip {
+  Id: string;
   source: string;
   destination: string;
-  date_to: string;
-  date_from: string;
+  from: string;
+  to: string;
   duration: string;
   description: string;
 }

@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DestinationService } from '../shared/destination.service';
+import { ApiService } from '../shared/api.service';
 
 @Component({
   selector: 'app-add-destinations',
@@ -27,14 +28,15 @@ export class AddDestinationsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private destinationDataService: DestinationService
+    private destinationDataService: DestinationService,
+    private api$: ApiService
   ) {}
 
   form = new FormGroup({
     source: new FormControl('', { validators: [Validators.required] }),
     destination: new FormControl('', { validators: [Validators.required] }),
-    date_from: new FormControl('', { validators: [Validators.required] }),
-    date_to: new FormControl('', { validators: [Validators.required] }),
+    from: new FormControl('', { validators: [Validators.required] }),
+    to: new FormControl('', { validators: [Validators.required] }),
     duration: new FormControl('', { validators: [Validators.minLength(1)] }),
     description: new FormControl('', { validators: [Validators.minLength(5)] }),
   });
@@ -63,16 +65,11 @@ export class AddDestinationsComponent implements OnInit {
   }
 
   get dateFromIsInvalid() {
-    return (
-      this.form.controls.date_from.invalid &&
-      this.form.controls.date_from.touched
-    );
+    return this.form.controls.from.invalid && this.form.controls.from.touched;
   }
 
   get dateToIsInvalid() {
-    return (
-      this.form.controls.date_to.invalid && this.form.controls.date_to.touched
-    );
+    return this.form.controls.to.invalid && this.form.controls.to.touched;
   }
 
   get durationErrors() {
@@ -82,6 +79,22 @@ export class AddDestinationsComponent implements OnInit {
     }
     return null;
   }
+
+  // get durationCalculation() {
+  //   const dateFrom = this.form.get('date_from')?.value;
+  //   const dateTo = this.form.get('date_to')?.value;
+
+  //   if(!dateFrom || !dateTo) return null;
+
+  //   const fromDate = new Date(dateFrom);
+  //   const toDate = new Date(dateTo);
+
+  //   const diffInMs = toDate.getTime()
+
+  //   let date = 0;
+  //   date = dateTo - dateFrom;
+  //   return date
+  // }
 
   oncancel() {
     this.router.navigate(['/dashboard']);
@@ -96,11 +109,17 @@ export class AddDestinationsComponent implements OnInit {
 
       // console.log(enteredDestination);
 
+      // console.log(
+      //   'date',
+      //   this.form.controls.from.value,
+      //   this.form.controls.to.value
+      // );
+
       console.log('submitted data', this.form.value);
 
       // this.destinationDataService.updateDestination(this.form.value); //////stores the new data and send it to another component with the help of the method we initialised in our service.ts file.
 
-      this.destinationDataService.createDestination(this.form.value).subscribe(
+      this.api$.createDestination(this.form.value).subscribe(
         (response) => {
           console.log('trip created:', response);
           alert('Trip successfully added!');

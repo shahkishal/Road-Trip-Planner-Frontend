@@ -5,13 +5,16 @@
 <div class="container">
   <h4>Your Saved Trips</h4>
 
-  <div *ngIf="tripsData; else fallback">
+  <div *ngIf="tripsData && tripsData.length > 0; else fallback">
     <div *ngFor="let trip of tripsData" class="card mt-3 p-3 shadow">
-      <h4>{{ trip.destination }}</h4>
-      <p><strong>Date From : </strong>{{ trip.date_from }}</p>
-      <p><strong>To : </strong>{{ trip.date_to }}</p>
+      <h4>{{ trip.source }} - {{ trip.destination }}</h4>
+      <!-- <app-trip-cards /> -->
+      <p><strong>Date From : </strong>{{ trip.from }}</p>
+      <p><strong>To : </strong>{{ trip.to }}</p>
       <p><strong>Duration : </strong>{{ trip.duration }}</p>
       <p><strong>Description : </strong>{{ trip.description }}</p>
+      <button>Edit</button>
+      <button (click)="onDelete(trip.Id)">Delete</button>
     </div>
   </div>
 

@@ -37,14 +37,14 @@
         <!-- date -->
         <div class="row mt-2">
           <div class="col-md-5">
-            <label for="date-from" class="form-label fw-semibold"
+            <label for="date" class="form-label fw-semibold"
               >Date From :</label
             >
             <input
-              id="date-from"
+              id="from"
               class="form-control"
               type="date"
-              formControlName="date_from"
+              formControlName="from"
             />
             <div class="text-danger" *ngIf="dateFromIsInvalid">
               Date From is Required!
@@ -54,10 +54,10 @@
           <div class="col-md-5">
             <label for="date-to" class="form-label fw-semibold">To :</label>
             <input
-              id="date-to"
+              id="to"
               class="form-control"
               type="date"
-              formControlName="date_to"
+              formControlName="to"
             />
             <div class="text-danger" *ngIf="dateToIsInvalid">
               Date To is Required!
