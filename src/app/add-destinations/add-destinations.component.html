@@ -91,6 +91,15 @@
         formControlName="description"
       ></textarea>
 
+      <select (change)="onSelectChange($event)">
+        <option value="">Select an option</option>
+        <option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <p>Selected: {{ selectedOption }}</p>
+
       <div class="mt-4 mb-4">
         <button
           type="button"

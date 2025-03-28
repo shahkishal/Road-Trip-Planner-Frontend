@@ -26,6 +26,9 @@ export class AddDestinationsComponent implements OnInit {
 
   // isModalOpen = false;
 
+  options: string[] = ['Sedan'];
+  selectedOption: string = '';
+
   constructor(
     private router: Router,
     private destinationDataService: DestinationService,
@@ -39,6 +42,7 @@ export class AddDestinationsComponent implements OnInit {
     to: new FormControl('', { validators: [Validators.required] }),
     duration: new FormControl('', { validators: [Validators.min(1)] }),
     description: new FormControl('', { validators: [Validators.minLength(5)] }),
+    travelTypeId: new FormControl(''),
   });
 
   // addDestinationData: AddDestination = {
@@ -207,6 +211,11 @@ export class AddDestinationsComponent implements OnInit {
         }
       );
     }
+  }
+
+  onSelectChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.selectedOption = target.value;
   }
 
   // closeModal() {

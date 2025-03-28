@@ -6,4 +6,5 @@ export interface Trip {
   to: string;
   duration: string;
   description: string;
+  travelTypeId: string;
 }

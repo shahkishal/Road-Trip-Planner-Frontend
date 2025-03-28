@@ -8,7 +8,7 @@ import { Trip } from './trips.model';
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5001/trips'; ////json backend url
-  // private apiUrl = 'http://localhost:5001/api/Trip'; ////kishal backend url
+  // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
 
   constructor(private http: HttpClient) {}
 
