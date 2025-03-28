@@ -1,0 +1,55 @@
+<!-- 
+<div
+  class="modal fade"
+  id="deleteTripModal"
+  tabindex="-1"
+  aria-labelledby="deleteTripModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteTripModalLabel">Delete Trip</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete this trip?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="onDeleteTrip()">
+          Confirm Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<button nzDanger nzShape="round" class="btn btn-danger" (click)="showModal()">
+  <span>Delete</span>
+</button>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Delete Trip"
+  id="ant-modal-content"
+>
+  <ng-template [nzModalFooter]>
+    <div class="d-flex gap-2">
+      <button class="btn btn-dark" (click)="handleCancel()">Cancel</button>
+      <button nzDanger="danger" class="btn btn-danger" (click)="handleConfirm()">
+        Confirm
+      </button>
+    </div>
+  </ng-template>
+  <ng-container *nzModalContent>
+    <p>Do you really want to delete this trip?</p>
+  </ng-container>
+</nz-modal>

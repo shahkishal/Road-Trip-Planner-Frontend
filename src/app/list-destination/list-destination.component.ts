@@ -2,55 +2,51 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DestinationService } from '../shared/destination.service';
 import { ButtonsComponent } from '../buttons/buttons.component';
-import { Trip } from '../shared/trips.modal';
+import { Trip } from '../shared/trips.model';
 import { ApiService } from '../shared/api.service';
+import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
 
 @Component({
   selector: 'app-list-destination',
-  imports: [CommonModule, ButtonsComponent],
+  imports: [CommonModule, ButtonsComponent, TripDeleteComponent],
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
 export class ListDestinationComponent implements OnInit {
-  receivedData: any = null;
-  tripsData: Trip[] = [];
+  // receivedData: any = null;
+
+  tripsData: Trip[] = []; // Trips fetched from backend
+  selectedTrip: Trip | null = null;
 
   constructor(
     private destinationService: DestinationService,
     private api$: ApiService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.destinationService.cancel();
-    this.destinationService.currentDestination.subscribe((data) => {
-      if (data) {
-        this.receivedData = data;
-      }
-    });
+    // this.destinationService.currentDestination.subscribe((data) => {
+    //   if (data) {
+    //     this.receivedData = data;
+    //   }
+    // });
     this.api$.getTripsData().subscribe((data) => {
       this.tripsData = data || [];
     });
+
+    this.fetchTrips();
   }
 
-  onDelete(tripId: string) {
-    // console.log('works!');
-    if (!tripId) {
-      console.error('Trip is missing!');
-      return;
-    }
+  fetchTrips() {
+    this.api$.getTripsData().subscribe((data) => {
+      this.tripsData = data;
+    });
+  }
 
-    if (confirm('Are you sure you want to delete this trip?')) {
-      this.api$.deleteTripsData(tripId).subscribe(
-        () => {
-          alert('Trip deleted successfully!');
+  onTripDeleted(tripId: string) {
+    // this.selectedTrip = trip; ///////// Set selected trip for modal
+    console.log('triped', this.selectedTrip);
 
-          this.tripsData = this.tripsData.filter((trip) => trip.Id !== tripId);
-        },
-        (error) => {
-          console.error('Error deleting trip:', error);
-          alert('Failed to delete trip');
-        }
-      );
-    }
+    this.tripsData = this.tripsData.filter((trip) => trip.id !== tripId);
   }
 }

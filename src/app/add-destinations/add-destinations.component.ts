@@ -37,7 +37,7 @@ export class AddDestinationsComponent implements OnInit {
     destination: new FormControl('', { validators: [Validators.required] }),
     from: new FormControl('', { validators: [Validators.required] }),
     to: new FormControl('', { validators: [Validators.required] }),
-    duration: new FormControl('', { validators: [Validators.minLength(1)] }),
+    duration: new FormControl('', { validators: [Validators.min(1)] }),
     description: new FormControl('', { validators: [Validators.minLength(5)] }),
   });
 
@@ -80,20 +80,67 @@ export class AddDestinationsComponent implements OnInit {
     return null;
   }
 
-  // get durationCalculation() {
-  //   const dateFrom = this.form.get('date_from')?.value;
-  //   const dateTo = this.form.get('date_to')?.value;
+  ngOnInit() {
+    //this.isModalOpen = true;
+    // setTimeout(() => {
+    //   if (this.modalRef) {
+    //     const modalInstance = new Modal(this.modalRef.nativeElement);
+    //     modalInstance.show();
+    //   }
+    // });
 
-  //   if(!dateFrom || !dateTo) return null;
+    this.form
+      .get('from')
+      ?.valueChanges.subscribe(() => this.calculateDuration());
+    this.form.get('to')?.valueChanges.subscribe(() => this.calculateDuration());
+
+    this.destinationDataService.addClicked();
+    // this.form.get('from')?.valueChanges.subscribe(() => {
+    //   this.updateDuration();
+    // });
+
+    // this.form.get('to')?.valueChanges.subscribe(() => {
+    //   this.updateDuration();
+    // });
+  }
+
+  calculateDuration() {
+    const dateFrom = this.form.get('from')?.value;
+    const dateTo = this.form.get('to')?.value;
+
+    if (dateFrom && dateTo) {
+      const fromDate = new Date(dateFrom);
+      const toDate = new Date(dateTo);
+      const diffInDays = Math.ceil(
+        (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      if (diffInDays >= 0) {
+        this.form
+          .get('duration')
+          ?.setValue(diffInDays.toString(), { emitEvent: false });
+      } else {
+        this.form.get('duration')?.setValue('0', { emitEvent: false });
+      }
+    }
+  }
+
+  // updateDuration() {
+  //   const dateFrom = this.form.get('from')?.value;
+  //   const dateTo = this.form.get('to')?.value;
+
+  //   if (!dateFrom || !dateTo) return null;
 
   //   const fromDate = new Date(dateFrom);
   //   const toDate = new Date(dateTo);
 
-  //   const diffInMs = toDate.getTime()
+  //   const diffInTime = toDate.getTime() - fromDate.getTime();
 
-  //   let date = 0;
-  //   date = dateTo - dateFrom;
-  //   return date
+  //   const diffInDays = diffInTime / (1000 * 60 * 60 * 24);
+
+  //   const durationInDays = diffInDays > 0 ? `${diffInDays} days` : 'Invalid Date Range';
+
+  //   this.form.patchValue({ duration: durationInDays});
   // }
 
   oncancel() {
@@ -115,11 +162,20 @@ export class AddDestinationsComponent implements OnInit {
       //   this.form.controls.to.value
       // );
 
+      // this.form.patchValue({
+      //   duration: this.durationCalculation,
+      // });
+
+      const formData = {
+        ...this.form.getRawValue(),
+        duration: this.form.get('duration')?.value,
+      };
+
       console.log('submitted data', this.form.value);
 
       // this.destinationDataService.updateDestination(this.form.value); //////stores the new data and send it to another component with the help of the method we initialised in our service.ts file.
 
-      this.api$.createDestination(this.form.value).subscribe(
+      this.api$.createDestination(formData).subscribe(
         (response) => {
           console.log('trip created:', response);
           alert('Trip successfully added!');
@@ -147,21 +203,10 @@ export class AddDestinationsComponent implements OnInit {
         },
         (error) => {
           console.log('error', error);
-          alert('something went wrong');
+          alert('something went wrong!');
         }
       );
     }
-  }
-
-  ngOnInit() {
-    //this.isModalOpen = true;
-    // setTimeout(() => {
-    //   if (this.modalRef) {
-    //     const modalInstance = new Modal(this.modalRef.nativeElement);
-    //     modalInstance.show();
-    //   }
-    // });
-    this.destinationDataService.addClicked();
   }
 
   // closeModal() {

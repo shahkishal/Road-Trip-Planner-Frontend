@@ -1,0 +1,34 @@
+/* Make the modal rounded */
+.custom-modal .ant-modal-content {
+  border-radius: 15px !important;
+  background-color: black !important;
+}
+
+/* Style the OK (Delete) button */
+.custom-modal .ant-modal-footer .ant-btn-primary {
+  background-color: #ff4d4f !important; /* Red color */
+  border-color: #ff4d4f !important;
+}
+
+/* Dark theme for the Cancel button */
+.dark-cancel-btn {
+  background-color: #333 !important;
+  color: white !important;
+  border: 1px solid #444 !important;
+}
+
+.dark-cancel-btn:hover {
+  background-color: #222 !important;
+  border-color: #666 !important;
+}
+
+.black {
+  background-color: #222 !important;
+}
+#modalFooter{
+  background-color: #222 !important;
+}
+
+.ant-modal-content{
+  background-color: #222 !important;
+}

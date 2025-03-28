@@ -16,7 +16,7 @@
           formControlName="source"
         />
         <div class="text-danger mt-1" *ngIf="sourceIsInvalid">
-          Source is Required!
+          Source Location is Required!
         </div>
 
         <!-- add destination -->
@@ -37,9 +37,7 @@
         <!-- date -->
         <div class="row mt-2">
           <div class="col-md-5">
-            <label for="date" class="form-label fw-semibold"
-              >Date From :</label
-            >
+            <label for="date" class="form-label fw-semibold">Date From :</label>
             <input
               id="from"
               class="form-control"
@@ -74,9 +72,10 @@
         id="duration"
         class="form-control"
         type="number"
-        placeholder="Enter duration."
-        formControlName="duration"
+        placeholder="Select date from and date to."
+        readonly
       />
+
       <div *ngIf="durationErrors" class="text-danger">
         {{ durationErrors }}
       </div>
