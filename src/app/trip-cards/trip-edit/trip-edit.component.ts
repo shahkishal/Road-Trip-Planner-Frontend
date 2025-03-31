@@ -118,6 +118,7 @@ export class TripEditComponent implements OnInit {
 
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
+      this.api$.sendEditData;
       this.isVisible = false;
     }
   }

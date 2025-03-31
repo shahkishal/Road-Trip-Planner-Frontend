@@ -18,6 +18,10 @@ export class ApiService {
     return this.http.post(this.apiUrl, tripData);
   }
 
+  sendEditData(Id: string, tripData: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${Id}`, tripData);
+  }
+
   getTripsData(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.apiUrl);
   }
