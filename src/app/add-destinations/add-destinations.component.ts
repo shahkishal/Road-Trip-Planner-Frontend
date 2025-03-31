@@ -25,20 +25,10 @@ export class AddDestinationsComponent implements OnInit {
 
   @Output() closeForm = new EventEmitter<void>(); ///this is the event emitter that will notify parent component that close button is clicked
   travelTypeData: TravelType[] = [];
+  options: { id: string; name: string }[] = [];
 
-  getTravelTypeData() {
-    this.api$.getTraveltypeData().subscribe((response) => {
-      this.travelTypeData = response;
-      console.log(this.travelTypeData);
-    });
-  }
+  getTravelTypeData() {}
 
-  travelArray = this.travelTypeData.map(({ id, type }) => ({
-    id,
-    name: type,
-  }));
-
-  options = this.travelArray;
   // { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
   // { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
 
@@ -123,6 +113,15 @@ export class AddDestinationsComponent implements OnInit {
     // this.form.get('to')?.valueChanges.subscribe(() => {
     //   this.updateDuration();
     // });
+
+    this.api$.getTraveltypeData().subscribe((response) => {
+      this.travelTypeData = response;
+      // console.log(this.travelTypeData);
+      this.options = this.travelTypeData.map(({ id, type }) => ({
+        id,
+        name: type,
+      }));
+    });
   }
 
   calculateDuration() {
