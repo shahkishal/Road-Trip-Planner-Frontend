@@ -60,17 +60,9 @@ export class ListDestinationComponent implements OnInit {
     this.tripsData = this.tripsData.filter((trip) => trip.id !== tripId);
   }
 
-  onTripUpdated(updatedTrip: Trip) {
-    const index = this.tripsData.findIndex(
-      (trip) => trip.id === updatedTrip.id
-    );
-
-    if (index !== -1) {
-      this.tripsData = [
-        ...this.tripsData.slice(0, index),
-        updatedTrip,
-        ...this.tripsData.slice(index + 1),
-      ];
-    }
+  onTripUpdated() {
+    this.api$.getTripsData().subscribe((data) => {
+      this.tripsData = data || [];
+    });
   }
 }

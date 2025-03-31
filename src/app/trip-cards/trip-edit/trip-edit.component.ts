@@ -21,7 +21,8 @@ import { TravelType } from '../../shared/travelType.model';
 })
 export class TripEditComponent implements OnInit {
   @Input() trip!: Trip;
-  @Output() tripUpdated: EventEmitter<Trip> = new EventEmitter<Trip>();
+  // @Output() tripUpdated: EventEmitter<Trip> = new EventEmitter<Trip>();
+
   tripsData: Trip[] = []; // Trips fetched from backend
   form!: FormGroup;
 
@@ -123,7 +124,7 @@ export class TripEditComponent implements OnInit {
         (updatedTrip) => {
           console.log('trip updated successfully:', updatedTrip);
 
-          this.tripUpdated.emit(updatedTrip);
+          // this.tripUpdated.emit(updatedTrip);
           this.isVisible = false;
         },
         (error) => {
