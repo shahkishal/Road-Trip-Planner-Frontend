@@ -34,16 +34,18 @@ export class TripEditComponent implements OnInit {
     }
 
     this.api$.getTraveltypeData().subscribe((response) => {
-      this.travelTypeData = response;
-      // console.log(this.travelTypeData);
-      this.options = [
-        { id: '', name: 'Select one' },
-        ...this.travelTypeData.map(({ id, type }) => ({
-          id,
-          name: type,
-        })),
-      ];
-      this.form.patchValue({ travelTypeId: '' });
+      if (response && response.length > 0) {
+        this.travelTypeData = response;
+        // console.log(this.travelTypeData);
+        this.options = [
+          { id: '', name: 'Select one' },
+          ...this.travelTypeData.map(({ id, type }) => ({
+            id,
+            name: type,
+          })),
+        ];
+        this.form.patchValue({ travelTypeId: '' });
+      }
     });
 
     this.form

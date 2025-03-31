@@ -3,6 +3,7 @@ import { AddDestinationsComponent } from './add-destinations/add-destinations.co
 import { HomepageComponent } from './homepage/homepage.component';
 import { BrowseDestinationComponent } from './browse-destination/browse-destination.component';
 import { ListDestinationComponent } from './list-destination/list-destination.component';
+import { TripEditComponent } from './trip-cards/trip-edit/trip-edit.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,13 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: ListDestinationComponent,
+
+        children: [
+          {
+            path: '`${Id}`',
+            component: TripEditComponent,
+          },
+        ],
       },
     ],
   },
