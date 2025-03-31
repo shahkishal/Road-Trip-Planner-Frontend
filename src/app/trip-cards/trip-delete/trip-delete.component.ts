@@ -69,7 +69,7 @@ export class TripDeleteComponent {
   showModal(): void {
     this.isVisible = true;
   }
-
+  
   handleCancel(): void {
     // console.log('Button cancel clicked!');
     this.isVisible = false;
