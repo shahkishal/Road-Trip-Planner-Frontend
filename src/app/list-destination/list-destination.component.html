@@ -30,6 +30,7 @@
             <div class="d-flex gap-2">
               <!-- <button class="btn btn-dark">Edit</button> -->
               <app-trip-edit
+                *ngIf="trip"
                 [trip]="trip"
                 (tripUpdated)="onTripUpdated($event)"
               />

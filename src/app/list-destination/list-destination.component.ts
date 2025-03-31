@@ -40,14 +40,14 @@ export class ListDestinationComponent implements OnInit {
       this.tripsData = data || [];
     });
 
-    this.fetchTrips();
+    // this.fetchTrips();
   }
 
-  fetchTrips() {
-    this.api$.getTripsData().subscribe((data) => {
-      this.tripsData = data;
-    });
-  }
+  // fetchTrips() {
+  //   this.api$.getTripsData().subscribe((data) => {
+  //     this.tripsData = data;
+  //   });
+  // }
 
   editTrip(trip: Trip) {
     this.selectedTrip = { ...trip };
@@ -66,7 +66,11 @@ export class ListDestinationComponent implements OnInit {
     );
 
     if (index !== -1) {
-      this.tripsData[index] = updatedTrip;
+      this.tripsData = [
+        ...this.tripsData.slice(0, index),
+        updatedTrip,
+        ...this.tripsData.slice(index + 1),
+      ];
     }
   }
 }
