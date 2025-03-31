@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -21,6 +21,7 @@ import { TravelType } from '../../shared/travelType.model';
 })
 export class TripEditComponent implements OnInit {
   @Input() trip!: Trip;
+  @Output() tripUpdated: EventEmitter<Trip> = new EventEmitter<Trip>();
   tripsData: Trip[] = []; // Trips fetched from backend
   form!: FormGroup;
 
@@ -118,18 +119,17 @@ export class TripEditComponent implements OnInit {
 
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
-      const subscription = this.api$
-        .sendEditData(this.trip.id, this.form.value)
-        .subscribe(
-          (updatedTrip) => {
-            console.log('trip updated successfully:', updatedTrip);
-          },
-          (error) => {
-            console.error('Error updating trip.', error);
-          }
-        );
+      this.api$.sendEditData(this.trip.id, this.form.value).subscribe(
+        (updatedTrip) => {
+          console.log('trip updated successfully:', updatedTrip);
 
-      this.isVisible = false;
+          this.tripUpdated.emit(updatedTrip);
+          this.isVisible = false;
+        },
+        (error) => {
+          console.error('Error updating trip.', error);
+        }
+      );
     }
   }
 

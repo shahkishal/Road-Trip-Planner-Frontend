@@ -59,4 +59,14 @@ export class ListDestinationComponent implements OnInit {
 
     this.tripsData = this.tripsData.filter((trip) => trip.id !== tripId);
   }
+
+  onTripUpdated(updatedTrip: Trip) {
+    const index = this.tripsData.findIndex(
+      (trip) => trip.id === updatedTrip.id
+    );
+
+    if (index !== -1) {
+      this.tripsData[index] = updatedTrip;
+    }
+  }
 }
