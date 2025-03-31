@@ -4,7 +4,7 @@
   <div class="container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mt-3">
-        <!-- add sourcee -->
+        <!-- add source -->
         <label for="add-source" class="form-label fw-semibold mt-2"
           >Add Source :</label
         >
@@ -74,6 +74,7 @@
         type="number"
         placeholder="Select date from and date to."
         readonly
+        formControlName="duration"
       />
 
       <div *ngIf="durationErrors" class="text-danger">

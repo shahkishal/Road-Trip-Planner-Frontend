@@ -44,7 +44,7 @@ export class AddDestinationsComponent implements OnInit {
     from: new FormControl('', { validators: [Validators.required] }),
     to: new FormControl('', { validators: [Validators.required] }),
     duration: new FormControl('', { validators: [Validators.min(1)] }),
-    description: new FormControl('', { validators: [Validators.minLength(5)] }),
+    description: new FormControl(''),
     travelTypeId: new FormControl<string | null>(null, {
       validators: [Validators.required],
     }),
@@ -117,12 +117,16 @@ export class AddDestinationsComponent implements OnInit {
     const dateFrom = this.form.get('from')?.value;
     const dateTo = this.form.get('to')?.value;
 
+    // console.log('date from:', dateFrom, 'date to:', dateTo);
+
     if (dateFrom && dateTo) {
       const fromDate = new Date(dateFrom);
       const toDate = new Date(dateTo);
       const diffInDays = Math.ceil(
         (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
       );
+
+      // console.log('calculated duration:', diffInDays);
 
       if (diffInDays >= 0) {
         this.form
