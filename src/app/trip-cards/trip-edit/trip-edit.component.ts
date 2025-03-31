@@ -6,6 +6,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { Trip } from '../../shared/trips.model';
 import { ApiService } from '../../shared/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TravelType } from '../../shared/travelType.model';
 
 @Component({
   selector: 'app-trip-edit',
@@ -18,6 +19,9 @@ export class TripEditComponent implements OnInit {
   tripsData: Trip[] = []; // Trips fetched from backend
   form!: FormGroup;
 
+  travelTypeData: TravelType[] = [];
+  options: { id: string; name: string }[] = [];
+
   isVisible = false;
 
   constructor(private api$: ApiService, private fb: FormBuilder) {}
@@ -28,6 +32,24 @@ export class TripEditComponent implements OnInit {
     if (this.trip) {
       this.prepopulated();
     }
+
+    this.api$.getTraveltypeData().subscribe((response) => {
+      this.travelTypeData = response;
+      // console.log(this.travelTypeData);
+      this.options = [
+        { id: '', name: 'Select one' },
+        ...this.travelTypeData.map(({ id, type }) => ({
+          id,
+          name: type,
+        })),
+      ];
+      this.form.patchValue({ travelTypeId: '' });
+    });
+
+    this.form
+      .get('from')
+      ?.valueChanges.subscribe(() => this.calculateDuration());
+    this.form.get('to')?.valueChanges.subscribe(() => this.calculateDuration());
   }
 
   initializeForm(): void {
@@ -85,6 +107,31 @@ export class TripEditComponent implements OnInit {
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
       this.isVisible = false;
+    }
+  }
+
+  calculateDuration() {
+    const dateFrom = this.form.get('from')?.value;
+    const dateTo = this.form.get('to')?.value;
+
+    // console.log('date from:', dateFrom, 'date to:', dateTo);
+
+    if (dateFrom && dateTo) {
+      const fromDate = new Date(dateFrom);
+      const toDate = new Date(dateTo);
+      const diffInDays = Math.ceil(
+        (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      // console.log('calculated duration:', diffInDays);
+
+      if (diffInDays >= 0) {
+        this.form
+          .get('duration')
+          ?.setValue(diffInDays.toString(), { emitEvent: false });
+      } else {
+        this.form.get('duration')?.setValue('0', { emitEvent: false });
+      }
     }
   }
 }

@@ -27,8 +27,6 @@ export class AddDestinationsComponent implements OnInit {
   travelTypeData: TravelType[] = [];
   options: { id: string; name: string }[] = [];
 
-  getTravelTypeData() {}
-
   // { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
   // { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
 
