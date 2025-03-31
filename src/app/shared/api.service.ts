@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Trip } from './trips.model';
+import { TravelType } from './travelType.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { Trip } from './trips.model';
 export class ApiService {
   private apiUrl = 'http://localhost:5001/trips'; ////json backend url
   // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
+  private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
 
   constructor(private http: HttpClient) {}
 
@@ -20,15 +22,18 @@ export class ApiService {
     return this.http.get<Trip[]>(this.apiUrl);
   }
 
+  getTraveltypeData(): Observable<TravelType[]> {
+    return this.http.get<TravelType[]>(this.apiUrlTravelType);
+  }
+
   deleteTripsData(Id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${Id}`);
   }
 
   sendDropDownDataToBackend(selectedId: string) {
-    return this.http
-      .post(this.apiUrl, { id: selectedId })
-      .subscribe((response) => {
-        console.log('Response:', response);
-      });
+    return this.http.post(this.apiUrl, { id: selectedId });
+    // .subscribe((response) => {
+    //   console.log('Response:', response);
+    // });
   }
 }

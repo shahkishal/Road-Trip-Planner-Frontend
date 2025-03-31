@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DestinationService } from '../shared/destination.service';
 import { ApiService } from '../shared/api.service';
+import { TravelType } from '../shared/travelType.model';
 
 @Component({
   selector: 'app-add-destinations',
@@ -23,12 +24,20 @@ export class AddDestinationsComponent implements OnInit {
   // @ViewChild('addButtonCenter', { static: false }) modalRef!: ElementRef;
 
   @Output() closeForm = new EventEmitter<void>(); ///this is the event emitter that will notify parent component that close button is clicked
+  travelTypeData: TravelType[] = [];
 
-  options = [
-    { id: null, name: 'Select Travel Type' },
-    { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
-    { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
-  ];
+  getTravelTypeData() {
+    this.api$.getTraveltypeData().subscribe((response) => {
+      this.travelTypeData = response;
+      console.log(this.travelTypeData);
+    });
+
+    // let array: = []
+  }
+
+  options = this.travelTypeData;
+  // { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
+  // { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
 
   // isModalOpen = false;
 
