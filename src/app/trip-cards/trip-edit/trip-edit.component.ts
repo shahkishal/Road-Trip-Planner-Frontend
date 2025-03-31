@@ -118,7 +118,17 @@ export class TripEditComponent implements OnInit {
 
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
-      this.api$.sendEditData;
+      const subscription = this.api$
+        .sendEditData(this.trip.id, this.form.value)
+        .subscribe(
+          (updatedTrip) => {
+            console.log('trip updated successfully:', updatedTrip);
+          },
+          (error) => {
+            console.error('Error updating trip.', error);
+          }
+        );
+
       this.isVisible = false;
     }
   }
