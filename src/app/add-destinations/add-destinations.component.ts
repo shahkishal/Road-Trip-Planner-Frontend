@@ -24,10 +24,13 @@ export class AddDestinationsComponent implements OnInit {
 
   @Output() closeForm = new EventEmitter<void>(); ///this is the event emitter that will notify parent component that close button is clicked
 
-  // isModalOpen = false;
+  options = [
+    { id: null, name: 'Select Travel Type' },
+    { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
+    { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
+  ];
 
-  options: string[] = ['Sedan'];
-  selectedOption: string = '';
+  // isModalOpen = false;
 
   constructor(
     private router: Router,
@@ -42,7 +45,9 @@ export class AddDestinationsComponent implements OnInit {
     to: new FormControl('', { validators: [Validators.required] }),
     duration: new FormControl('', { validators: [Validators.min(1)] }),
     description: new FormControl('', { validators: [Validators.minLength(5)] }),
-    travelTypeId: new FormControl(''),
+    travelTypeId: new FormControl<string | null>(null, {
+      validators: [Validators.required],
+    }),
   });
 
   // addDestinationData: AddDestination = {
@@ -195,6 +200,10 @@ export class AddDestinationsComponent implements OnInit {
           //   this.closeForm.emit();
           // }, 1000);
 
+          if (formData.travelTypeId) {
+            this.api$.sendDropDownDataToBackend(formData.travelTypeId);
+          }
+
           this.form.reset();
 
           this.router.navigate(['/dashboard']);
@@ -213,10 +222,10 @@ export class AddDestinationsComponent implements OnInit {
     }
   }
 
-  onSelectChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.selectedOption = target.value;
-  }
+  // onSelectChange(event: Event) {
+  //   const target = event.target as HTMLSelectElement;
+  //   this.selectedOption = target.value;
+  // }
 
   // closeModal() {
   //   this.isModalOpen = false;

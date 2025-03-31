@@ -23,4 +23,12 @@ export class ApiService {
   deleteTripsData(Id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${Id}`);
   }
+
+  sendDropDownDataToBackend(selectedId: string) {
+    return this.http
+      .post(this.apiUrl, { id: selectedId })
+      .subscribe((response) => {
+        console.log('Response:', response);
+      });
+  }
 }

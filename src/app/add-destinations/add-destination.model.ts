@@ -4,4 +4,5 @@ export interface AddDestination {
   dateTo: string;
   duration: string;
   description: string;
+  travelTypeId: string;
 }

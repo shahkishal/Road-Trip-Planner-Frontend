@@ -91,14 +91,27 @@
         formControlName="description"
       ></textarea>
 
-      <select (change)="onSelectChange($event)">
-        <option value="">Select an option</option>
-        <option *ngFor="let option of options" [value]="option">
-          {{ option }}
+      <label for="travelType" class="form-label fw-semibold mt-2">
+        Select Travel Type:
+      </label>
+      <select
+        id="travelType"
+        formControlName="travelTypeId"
+        class="form-control"
+      >
+        <option *ngFor="let item of options" [value]="item.id">
+          {{ item.name }}
         </option>
       </select>
-
-      <p>Selected: {{ selectedOption }}</p>
+      <div
+        class="text-danger mt-1"
+        *ngIf="
+          form.controls.travelTypeId?.invalid &&
+          form.controls.travelTypeId?.touched
+        "
+      >
+        Travel Type is Required!
+      </div>
 
       <div class="mt-4 mb-4">
         <button
