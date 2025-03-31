@@ -5,10 +5,16 @@ import { ButtonsComponent } from '../buttons/buttons.component';
 import { Trip } from '../shared/trips.model';
 import { ApiService } from '../shared/api.service';
 import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
+import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 
 @Component({
   selector: 'app-list-destination',
-  imports: [CommonModule, ButtonsComponent, TripDeleteComponent],
+  imports: [
+    CommonModule,
+    ButtonsComponent,
+    TripDeleteComponent,
+    TripEditComponent,
+  ],
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
@@ -41,6 +47,10 @@ export class ListDestinationComponent implements OnInit {
     this.api$.getTripsData().subscribe((data) => {
       this.tripsData = data;
     });
+  }
+
+  editTrip(trip: Trip) {
+    this.selectedTrip = { ...trip };
   }
 
   onTripDeleted(tripId: string) {

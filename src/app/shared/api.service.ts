@@ -22,6 +22,10 @@ export class ApiService {
     return this.http.get<Trip[]>(this.apiUrl);
   }
 
+  getTripById(Id: string): Observable<any> {
+    return this.http.get<Trip>(`${this.apiUrl}/${Id}`);
+  }
+
   getTraveltypeData(): Observable<TravelType[]> {
     return this.http.get<TravelType[]>(this.apiUrlTravelType);
   }

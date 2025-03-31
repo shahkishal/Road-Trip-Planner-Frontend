@@ -70,6 +70,11 @@ export class TripDeleteComponent {
     this.isVisible = true;
   }
 
+  handleCancel(): void {
+    // console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
   handleConfirm(): void {
     // console.log('Button ok clicked!');
     if (!this.trip || !this.trip.id) {
@@ -86,10 +91,5 @@ export class TripDeleteComponent {
         console.error('Error deleting trips:', error);
       }
     );
-  }
-
-  handleCancel(): void {
-    // console.log('Button cancel clicked!');
-    this.isVisible = false;
   }
 }

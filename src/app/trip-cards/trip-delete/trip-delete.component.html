@@ -40,16 +40,22 @@
   [(nzVisible)]="isVisible"
   nzTitle="Delete Trip"
   id="ant-modal-content"
+  (nzOnCancel)="handleCancel()"
 >
+  <ng-container *nzModalContent>
+    <p>Do you really want to delete this trip?</p>
+  </ng-container>
+
   <ng-template [nzModalFooter]>
     <div class="d-flex gap-2">
       <button class="btn btn-dark" (click)="handleCancel()">Cancel</button>
-      <button nzDanger="danger" class="btn btn-danger" (click)="handleConfirm()">
+      <button
+        nzDanger="danger"
+        class="btn btn-danger"
+        (click)="handleConfirm()"
+      >
         Confirm
       </button>
     </div>
   </ng-template>
-  <ng-container *nzModalContent>
-    <p>Do you really want to delete this trip?</p>
-  </ng-container>
 </nz-modal>

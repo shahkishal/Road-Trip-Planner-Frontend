@@ -1,1 +1,129 @@
-<p>trip-edit works!</p>
+<button nzDanger nzShape="round" class="btn btn-dark" (click)="showModal()">
+  <span>Edit</span>
+</button>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Edit Trip"
+  (nzOnCancel)="handleBack()"
+  (nzOnOk)="handleDone()"
+  class="w-25"
+>
+  <ng-container *nzModalContent>
+    <div class="container">
+      <h4 id="addDestinationTitle">Add Your Desired Destination</h4>
+
+      <div class="container">
+        <form [formGroup]="form" (ngSubmit)="handleDone()">
+          <div class="mt-3">
+            <!-- add source -->
+            <label for="add-source" class="form-label fw-semibold mt-2"
+              >Add Source :</label
+            >
+            <input
+              id="add-source"
+              class="form-control"
+              type="text"
+              placeholder="Enter source from where you want to start from."
+              formControlName="source"
+            />
+
+            <!-- add destination -->
+            <label for="add-destination" class="form-label fw-semibold mt-2"
+              >Add Destination :</label
+            >
+            <input
+              id="add-destination"
+              class="form-control"
+              type="text"
+              placeholder="Enter destination you would like to visit."
+              formControlName="destination"
+            />
+
+            <!-- date -->
+            <div class="row mt-2">
+              <div class="col-md-5">
+                <label for="date" class="form-label fw-semibold"
+                  >Date From :</label
+                >
+                <input
+                  id="from"
+                  class="form-control"
+                  type="date"
+                  formControlName="from"
+                />
+              </div>
+
+              <div class="col-md-5">
+                <label for="date-to" class="form-label fw-semibold">To :</label>
+                <input
+                  id="to"
+                  class="form-control"
+                  type="date"
+                  formControlName="to"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- duration -->
+          <label for="duration" class="form-label mt-2 fw-semibold"
+            >Duration (days) :</label
+          >
+          <input
+            id="duration"
+            class="form-control"
+            type="number"
+            placeholder="Select date from and date to."
+            readonly
+            formControlName="duration"
+          />
+
+          <!-- descriptionn -->
+          <label for="description" class="form-label mt-2 fw-semibold"
+            >Description :</label
+          >
+          <textarea
+            id="description"
+            class="form-control"
+            placeholder="Enter description."
+            formControlName="description"
+          ></textarea>
+
+          <!-- Select  -->
+          <label for="travelType" class="form-label fw-semibold mt-2">
+            Select Travel Type:
+          </label>
+          <select
+            id="travelType"
+            formControlName="travelTypeId"
+            class="form-control"
+          >
+            <!-- <option
+                *ngFor="let item of options"
+                [value]="item.id"
+                [disabled]="item.id === '' && form.controls.travelTypeId.value !== ''"
+              >
+                {{ item.name }}
+              </option> -->
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="showSuccessAlert">
+        toastworks!
+      </div> -->
+
+    <!-- <button (click)="getTravelTypeData()">clicik</button> -->
+  </ng-container>
+
+  <ng-container *nzModalFooter>
+    <div class="d-flex gap-2">
+      <button class="btn btn-dark" (click)="handleBack()">Back</button>
+      <button nzDanger="danger" (click)="handleDone()" class="btn btn-danger">
+        Done
+      </button>
+    </div>
+  </ng-container>
+</nz-modal>
