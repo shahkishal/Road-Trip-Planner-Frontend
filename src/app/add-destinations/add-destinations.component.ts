@@ -117,10 +117,14 @@ export class AddDestinationsComponent implements OnInit {
     this.api$.getTraveltypeData().subscribe((response) => {
       this.travelTypeData = response;
       // console.log(this.travelTypeData);
-      this.options = this.travelTypeData.map(({ id, type }) => ({
-        id,
-        name: type,
-      }));
+      this.options = [
+        { id: '', name: 'Select one' },
+        ...this.travelTypeData.map(({ id, type }) => ({
+          id,
+          name: type,
+        })),
+      ];
+      this.form.patchValue({ travelTypeId: '' });
     });
   }
 

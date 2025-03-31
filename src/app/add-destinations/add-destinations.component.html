@@ -101,7 +101,11 @@
         formControlName="travelTypeId"
         class="form-control"
       >
-        <option *ngFor="let item of options" [value]="item.id">
+        <option
+          *ngFor="let item of options"
+          [value]="item.id"
+          [disabled]="item.id === '' && form.controls.travelTypeId.value !== ''"
+        >
           {{ item.name }}
         </option>
       </select>
