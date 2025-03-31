@@ -27,6 +27,12 @@
               placeholder="Enter source from where you want to start from."
               formControlName="source"
             />
+            <div
+              *ngIf="form.get('source')?.invalid && form.get('source')?.touched"
+              class="text-danger"
+            >
+              Source is required.
+            </div>
 
             <!-- add destination -->
             <label for="add-destination" class="form-label fw-semibold mt-2"
@@ -39,6 +45,15 @@
               placeholder="Enter destination you would like to visit."
               formControlName="destination"
             />
+            <div
+              *ngIf="
+                form.get('destination')?.invalid &&
+                form.get('destination')?.touched
+              "
+              class="text-danger"
+            >
+              Destination is required.
+            </div>
 
             <!-- date -->
             <div class="row mt-2">
@@ -53,6 +68,12 @@
                   formControlName="from"
                 />
               </div>
+              <div
+                *ngIf="form.get('from')?.invalid && form.get('from')?.touched"
+                class="text-danger"
+              >
+                Start date is required.
+              </div>
 
               <div class="col-md-5">
                 <label for="date-to" class="form-label fw-semibold">To :</label>
@@ -62,6 +83,12 @@
                   type="date"
                   formControlName="to"
                 />
+              </div>
+              <div
+                *ngIf="form.get('to')?.invalid && form.get('to')?.touched"
+                class="text-danger"
+              >
+                End date is required.
               </div>
             </div>
           </div>
@@ -99,14 +126,19 @@
             formControlName="travelTypeId"
             class="form-control"
           >
-            <!-- <option
-                *ngFor="let item of options"
-                [value]="item.id"
-                [disabled]="item.id === '' && form.controls.travelTypeId.value !== ''"
-              >
-                {{ item.name }}
-              </option> -->
+            <option *ngFor="let item of options" [value]="item.id">
+              {{ item.name }}
+            </option>
           </select>
+          <div
+            *ngIf="
+              form.get('travelTypeId')?.invalid &&
+              form.get('travelTypeId')?.touched
+            "
+            class="text-danger"
+          >
+            Travel type is required.
+          </div>
         </form>
       </div>
     </div>

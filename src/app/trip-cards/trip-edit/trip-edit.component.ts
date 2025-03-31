@@ -5,7 +5,12 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { Trip } from '../../shared/trips.model';
 import { ApiService } from '../../shared/api.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TravelType } from '../../shared/travelType.model';
 
 @Component({
@@ -56,13 +61,13 @@ export class TripEditComponent implements OnInit {
 
   initializeForm(): void {
     this.form = this.fb.group({
-      source: [''],
-      destination: [''],
-      from: [''],
-      to: [''],
+      source: ['', Validators.required],
+      destination: ['', Validators.required],
+      from: ['', Validators.required],
+      to: ['', Validators.required],
       duration: [''],
       description: [''],
-      travelTypeId: [''],
+      travelTypeId: ['', Validators.required],
     });
   }
 
@@ -105,6 +110,11 @@ export class TripEditComponent implements OnInit {
     //     console.error('error fetching trip data:', error);
     //   }
     // );
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
