@@ -2,20 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { DestinationService } from '../shared/destination.service';
 import { TripService } from './trip.service';
 import { CommonModule } from '@angular/common';
+import { SortTripsComponent } from '../sort-trips/sort-trips.component';
+import { Trip } from '../shared/trips.model';
 
 @Component({
   selector: 'app-browse-destination',
-  imports: [CommonModule],
+  imports: [CommonModule, SortTripsComponent],
   templateUrl: './browse-destination.component.html',
-  styleUrl: './browse-destination.component.css'
+  styleUrl: './browse-destination.component.css',
 })
 export class BrowseDestinationComponent implements OnInit {
   trips: any[] = [];
 
-  constructor(private destination$: DestinationService, private tripservice$: TripService) {}
+  constructor(
+    private destination$: DestinationService,
+    private tripservice$: TripService
+  ) {}
 
   ngOnInit(): void {
-      this.destination$.addClicked();
-      this.trips = this.tripservice$.getTrips();
+    this.destination$.addClicked();
+    this.trips = this.tripservice$.getTrips();
+  }
+
+  sortedBrowsedTrips(sortedBrowsedTrips: Trip[]) {
+    console.log('sorted browsed trips');
   }
 }

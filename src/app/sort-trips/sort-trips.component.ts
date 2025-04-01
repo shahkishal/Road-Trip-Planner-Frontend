@@ -9,25 +9,26 @@ import { Trip } from '../shared/trips.model';
   styleUrl: './sort-trips.component.css',
 })
 export class SortTripsComponent {
-  @Output() tripSorted = new EventEmitter<Trip[]>();
+  @Output() listTripSorted = new EventEmitter<Trip[]>();
+  @Output() browsedTripSorted = new EventEmitter<Trip[]>();
 
   tripsData: Trip[] = []; // Trips fetched from backend
   isAscending = true;
 
   constructor(private api$: ApiService) {}
 
-  sortData() {
+  sortListData() {
     // console.log('sort works');
     this.api$.getSortData(this.isAscending).subscribe((data) => {
       console.log('sorted data:', data);
       this.tripsData = data;
-      this.tripSorted.emit(this.tripsData);
+      this.listTripSorted.emit(this.tripsData);
     });
   }
 
   toggleSort() {
     this.isAscending = !this.isAscending;
     console.log(this.isAscending);
-    this.sortData();
+    this.sortListData();
   }
 }

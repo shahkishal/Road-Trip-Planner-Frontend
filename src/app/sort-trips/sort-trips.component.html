@@ -1,6 +1,17 @@
-<img
-  src="/assets/sort-icon.png"
-  alt="sort"
-  class="sort-icon"
-  (click)="toggleSort()"
-/>
+<div class="d-flex gap-1">
+  <p>Sort by</p>
+  <img
+    src="/assets/sort-icon.png"
+    alt="sort"
+    class="sort-icon"
+    (click)="toggleSort()"
+  />
+</div>
+
+<div *ngIf="isAscending; else fallback">
+  <p>Asc</p>
+</div>
+
+<ng-template #fallback>
+  <p>Desc</p>
+</ng-template>
