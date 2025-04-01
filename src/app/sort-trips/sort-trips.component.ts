@@ -15,8 +15,7 @@ export class SortTripsComponent {
 
   tripsData: Trip[] = []; // Trips fetched from backend
   // isAscending = true;
-  selectedState: boolean = true;
-
+  selectedState: string = '';
   constructor(private api$: ApiService) {}
 
   sortListData() {
@@ -35,8 +34,16 @@ export class SortTripsComponent {
   // }
 
   onSortChange(status: any) {
-    const selectedState = status.target.value;
-    console.log('selected order:', selectedState);
-    this.sortListData();
+    this.selectedState = status.target.value;
+    console.log('selected order:', this.selectedState);
+    if (this.selectedState === 'default') {
+      this.api$.getTripsData().subscribe((data) => {
+        this.tripsData = data;
+        console.log('hiiiiiii');
+        this.listTripSorted.emit(this.tripsData);
+      });
+    } else {
+      this.sortListData();
+    }
   }
 }
