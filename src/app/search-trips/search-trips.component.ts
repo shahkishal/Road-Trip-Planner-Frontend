@@ -9,7 +9,8 @@ import { Trip } from '../shared/trips.model';
   styleUrl: './search-trips.component.css',
 })
 export class SearchTripsComponent {
-  @Output() searchedTripData: EventEmitter<Trip> = new EventEmitter();
+  @Output() searchedTripData: EventEmitter<Trip[]> = new EventEmitter();
+  tripsData: Trip[] = []; // Trips fetched from backend
 
   searchTimeout: any;
   constructor(private api$: ApiService) {}
@@ -19,14 +20,20 @@ export class SearchTripsComponent {
 
     clearTimeout(this.searchTimeout);
 
-    this.searchTimeout = setTimeout(() => {
-      // console.log('works', input);
-      this.api$.getSearchData(searchedItem).subscribe((data) => {
-        searchedItem = data;
-        console.log('searched', searchedItem);
+    if (searchedItem === '') {
+      this.api$.getTripsData().subscribe((data) => {
+        this.tripsData = data;
         this.searchedTripData.emit(searchedItem);
       });
-    }, 1000);
-    // this.api$
+    } else {
+      this.searchTimeout = setTimeout(() => {
+        // console.log('works', input);
+        this.api$.getSearchData(searchedItem).subscribe((data) => {
+          searchedItem = data;
+          console.log('searched', searchedItem);
+          this.searchedTripData.emit(searchedItem);
+        });
+      }, 500);
+    }
   }
 }

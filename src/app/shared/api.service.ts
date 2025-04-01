@@ -50,9 +50,9 @@ export class ApiService {
     );
   }
 
-  getSearchData(input: string): Observable<Trip[]> {
+  getSearchData(searchData: string): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      `${this.apiUrl}?filterOn=Destination&filterQuery=${input}`
+      `${this.apiUrl}?filterOn=Destination&filterQuery=${searchData}`
     );
   }
 
