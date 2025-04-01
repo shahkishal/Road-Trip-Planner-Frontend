@@ -6,6 +6,7 @@ import { Trip } from '../shared/trips.model';
 import { ApiService } from '../shared/api.service';
 import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
+import { SortTripsComponent } from "../sort-trips/sort-trips.component";
 
 @Component({
   selector: 'app-list-destination',
@@ -14,7 +15,8 @@ import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
     ButtonsComponent,
     TripDeleteComponent,
     TripEditComponent,
-  ],
+    SortTripsComponent
+],
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
