@@ -1,0 +1,11 @@
+.search-icon {
+  width: 40px; /* Adjust size */
+  height: 37px;
+  cursor: pointer;
+  border-radius: 35%;
+  background-color: rgb(186, 186, 186);
+}
+
+.search-icon:hover {
+  background-color: rgba(0, 0, 0, 0.371);
+}

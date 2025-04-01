@@ -130,7 +130,6 @@ export class TripEditComponent implements OnInit {
           console.error('Error updating trip.', error);
         }
       );
-
     }
   }
 

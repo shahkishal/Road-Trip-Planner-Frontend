@@ -7,6 +7,7 @@ import { ApiService } from '../shared/api.service';
 import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
+import { SearchTripsComponent } from '../search-trips/search-trips.component';
 
 @Component({
   selector: 'app-list-destination',
@@ -16,6 +17,7 @@ import { SortTripsComponent } from '../sort-trips/sort-trips.component';
     TripDeleteComponent,
     TripEditComponent,
     SortTripsComponent,
+    SearchTripsComponent,
   ],
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
@@ -71,5 +73,10 @@ export class ListDestinationComponent implements OnInit {
   onTripSorted(sortedListTrip: Trip[]): void {
     this.tripsData = sortedListTrip;
     console.log('sorted trip:', sortedListTrip);
+  }
+
+  onSearchTrip(searchedTripData: Trip[]): void {
+    this.tripsData = searchedTripData;
+    console.log('searched trip:', searchedTripData);
   }
 }

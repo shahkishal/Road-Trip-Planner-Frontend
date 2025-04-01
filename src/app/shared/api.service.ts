@@ -8,8 +8,8 @@ import { TravelType } from './travelType.model';
   providedIn: 'root',
 })
 export class ApiService {
-  // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
-  private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
+  private apiUrl = 'http://localhost:5001/trips'; ////json backend url
+  // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
 
   constructor(private http: HttpClient) {}
@@ -47,6 +47,12 @@ export class ApiService {
   getSortData(state: string): Observable<Trip[]> {
     return this.http.get<Trip[]>(
       `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
+    );
+  }
+
+  getSearchData(input: string): Observable<Trip[]> {
+    return this.http.get<Trip[]>(
+      `${this.apiUrl}?filterOn=Destination&filterQuery=${input}`
     );
   }
 
