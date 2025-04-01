@@ -15,7 +15,7 @@ export class SortTripsComponent {
 
   tripsData: Trip[] = []; // Trips fetched from backend
   // isAscending = true;
-  selectedState = 'true | false';
+  selectedState: boolean = true;
 
   constructor(private api$: ApiService) {}
 

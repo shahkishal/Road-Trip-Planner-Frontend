@@ -44,7 +44,7 @@ export class ApiService {
     return this.http.get<TravelType[]>(this.apiUrlTravelType);
   }
 
-  getSortData(state: string): Observable<Trip[]> {
+  getSortData(state: boolean): Observable<Trip[]> {
     return this.http.get<Trip[]>(
       `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
     );
