@@ -68,7 +68,8 @@ export class ListDestinationComponent implements OnInit {
     });
   }
 
-  onTripSorted() {
-    console.log('sorted', this.tripsData);
+  onTripSorted(sortedTrip: Trip[]): void {
+    this.tripsData = sortedTrip;
+    console.log('sorted trip:', sortedTrip);
   }
 }
