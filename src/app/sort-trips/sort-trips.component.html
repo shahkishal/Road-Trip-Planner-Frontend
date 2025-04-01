@@ -1,17 +1,24 @@
-<div class="d-flex gap-1">
-  <p>Sort by</p>
-  <img
+<div class="container">
+  <div class="d-flex justify-content-start align-items-center">
+    <p class="mb-0 me-2">Sort by</p>
+    <select (change)="onSortChange($event)">
+      <option value="">Select one.</option>
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
+  </div>
+  <!-- <img
     src="/assets/sort-icon.png"
     alt="sort"
     class="sort-icon"
     (click)="toggleSort()"
-  />
+  /> -->
 </div>
 
-<div *ngIf="isAscending; else fallback">
+<!-- <div *ngIf="isAscending; else fallback">
   <p>Asc</p>
 </div>
 
 <ng-template #fallback>
   <p>Desc</p>
-</ng-template>
+</ng-template> -->

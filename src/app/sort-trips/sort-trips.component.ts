@@ -14,22 +14,29 @@ export class SortTripsComponent {
   @Output() browsedTripSorted = new EventEmitter<Trip[]>();
 
   tripsData: Trip[] = []; // Trips fetched from backend
-  isAscending = true;
+  // isAscending = true;
+  selectedState = 'true | false';
 
   constructor(private api$: ApiService) {}
 
   sortListData() {
     // console.log('sort works');
-    this.api$.getSortData(this.isAscending).subscribe((data) => {
+    this.api$.getSortData(this.selectedState).subscribe((data) => {
       console.log('sorted data:', data);
       this.tripsData = data;
       this.listTripSorted.emit(this.tripsData);
     });
   }
 
-  toggleSort() {
-    this.isAscending = !this.isAscending;
-    console.log(this.isAscending);
+  // toggleSort() {
+  //   this.isAscending = !this.isAscending;
+  //   console.log(this.isAscending);
+  //   this.sortListData();
+  // }
+
+  onSortChange(status: any) {
+    const selectedState = status.target.value;
+    console.log('selected order:', selectedState);
     this.sortListData();
   }
 }
