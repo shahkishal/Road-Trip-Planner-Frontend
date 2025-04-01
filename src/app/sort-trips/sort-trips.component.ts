@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Trip } from '../shared/trips.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sort-trips',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './sort-trips.component.html',
   styleUrl: './sort-trips.component.css',
 })
