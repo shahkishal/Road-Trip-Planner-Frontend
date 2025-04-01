@@ -14,14 +14,24 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  // post
   createDestination(tripData: any): Observable<any> {
     return this.http.post(this.apiUrl, tripData);
   }
 
+  sendDropDownDataToBackend(selectedId: string) {
+    return this.http.post(this.apiUrl, { id: selectedId });
+    // .subscribe((response) => {
+    //   console.log('Response:', response);
+    // });
+  }
+
+  // patch
   sendEditData(Id: string, tripData: Partial<Trip>): Observable<Trip> {
     return this.http.patch<Trip>(`${this.apiUrl}/${Id}`, tripData);
   }
 
+  // get
   getTripsData(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.apiUrl);
   }
@@ -34,14 +44,14 @@ export class ApiService {
     return this.http.get<TravelType[]>(this.apiUrlTravelType);
   }
 
-  deleteTripsData(Id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${Id}`);
+  getSortData(state: boolean): Observable<Trip[]> {
+    return this.http.get<Trip[]>(
+      `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
+    );
   }
 
-  sendDropDownDataToBackend(selectedId: string) {
-    return this.http.post(this.apiUrl, { id: selectedId });
-    // .subscribe((response) => {
-    //   console.log('Response:', response);
-    // });
+  // delete
+  deleteTripsData(Id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${Id}`);
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../shared/api.service';
+import { Trip } from '../shared/trips.model';
 
 @Component({
   selector: 'app-sort-trips',
@@ -7,7 +9,22 @@ import { Component } from '@angular/core';
   styleUrl: './sort-trips.component.css',
 })
 export class SortTripsComponent {
+  tripsData: Trip[] = []; // Trips fetched from backend
+  isAscending = true;
+
+  constructor(private api$: ApiService) {}
+
   sortData() {
-    console.log('sort works');
+    // console.log('sort works');
+    this.api$.getSortData(this.isAscending).subscribe((data) => {
+      console.log('sorted data:', data);
+      this.tripsData = data;
+    });
+  }
+
+  toggleSort() {
+    this.isAscending = !this.isAscending;
+    console.log(this.isAscending);
+    this.sortData();
   }
 }
