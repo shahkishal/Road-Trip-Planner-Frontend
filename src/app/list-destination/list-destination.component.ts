@@ -6,7 +6,7 @@ import { Trip } from '../shared/trips.model';
 import { ApiService } from '../shared/api.service';
 import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
-import { SortTripsComponent } from "../sort-trips/sort-trips.component";
+import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 
 @Component({
   selector: 'app-list-destination',
@@ -15,8 +15,8 @@ import { SortTripsComponent } from "../sort-trips/sort-trips.component";
     ButtonsComponent,
     TripDeleteComponent,
     TripEditComponent,
-    SortTripsComponent
-],
+    SortTripsComponent,
+  ],
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
@@ -66,5 +66,9 @@ export class ListDestinationComponent implements OnInit {
     this.api$.getTripsData().subscribe((data) => {
       this.tripsData = data || [];
     });
+  }
+
+  onTripSorted() {
+    console.log('sorted', this.tripsData);
   }
 }

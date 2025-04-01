@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Trip } from '../shared/trips.model';
 
@@ -9,6 +9,8 @@ import { Trip } from '../shared/trips.model';
   styleUrl: './sort-trips.component.css',
 })
 export class SortTripsComponent {
+  @Output() tripSorted = new EventEmitter<Trip[]>();
+
   tripsData: Trip[] = []; // Trips fetched from backend
   isAscending = true;
 
@@ -19,6 +21,7 @@ export class SortTripsComponent {
     this.api$.getSortData(this.isAscending).subscribe((data) => {
       console.log('sorted data:', data);
       this.tripsData = data;
+      this.tripSorted.emit(this.tripsData);
     });
   }
 
