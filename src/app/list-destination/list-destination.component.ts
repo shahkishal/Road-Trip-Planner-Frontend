@@ -26,6 +26,7 @@ export class ListDestinationComponent implements OnInit {
   // receivedData: any = null;
 
   tripsData: Trip[] = []; // Trips fetched from backend
+  sortedTripsList: Trip[] = [];
   selectedTrip: Trip | null = null;
   paginatedTrips: Trip[] = [];
 
@@ -106,9 +107,12 @@ export class ListDestinationComponent implements OnInit {
     });
   }
 
-  onTripSorted(sortedListTrip: Trip[]): void {
-    this.tripsData = sortedListTrip;
-    console.log('sorted trip:', sortedListTrip);
+  onTripSorted(selectedStatus: any): void {
+    this.api$.getSortData(selectedStatus).subscribe((data) => {
+      this.sortedTripsList = data;
+    });
+    // this.tripsData = sortedListTrip;
+    // console.log('sorted trip:', sortedListTrip);
   }
 
   onSearchTrip(searchedTripData: Trip[]): void {

@@ -7,7 +7,7 @@
   <div class="header">
     <h4 class="mb-0">Your Saved Trips</h4>
     <div class="search-sort">
-      <app-sort-trips (listTripSorted)="onTripSorted($event)" />
+      <app-sort-trips (selectedSortStatus)="onTripSorted($event)" />
       <app-search-trips (searchedTripData)="onSearchTrip($event)" />
     </div>
   </div>
