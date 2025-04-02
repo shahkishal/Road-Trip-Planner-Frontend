@@ -111,8 +111,8 @@ export class ListDestinationComponent implements OnInit {
     console.log('emitted status', selectedStatus);
 
     this.api$.getSortData(selectedStatus).subscribe((data) => {
-      this.sortedTripsList = data;
-      console.log(this.sortedTripsList);
+      this.tripsData = data;
+      console.log(this.tripsData);
     });
     // this.tripsData = sortedListTrip;
     // console.log('sorted trip:', sortedListTrip);
