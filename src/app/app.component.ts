@@ -8,11 +8,12 @@ import {
 } from '@angular/router';
 // import { ButtonsComponent } from './buttons/buttons.component';
 import { DestinationService } from './shared/destination.service';
+import { RegisterUserComponent } from "./register-user/register-user.component";
 // import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, RegisterUserComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

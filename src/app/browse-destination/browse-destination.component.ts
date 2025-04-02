@@ -25,6 +25,6 @@ export class BrowseDestinationComponent implements OnInit {
   }
 
   sortedBrowsedTrips(sortedBrowsedTrips: Trip[]) {
-    console.log('sorted browsed trips');
+    console.log('sorted browsed trips', sortedBrowsedTrips);
   }
 }

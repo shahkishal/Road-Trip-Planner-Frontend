@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class SortTripsComponent {
   @Output() listTripSorted = new EventEmitter<Trip[]>();
-  @Output() browsedTripSorted = new EventEmitter<Trip[]>();
 
   tripsData: Trip[] = []; // Trips fetched from backend
   // isAscending = true;
@@ -39,7 +38,7 @@ export class SortTripsComponent {
     if (this.selectedState === 'default') {
       this.api$.getTripsData().subscribe((data) => {
         this.tripsData = data;
-        console.log('hiiiiiii');
+        // console.log('hiiiiiii');
         this.listTripSorted.emit(this.tripsData);
       });
     } else {

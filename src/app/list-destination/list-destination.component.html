@@ -2,56 +2,39 @@
   <app-buttons />
 </div>
 
-<app-search-trips (searchedTripData)="onSearchTrip($event)" />
-
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center">
-    <h4>Your Saved Trips</h4>
-    <app-sort-trips (listTripSorted)="onTripSorted($event)" />
+  <!-- Header Section -->
+  <div class="header">
+    <h4 class="mb-0">Your Saved Trips</h4>
+    <div class="search-sort">
+      <app-sort-trips (listTripSorted)="onTripSorted($event)" />
+      <app-search-trips (searchedTripData)="onSearchTrip($event)" />
+    </div>
   </div>
 
-  <!-- <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h4>Your Saved Trips</h4>
-      <app-sort-trips (listTripSorted)="onTripSorted($event)" />
-    </div>
-  </div> -->
-
+  <!-- Trip Cards Section -->
   <div class="container mt-4 mb-5">
     <div
       class="row g-4"
       *ngIf="tripsData && tripsData.length > 0; else fallback"
     >
       <div class="col-12 col-md-6 col-lg-4" *ngFor="let trip of tripsData">
-        <div class="card mt-3 p-3 shadow">
+        <div class="card p-3 shadow">
           <h4 class="card-title">{{ trip.source }} - {{ trip.destination }}</h4>
-          <!-- <app-trip-cards /> -->
-          <div class="car-body">
+
+          <div class="card-body">
+            <p class="card-text"><strong>Date From: </strong>{{ trip.from }}</p>
+            <p class="card-text"><strong>To: </strong>{{ trip.to }}</p>
             <p class="card-text">
-              <strong>Date From : </strong>{{ trip.from }}
-            </p>
-            <p class="card-text"><strong>To : </strong>{{ trip.to }}</p>
-            <p class="card-text">
-              <strong>Duration : </strong>{{ trip.duration }}
+              <strong>Duration: </strong>{{ trip.duration }}
             </p>
             <p class="card-text">
-              <strong>Description : </strong>{{ trip.description }}
+              <strong>Description: </strong>{{ trip.description }}
             </p>
 
-            <!-- buttons -->
-            <div class="d-flex gap-2">
-              <!-- <button class="btn btn-dark">Edit</button> -->
+            <!-- Buttons Section -->
+            <div class="card-buttons">
               <app-trip-edit [trip]="trip" (tripUpdated)="onTripUpdated()" />
-
-              <!-- <button
-                class="btn btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteTripModal"
-                (click)="openDeleteModal(trip)"
-              >
-                Delete
-              </button> -->
-
               <app-trip-delete
                 [trip]="trip"
                 (tripDeleted)="onTripDeleted($event)"
@@ -62,8 +45,27 @@
       </div>
     </div>
 
+    <!-- Fallback Message -->
     <ng-template #fallback>
       <p class="text-muted">No road trips added yet.</p>
     </ng-template>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <button
+      class="btn btn-dark me-2"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      class="btn btn-dark ms-2"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
   </div>
 </div>
