@@ -46,43 +46,43 @@ export class ListDestinationComponent implements OnInit {
     //     this.receivedData = data;
     //   }
     // });
-    this.api$.getTripsData().subscribe((data) => {
-      this.tripsData = data || [];
-      this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-      this.updatePagination();
-    });
+    // this.api$.getTripsData().subscribe((data) => {
+    //   this.tripsData = data || [];
+    //   this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+    //   this.updatePagination();
+    // });
 
     // this.fetchTrips();
   }
 
-  updatePagination() {
-    // const startIndex = (this.currentPage - 1) * this.pageSize;
-    // const endIndex = startIndex + this.pageSize;
-    // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
-    this.api$
-      .getPaginatedTripData(this.currentPage, this.totalPages)
-      .subscribe((data) => {
-        this.paginatedTrips = data;
-        console.log('paginated trip from backend', this.paginatedTrips);
-      });
-    this.tripsData = this.paginatedTrips;
-  }
+  // updatePagination() {
+  //   // const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   // const endIndex = startIndex + this.pageSize;
+  //   // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
+  //   this.api$
+  //     .getPaginatedTripData(this.currentPage, this.totalPages)
+  //     .subscribe((data) => {
+  //       this.paginatedTrips = data;
+  //       console.log('paginated trip from backend', this.paginatedTrips);
+  //     });
+  //   this.tripsData = this.paginatedTrips;
+  // }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagination();
-      console.log(this.currentPage);
-    }
-  }
+  // nextPage() {
+  //   if (this.currentPage < this.totalPages) {
+  //     this.currentPage++;
+  //     this.updatePagination();
+  //     console.log(this.currentPage);
+  //   }
+  // }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagination();
-      console.log(this.currentPage);
-    }
-  }
+  // prevPage() {
+  //   if (this.currentPage > 1) {
+  //     this.currentPage--;
+  //     this.updatePagination();
+  //     console.log(this.currentPage);
+  //   }
+  // }
 
   // fetchTrips() {
   //   this.api$.getTripsData().subscribe((data) => {
@@ -108,8 +108,11 @@ export class ListDestinationComponent implements OnInit {
   }
 
   onTripSorted(selectedStatus: any): void {
+    console.log('emitted status', selectedStatus);
+
     this.api$.getSortData(selectedStatus).subscribe((data) => {
       this.sortedTripsList = data;
+      console.log(this.sortedTripsList);
     });
     // this.tripsData = sortedListTrip;
     // console.log('sorted trip:', sortedListTrip);
