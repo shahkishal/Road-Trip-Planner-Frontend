@@ -32,8 +32,15 @@ export class ApiService {
   }
 
   // get
-  getTripsData(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(`${this.apiUrl}?pageNumber=1&pageSize=1000`);
+  getTripsData(
+    selectedStatus: any,
+    currentPage: number,
+    pageSize: number
+  ): Observable<Trip[]> {
+    return this.http.get<Trip[]>(
+      // `${this.apiUrl}?pageNumber=1&pageSize=1000&sortBy=Destination&isAscending=${selectedStatus}&pageNumber=${currentPage}&pageSize=${pageSize}`
+      `${this.apiUrl}`
+    );
   }
 
   getTripById(Id: string): Observable<any> {
@@ -44,8 +51,13 @@ export class ApiService {
     return this.http.get<TravelType[]>(this.apiUrlTravelType);
   }
 
-  getSortData(state: any): Observable<Trip[]> {
+  getSortData(
+    state: any,
+    currentPage: number,
+    pageSize: number
+  ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
+      // `${this.apiUrl}?sortBy=Destination&isAscending=${state}&pageNumber=${currentPage}&pageSize=${pageSize}`
       `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
     );
   }
@@ -57,11 +69,12 @@ export class ApiService {
   }
 
   getPaginatedTripData(
+    selectedStatus: any,
     currentPage: number,
     pageSize: number
   ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}&sortBy=Destination&isAscending=${selectedStatus}`
     );
   }
 

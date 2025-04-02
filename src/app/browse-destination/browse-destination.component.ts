@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DestinationService } from '../shared/destination.service';
 import { TripService } from './trip.service';
 import { CommonModule } from '@angular/common';
-import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { Trip } from '../shared/trips.model';
 
 @Component({
   selector: 'app-browse-destination',
-  imports: [CommonModule, SortTripsComponent],
+  imports: [CommonModule],
   templateUrl: './browse-destination.component.html',
   styleUrl: './browse-destination.component.css',
 })

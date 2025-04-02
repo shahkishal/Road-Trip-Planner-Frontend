@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DestinationService } from '../shared/destination.service';
 
 @Component({
   selector: 'app-register-user',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './register-user.component.css',
 })
 export class RegisterUserComponent {
+
+  constructor(private destination$: DestinationService) {}
+  
   onRegister() {
     console.log('regitered');
   }
