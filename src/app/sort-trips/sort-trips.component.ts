@@ -15,6 +15,11 @@ export class SortTripsComponent {
   tripsData: Trip[] = []; // Trips fetched from backend
   // isAscending = true;
   selectedState: string = '';
+
+  currentPage = 1;
+  pageSize = 3;
+  totalPages = 0;
+
   constructor(private api$: ApiService) {}
 
   sortListData() {
@@ -39,6 +44,14 @@ export class SortTripsComponent {
       this.api$.getTripsData().subscribe((data) => {
         this.tripsData = data;
         // console.log('hiiiiiii');
+        console.log(this.tripsData);
+
+        this.api$
+          .getPaginatedTripData(this.currentPage, this.pageSize)
+          .subscribe((data) => {
+            this.tripsData = data;
+            console.log(this.tripsData);
+          });
         this.listTripSorted.emit(this.tripsData);
       });
     } else {
