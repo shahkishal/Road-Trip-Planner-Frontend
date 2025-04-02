@@ -51,19 +51,25 @@
     </ng-template>
   </div>
 
+  <div *ngFor="let trip of pagination$.paginatedTrips">
+    <p>{{ trip.source }} - {{ trip.destination }}</p>
+  </div>
+
   <div class="d-flex justify-content-end mt-3">
     <button
       class="btn btn-dark me-2"
-      (click)="prevPage()"
-      [disabled]="currentPage === 1"
+      (click)="prev()"
+      [disabled]="pagination$.currentPage === 1"
     >
       Previous
     </button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <span
+      >Page {{ pagination$.currentPage }} of {{ pagination$.totalPages }}</span
+    >
     <button
       class="btn btn-dark ms-2"
-      (click)="nextPage()"
-      [disabled]="currentPage === totalPages"
+      (click)="next()"
+      [disabled]="pagination$.currentPage === totalPages"
     >
       Next
     </button>
