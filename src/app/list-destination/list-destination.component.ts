@@ -110,12 +110,16 @@ export class ListDestinationComponent implements OnInit {
   onTripSorted(selectedStatus: any): void {
     console.log('emitted status', selectedStatus);
 
-    this.api$.getSortData(selectedStatus).subscribe((data) => {
-      this.tripsData = data;
-      console.log(this.tripsData);
-    });
-    // this.tripsData = sortedListTrip;
-    // console.log('sorted trip:', sortedListTrip);
+    if (selectedStatus === 'default') {
+      this.onTripUpdated();
+    } else {
+      this.api$.getSortData(selectedStatus).subscribe((data) => {
+        this.tripsData = data;
+        console.log(this.tripsData);
+      });
+      // this.tripsData = sortedListTrip;
+      // console.log('sorted trip:', sortedListTrip);
+    }
   }
 
   onSearchTrip(searchedTripData: Trip[]): void {
