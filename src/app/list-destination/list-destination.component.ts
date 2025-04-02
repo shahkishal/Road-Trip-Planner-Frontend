@@ -8,7 +8,6 @@ import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.compo
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { SearchTripsComponent } from '../search-trips/search-trips.component';
-import { PaginationService } from '../shared/pagination.service';
 
 @Component({
   selector: 'app-list-destination',
@@ -28,14 +27,15 @@ export class ListDestinationComponent implements OnInit {
 
   tripsData: Trip[] = []; // Trips fetched from backend
   selectedTrip: Trip | null = null;
+  paginatedTrips: Trip[] = [];
 
+  currentPage = 1;
   pageSize = 3;
   totalPages = 0;
 
   constructor(
     private destinationService: DestinationService,
-    private api$: ApiService,
-    public pagination$: PaginationService
+    private api$: ApiService
   ) {}
 
   ngOnInit() {
@@ -48,16 +48,39 @@ export class ListDestinationComponent implements OnInit {
     this.api$.getTripsData().subscribe((data) => {
       this.tripsData = data || [];
       this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-      this.pagination$.updatePagination();
+      this.updatePagination();
     });
+
     // this.fetchTrips();
   }
-  next() {
-    this.pagination$.nextPage();
+
+  updatePagination() {
+    // const startIndex = (this.currentPage - 1) * this.pageSize;
+    // const endIndex = startIndex + this.pageSize;
+    // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
+    this.api$
+      .getPaginatedTripData(this.currentPage, this.totalPages)
+      .subscribe((data) => {
+        this.paginatedTrips = data;
+        console.log('paginated trip from backend', this.paginatedTrips);
+      });
+    this.tripsData = this.paginatedTrips;
   }
 
-  prev() {
-    this.pagination$.prevPage();
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+      console.log(this.currentPage);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+      console.log(this.currentPage);
+    }
   }
 
   // fetchTrips() {
