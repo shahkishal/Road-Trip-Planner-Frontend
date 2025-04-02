@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ApiService } from '../shared/api.service';
 import { Trip } from '../shared/trips.model';
 
 @Component({
@@ -9,31 +8,15 @@ import { Trip } from '../shared/trips.model';
   styleUrl: './search-trips.component.css',
 })
 export class SearchTripsComponent {
-  @Output() searchedTripData: EventEmitter<Trip[]> = new EventEmitter();
+  // @Output() searchedTripData: EventEmitter<Trip[]> = new EventEmitter();
+  @Output() searchItem: EventEmitter<string> = new EventEmitter();
+
   tripsData: Trip[] = []; // Trips fetched from backend
 
-  searchTimeout: any;
-  constructor(private api$: ApiService) {}
+  constructor() {}
 
   onSearch(input: any) {
     let searchedItem = input.target.value;
-
-    clearTimeout(this.searchTimeout);
-
-    if (searchedItem === '') {
-      this.api$.getTripsData().subscribe((data) => {
-        this.tripsData = data;
-        this.searchedTripData.emit(searchedItem);
-      });
-    } else {
-      this.searchTimeout = setTimeout(() => {
-        // console.log('works', input);
-        this.api$.getSearchData(searchedItem).subscribe((data) => {
-          searchedItem = data;
-          console.log('searched', searchedItem);
-          this.searchedTripData.emit(searchedItem);
-        });
-      }, 500);
-    }
+    this.searchItem.emit(searchedItem);
   }
 }
