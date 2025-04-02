@@ -56,6 +56,15 @@ export class ApiService {
     );
   }
 
+  getPaginatedTripData(
+    currentPage: number,
+    totalPages: number
+  ): Observable<Trip[]> {
+    return this.http.get<Trip[]>(
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${totalPages}`
+    );
+  }
+
   // delete
   deleteTripsData(Id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${Id}`);

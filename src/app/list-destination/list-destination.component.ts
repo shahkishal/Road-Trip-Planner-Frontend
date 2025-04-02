@@ -8,7 +8,6 @@ import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.compo
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { SearchTripsComponent } from '../search-trips/search-trips.component';
-import { start } from '@popperjs/core';
 
 @Component({
   selector: 'app-list-destination',
@@ -56,10 +55,15 @@ export class ListDestinationComponent implements OnInit {
   }
 
   updatePagination() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
-    console.log(this.paginatedTrips);
+    // const startIndex = (this.currentPage - 1) * this.pageSize;
+    // const endIndex = startIndex + this.pageSize;
+    // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
+    this.api$
+      .getPaginatedTripData(this.currentPage, this.totalPages)
+      .subscribe((data) => {
+        this.paginatedTrips = data;
+        console.log('paginated trip from backend', this.paginatedTrips);
+      });
   }
 
   nextPage() {
