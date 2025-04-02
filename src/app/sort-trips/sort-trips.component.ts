@@ -27,6 +27,13 @@ export class SortTripsComponent {
     this.api$.getSortData(this.selectedState).subscribe((data) => {
       console.log('sorted data:', data);
       this.tripsData = data;
+
+      this.api$
+        .getPaginatedTripData(this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          this.tripsData = data;
+          console.log(this.tripsData);
+        });
       this.listTripSorted.emit(this.tripsData);
     });
   }
@@ -45,13 +52,6 @@ export class SortTripsComponent {
         this.tripsData = data;
         // console.log('hiiiiiii');
         console.log(this.tripsData);
-
-        this.api$
-          .getPaginatedTripData(this.currentPage, this.pageSize)
-          .subscribe((data) => {
-            this.tripsData = data;
-            console.log(this.tripsData);
-          });
         this.listTripSorted.emit(this.tripsData);
       });
     } else {
