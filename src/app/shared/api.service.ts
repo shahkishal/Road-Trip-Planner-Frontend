@@ -8,8 +8,8 @@ import { TravelType } from './travelType.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5001/trips'; ////json backend url
-  // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
+  // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
+  private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
 
   constructor(private http: HttpClient) {}
@@ -38,8 +38,8 @@ export class ApiService {
     pageSize: number
   ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      // `${this.apiUrl}?pageNumber=1&pageSize=1000&sortBy=Destination&isAscending=${selectedStatus}&pageNumber=${currentPage}&pageSize=${pageSize}`
-      `${this.apiUrl}`
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
+      // `${this.apiUrl}`
     );
   }
 
@@ -57,24 +57,34 @@ export class ApiService {
     pageSize: number
   ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      // `${this.apiUrl}?sortBy=Destination&isAscending=${state}&pageNumber=${currentPage}&pageSize=${pageSize}`
-      `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
+      `${this.apiUrl}?sortBy=Destination&isAscending=${state}&pageNumber=${currentPage}&pageSize=${pageSize}`
+      // `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
     );
   }
 
-  getSearchData(searchData: string): Observable<Trip[]> {
+  getSearchData(searchData: string,
+    currentPage: number,
+    pageSize: number ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      `${this.apiUrl}?filterOn=Destination&filterQuery=${searchData}`
+      `${this.apiUrl}?filterOn=Destination&filterQuery=${searchData}&pageNumber=${currentPage}&pageSize=${pageSize}`
     );
   }
+
+  getPaginated(currentPage: number,
+    pageSize: number): Observable<Trip[]> {
+      return this.http.get<Trip[]>(
+        `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
+      );
+    }
 
   getPaginatedTripData(
     selectedStatus: any,
     currentPage: number,
-    pageSize: number
+    pageSize: number,
+    searchData: any
   ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}&sortBy=Destination&isAscending=${selectedStatus}`
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}&sortBy=Destination&isAscending=${selectedStatus}&filterOn=Destination&filterQuery=${searchData}`
     );
   }
 
