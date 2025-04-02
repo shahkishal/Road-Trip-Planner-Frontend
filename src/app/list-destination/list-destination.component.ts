@@ -59,10 +59,11 @@ export class ListDestinationComponent implements OnInit {
     // const endIndex = startIndex + this.pageSize;
     // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
     this.api$
-      .getPaginatedTripData(this.currentPage, this.totalPages)
+      .getPaginatedTripData(this.currentPage, this.pageSize)
       .subscribe((data) => {
         this.paginatedTrips = data;
         console.log('paginated trip from backend', this.paginatedTrips);
+        this.tripsData = this.paginatedTrips;
       });
   }
 

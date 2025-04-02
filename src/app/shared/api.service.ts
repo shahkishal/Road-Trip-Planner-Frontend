@@ -8,8 +8,8 @@ import { TravelType } from './travelType.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5001/trips'; ////json backend url
-  // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
+  // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
+  private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
 
   constructor(private http: HttpClient) {}
@@ -33,7 +33,7 @@ export class ApiService {
 
   // get
   getTripsData(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(this.apiUrl);
+    return this.http.get<Trip[]>(`${this.apiUrl}?pageNumber=1&pageSize=1000`);
   }
 
   getTripById(Id: string): Observable<any> {
@@ -58,10 +58,10 @@ export class ApiService {
 
   getPaginatedTripData(
     currentPage: number,
-    totalPages: number
+    pageSize: number
   ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
-      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${totalPages}`
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
     );
   }
 
