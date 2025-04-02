@@ -52,8 +52,8 @@ export class ListDestinationComponent implements OnInit {
     this.api$.getTripsData().subscribe((data) => {
       this.tripsData = data || [];
       this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+      this.updatePagination();
     });
-    this.updatePagination();
 
     // this.fetchTrips();
   }
@@ -67,8 +67,8 @@ export class ListDestinationComponent implements OnInit {
       .subscribe((data) => {
         this.paginatedTrips = data;
         console.log('paginated trip from backend', this.paginatedTrips);
+        this.tripsData = this.paginatedTrips;
       });
-    this.tripsData = this.paginatedTrips;
   }
 
   nextPage() {
@@ -114,11 +114,14 @@ export class ListDestinationComponent implements OnInit {
     console.log('emitted status', selectedStatus);
 
     if (selectedStatus === 'default') {
-      this.onTripUpdated();
+      this.onTripUpdated(); ///reset to original
     } else {
       this.api$.getSortData(selectedStatus).subscribe((data) => {
         this.tripsData = data;
         console.log(this.tripsData);
+        this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+        this.currentPage = 1; //reset to first page
+        this.updatePagination();
       });
       // this.tripsData = sortedListTrip;
       // console.log('sorted trip:', sortedListTrip);
@@ -135,6 +138,9 @@ export class ListDestinationComponent implements OnInit {
       this.api$.getTripsData().subscribe((data) => {
         this.tripsData = data;
         console.log(this.tripsData);
+        this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+        this.currentPage = 1; //reset to first page
+        this.updatePagination();
 
         // this.searchedTripData.emit(searchedItem);
       });
@@ -145,6 +151,10 @@ export class ListDestinationComponent implements OnInit {
           this.tripsData = data;
           console.log('searched', this.tripsData);
           // this.searchedTripData.emit(searchedItem);
+
+          this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+          this.currentPage = 1; //reset to first page
+          this.updatePagination();
         });
       }, 500);
     }
