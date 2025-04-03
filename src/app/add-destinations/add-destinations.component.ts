@@ -34,7 +34,7 @@ export class AddDestinationsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private destinationDataService: DestinationService,
+    private destination$: DestinationService,
     private api$: ApiService
   ) {}
 
@@ -103,7 +103,8 @@ export class AddDestinationsComponent implements OnInit {
       ?.valueChanges.subscribe(() => this.calculateDuration());
     this.form.get('to')?.valueChanges.subscribe(() => this.calculateDuration());
 
-    this.destinationDataService.addClicked();
+    this.destination$.titlehide();
+    this.destination$.authHide();
     // this.form.get('from')?.valueChanges.subscribe(() => {
     //   this.updateDuration();
     // });
@@ -177,7 +178,8 @@ export class AddDestinationsComponent implements OnInit {
     if (this.form.invalid) {
       alert('Please fill in all required feilds correctly!');
     } else {
-      this.destinationDataService.cancel();
+      this.destination$.titleshow();
+      this.destination$.authShow();
       // const enteredDestination = this.form.value.add_destination;
 
       // console.log(enteredDestination);

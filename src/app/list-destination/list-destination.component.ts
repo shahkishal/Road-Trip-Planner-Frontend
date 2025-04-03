@@ -27,37 +27,42 @@ export class ListDestinationComponent implements OnInit {
 
   tripsData: Trip[] = []; // Trips fetched from backend
   sortedTripsList: Trip[] = [];
-  selectedStatus: string | undefined;
-  searchedTripData: any;
+  selectedStatus: string = 'default';
+  searchedTripData: any = '';
 
   searchTimeout: any;
 
   selectedTrip: Trip | null = null;
   paginatedTrips: Trip[] = [];
-
+  maxPage = 0;
   currentPage = 1;
   pageSize = 3;
   totalPages = 0;
 
   constructor(
-    private destinationService: DestinationService,
+    private destination$: DestinationService,
     private api$: ApiService
   ) {}
 
   ngOnInit() {
-    this.destinationService.cancel();
+    this.destination$.titleshow();
+    this.destination$.authShow();
     // this.destinationService.currentDestination.subscribe((data) => {
     //   if (data) {
     //     this.receivedData = data;
     //   }
     // });
-    this.api$
-      .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data) => {
-        this.tripsData = data || [];
-        this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-        this.updatePagination();
-      });
+    this.api$.getTripsData(this.selectedStatus, 1, 1000).subscribe((data) => {
+      this.tripsData = data;
+      this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+      this.maxPage = this.totalPages;
+      this.api$
+        .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          // this.updatePagination();
+          this.tripsData = data;
+        });
+    });
 
     // this.fetchTrips();
   }
@@ -66,22 +71,52 @@ export class ListDestinationComponent implements OnInit {
     // const startIndex = (this.currentPage - 1) * this.pageSize;
     // const endIndex = startIndex + this.pageSize;
     // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
-    this.api$
-      .getPaginatedTripData(
-        this.selectedStatus,
-        this.currentPage,
-        this.pageSize,
-        this.searchedTripData
-      )
-      .subscribe((data) => {
-        this.paginatedTrips = data;
-        this.tripsData = this.paginatedTrips;
-        console.log('paginated trip from backend', this.paginatedTrips);
-        if (this.selectedStatus === 'default') {
-        } else {
-        }
-        // this.tripsData = this.paginatedTrips;
-      });
+
+    if (this.totalPages === 0) {
+      this.currentPage = 0;
+    }
+
+    if (this.selectedStatus === 'default' && this.searchedTripData === '') {
+      this.api$
+        .getPaginated(this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          this.tripsData = data;
+        });
+    } else if (this.selectedStatus === 'default') {
+      this.totalPages = this.maxPage;
+
+      this.api$
+        .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          console.log(data);
+          this.tripsData = data;
+        });
+    } else if (this.searchedTripData === '') {
+      this.totalPages = this.maxPage;
+      this.api$
+        .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          this.tripsData = data;
+        });
+    } else {
+      this.totalPages = this.maxPage;
+      this.api$
+        .getPaginatedTripData(
+          this.selectedStatus,
+          this.currentPage,
+          this.pageSize,
+          this.searchedTripData
+        )
+        .subscribe((data) => {
+          this.paginatedTrips = data;
+          this.tripsData = this.paginatedTrips;
+          console.log('paginated trip from backend', this.paginatedTrips);
+          // if (this.selectedStatus === 'default') {
+          // } else {
+          // }
+          // this.tripsData = this.paginatedTrips;
+        });
+    }
   }
 
   nextPage() {
@@ -130,21 +165,23 @@ export class ListDestinationComponent implements OnInit {
   onTripSorted(selectedStatus: any) {
     console.log('emitted status', selectedStatus);
 
-    if (selectedStatus === 'default') {
-      this.onTripUpdated(); ///reset to original
-    } else {
-      this.api$
-        .getSortData(selectedStatus, this.currentPage, this.pageSize)
-        .subscribe((data) => {
-          this.tripsData = data;
-          console.log('sorted trips', this.tripsData);
-          // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-          this.currentPage = 1; //reset to first page
-        });
-      this.updatePagination();
-      // this.tripsData = sortedListTrip;
-      // console.log('sorted trip:', sortedListTrip);
-    }
+    // if (selectedStatus === 'default') {
+    //   this.onTripUpdated(); ///reset to original
+    // } else {
+    //   this.api$
+    //     .getSortData(selectedStatus, this.currentPage, this.pageSize)
+    //     .subscribe((data) => {
+    //       this.tripsData = data;
+    //       console.log('sorted trips', this.tripsData);
+    //       // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+    //       this.currentPage = 1; //reset to first page
+    //     });
+
+    this.selectedStatus = selectedStatus;
+
+    this.updatePagination();
+    // this.tripsData = sortedListTrip;
+    // console.log('sorted trip:', sortedListTrip);
   }
 
   onSearchTrip(searchedTripData: any): void {
@@ -154,25 +191,26 @@ export class ListDestinationComponent implements OnInit {
     clearTimeout(this.searchTimeout);
 
     if (searchedTripData === '') {
-      this.onTripUpdated();
-      console.log(this.tripsData);
-      // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-      this.currentPage = 1; //reset to first page
+      this.searchedTripData = searchedTripData;
+      this.updatePagination();
+      //   this.onTripUpdated();
+      //   // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+      //   this.currentPage = 1; //reset to first page
 
-      // this.searchedTripData.emit(searchedItem);
+      //   // this.searchedTripData.emit(searchedItem);
     } else {
       this.searchTimeout = setTimeout(() => {
         // console.log('works', input);
-        this.api$.getSearchData(searchedTripData).subscribe((data) => {
-          this.tripsData = data;
-          console.log('searched', this.tripsData);
-          // this.searchedTripData.emit(searchedItem);
-
-          // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-          this.currentPage = 1; //reset to first page
-        });
+        // this.api$.getSearchData(searchedTripData).subscribe((data) => {
+        //   this.tripsData = data;
+        //   console.log('searched', this.tripsData);
+        // this.searchedTripData.emit(searchedItem);
+        this.searchedTripData = searchedTripData;
+        // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+        this.currentPage = 1; //reset to first page
+        this.updatePagination();
+        // });
       }, 500);
     }
-    this.updatePagination();
   }
 }
