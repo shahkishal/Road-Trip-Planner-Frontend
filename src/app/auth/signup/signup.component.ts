@@ -93,12 +93,13 @@ export class SignupComponent implements OnInit {
     } else {
       const formvalues = this.usersignup.getRawValue();
 
-      const userData = {
+      var userData = {
         username: formvalues.username!,
         password: formvalues.password!,
         roles: formvalues.roles!,
       };
 
+      console.log(userData);
       console.log(JSON.stringify(userData));
 
       // this.api$.createUser(userData).subscribe(
@@ -115,10 +116,14 @@ export class SignupComponent implements OnInit {
 
       if (userData) {
         this.api$.createUser(userData).subscribe((res) => {
+          const backend = res;
+          console.log('response received vfrom backerdnd', res);
+          console.log('response received vfrom backerdnd', backend);
+
           console.log(userData);
           alert('User created successfully!');
           this.usersignup.reset();
-          this.router.navigate(['sign-in'], { relativeTo: this.route });
+          this.router.navigate(['sign-in']);
         });
       } else {
         console.error('userdata not found');
