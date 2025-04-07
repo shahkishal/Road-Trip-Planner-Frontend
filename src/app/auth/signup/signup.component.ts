@@ -86,7 +86,6 @@ export class SignupComponent implements OnInit {
 
   onSignUpClicked() {
     console.log('sign up btn clicked!');
-    console.log('values', this.usersignup.value);
 
     if (this.usersignup.invalid) {
       this.usersignup.markAllAsTouched();
@@ -99,17 +98,20 @@ export class SignupComponent implements OnInit {
         password: formvalues.password!,
         roles: formvalues.roles!,
       };
-      this.api$.createUser(userData).subscribe({
-        next: (res) => {
+
+      console.log(JSON.stringify(userData));
+
+      this.api$.createUser(userData).subscribe(
+        (response) => {
+          console.log(userData);
           alert('User created successfully!');
           this.usersignup.reset();
           this.router.navigate(['dashboard'], { relativeTo: this.route });
         },
-        error: (err) => {
-          console.error('Error during signup:', err);
-          alert('something went wrong!');
-        },
-      });
+        (error) => {
+          console.error('something went wrongddddd!!!');
+        }
+      );
     }
   }
 }
