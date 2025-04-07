@@ -101,17 +101,23 @@ export class SignupComponent implements OnInit {
 
       console.log(JSON.stringify(userData));
 
-      this.api$.createUser(userData).subscribe(
-        (response) => {
-          console.log(userData);
-          alert('User created successfully!');
-          this.usersignup.reset();
-          this.router.navigate(['dashboard'], { relativeTo: this.route });
-        },
-        (error) => {
-          console.error('something went wrongddddd!!!');
-        }
-      );
+      // this.api$.createUser(userData).subscribe(
+      //   (response) => {
+      //     console.log(userData);
+      //     alert('User created successfully!');
+      //     this.usersignup.reset();
+      //     this.router.navigate(['dashboard'], { relativeTo: this.route });
+      //   },
+      //   (error) => {
+      //     console.error('something went wrongddddd!!!');
+      //   }
+      // );
+
+      if (userData) {
+        this.api$.createUser(userData);
+      } else {
+        console.error('userdata not found');
+      }
     }
   }
 }
