@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Trip } from './trips.model';
 import { TravelType } from './travelType.model';
 import { User } from './user.model';
+import { UserLogin } from './login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class ApiService {
 
   createUser(user: User): Observable<any> {
     return this.http.post(`${this.apiUrlAuth}/Register`, user);
+  }
+
+  userLogIn(userdata: UserLogin): Observable<any> {
+    return this.http.post(`${this.apiUrlAuth}/Login`, userdata);
   }
 
   // patch

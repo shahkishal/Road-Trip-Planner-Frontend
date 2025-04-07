@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './signin.component.css',
 })
 export class SigninComponent implements OnInit {
+  loginId: string = '';
+
   constructor(
     private destination$: DestinationService,
     private api$: ApiService,
@@ -28,7 +30,7 @@ export class SigninComponent implements OnInit {
   usersignin = new FormGroup({
     username: new FormControl('', { validators: [Validators.required] }),
     password: new FormControl('', { validators: [Validators.required] }),
-    roles: new FormControl<string[]>([], { validators: [Validators.required] }),
+    // roles: new FormControl<string[]>([], { validators: [Validators.required] }),
   });
 
   get usernameIsInvalid() {
@@ -45,12 +47,12 @@ export class SigninComponent implements OnInit {
     );
   }
 
-  get roleIsInvalid() {
-    return (
-      this.usersignin.controls.roles.invalid &&
-      this.usersignin.controls.roles.touched
-    );
-  }
+  // get roleIsInvalid() {
+  //   return (
+  //     this.usersignin.controls.roles.invalid &&
+  //     this.usersignin.controls.roles.touched
+  //   );
+  // }
 
   ngOnInit(): void {
     this.destination$.titlehide();
@@ -68,19 +70,21 @@ export class SigninComponent implements OnInit {
       const userData = {
         username: formvalues.username!,
         password: formvalues.password!,
-        roles: formvalues.roles!,
+        // roles: formvalues.roles!,
       };
-      this.api$.createUser(userData).subscribe({
-        next: (res) => {
-          alert('User created successfully!');
-          this.usersignin.reset();
+      this.api$.userLogIn(userData).subscribe(
+        (response) => {
+          this.loginId = response;
+          localStorage.setItem('loginId', this.loginId);
+
           this.router.navigate(['dashboard'], { relativeTo: this.route });
+
+          alert('Login successfull!!');
         },
-        error: (err) => {
-          console.error('Error during signup:', err);
-          alert('something went wrong!');
-        },
-      });
+        (error) => {
+          console.error('something happende wroing', error);
+        }
+      );
     }
   }
 }
