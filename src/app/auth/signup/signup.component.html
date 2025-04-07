@@ -25,19 +25,22 @@
     </div>
 
     <div class="mb-3">
-      <label for="role" class="form-label fw-semibold">
-        Select Travel Type:
-      </label>
-      <select class="form-control" formControlName="role">
-        <option>User</option>
-        <option>Admin</option>
-      </select>
-    </div>
+      <label for="roles" class="form-label fw-semibold"> Select Role: </label>
+      <div *ngFor="let role of roleOptions">
+        <input
+          type="checkbox"
+          [value]="role"
+          (change)="onRoleChange($event)"
+          [checked]="usersignup.value.roles?.includes(role)"
+        />
+        {{ role }}
+      </div>
 
-    <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
-      Role is Required!
-    </div>
+      <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
+        Role is Required!
+      </div>
 
-    <button class="btn-login">Sign Up</button>
+      <button class="btn-login">Sign Up</button>
+    </div>
   </form>
 </div>

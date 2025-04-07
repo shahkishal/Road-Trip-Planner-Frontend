@@ -18,6 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent implements OnInit {
+  roleOptions = ['User', 'Admin'];
+
   constructor(
     private destination$: DestinationService,
     private api$: ApiService,
@@ -54,6 +56,32 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.destination$.titlehide();
+  }
+
+  onRoleChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const selectedRoles = this.usersignup.get('roles')?.value || [];
+
+    if (input.checked) {
+      if (!selectedRoles.includes(input.value)) {
+        selectedRoles.push(input.value);
+      }
+    } else {
+      const index = selectedRoles.indexOf(input.value);
+      if (index > -1) {
+        selectedRoles.splice(index, 1);
+      }
+    }
+
+    this.usersignup.get('roles')?.setValue(selectedRoles);
+    this.usersignup.get('roles')?.markAsTouched();
+  }
+
+  get rolesIsInvalid() {
+    return (
+      this.usersignup.controls.roles.invalid &&
+      this.usersignup.controls.roles.touched
+    );
   }
 
   onSignUpClicked() {
