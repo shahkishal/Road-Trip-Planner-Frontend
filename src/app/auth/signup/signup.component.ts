@@ -114,11 +114,12 @@ export class SignupComponent implements OnInit {
       // );
 
       if (userData) {
-        this.api$.createUser(userData);
-        console.log(userData);
-        alert('User created successfully!');
-        this.usersignup.reset();
-        this.router.navigate(['sign-in'], { relativeTo: this.route });
+        this.api$.createUser(userData).subscribe((res) => {
+          console.log(userData);
+          alert('User created successfully!');
+          this.usersignup.reset();
+          this.router.navigate(['sign-in'], { relativeTo: this.route });
+        });
       } else {
         console.error('userdata not found');
       }
