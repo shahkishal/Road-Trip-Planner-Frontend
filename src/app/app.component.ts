@@ -8,12 +8,11 @@ import {
 } from '@angular/router';
 // import { ButtonsComponent } from './buttons/buttons.component';
 import { DestinationService } from './shared/destination.service';
-import { RegisterUserComponent } from "./register-user/register-user.component";
 // import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, RegisterUserComponent],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -21,6 +20,7 @@ export class AppComponent {
   title = 'First-angular-p';
 
   public showTitle: any = true;
+  public showAuth: any = true;
 
   constructor(
     // private router: Router,
@@ -41,5 +41,14 @@ export class AppComponent {
         this.cdr.detectChanges();
       },
     });
+
+    // this.destination$.showAuth.subscribe({
+    //   next: (res: any) => {
+    //     this.showAuth = res;
+    //     this.cdr.detectChanges();
+    //   },
+    // });
+
+    // this.destination$.authShow();
   }
 }

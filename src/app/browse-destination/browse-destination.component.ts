@@ -19,7 +19,8 @@ export class BrowseDestinationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.destination$.addClicked();
+    this.destination$.titlehide();
+    // this.destination$.authHide();
     this.trips = this.tripservice$.getTrips();
   }
 

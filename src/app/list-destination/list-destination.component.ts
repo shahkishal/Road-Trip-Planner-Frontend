@@ -27,49 +27,42 @@ export class ListDestinationComponent implements OnInit {
 
   tripsData: Trip[] = []; // Trips fetched from backend
   sortedTripsList: Trip[] = [];
-  selectedStatus: string = "default";
-  searchedTripData: any = "";
+  selectedStatus: string = 'default';
+  searchedTripData: any = '';
 
   searchTimeout: any;
 
   selectedTrip: Trip | null = null;
   paginatedTrips: Trip[] = [];
-  maxPage =0;
+  maxPage = 0;
   currentPage = 1;
   pageSize = 3;
   totalPages = 0;
 
-
-
-  
   constructor(
-    private destinationService: DestinationService,
+    private destination$: DestinationService,
     private api$: ApiService
   ) {}
 
   ngOnInit() {
-    this.destinationService.cancel();
+    this.destination$.titleshow();
+    // this.destination$.authHide();
     // this.destinationService.currentDestination.subscribe((data) => {
     //   if (data) {
     //     this.receivedData = data;
     //   }
     // });
-    this.api$
-      .getTripsData(this.selectedStatus, 1, 1000)
-      .subscribe((data) => {
-        this.tripsData = data;
-        this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-        this.maxPage = this.totalPages 
-        this.api$
-      .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data) => {
-        
-        // this.updatePagination();
-        this.tripsData = data;
-      });
-      });
-
-    
+    this.api$.getTripsData(this.selectedStatus, 1, 1000).subscribe((data) => {
+      this.tripsData = data;
+      this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+      this.maxPage = this.totalPages;
+      this.api$
+        .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
+        .subscribe((data) => {
+          // this.updatePagination();
+          this.tripsData = data;
+        });
+    });
 
     // this.fetchTrips();
   }
@@ -79,33 +72,29 @@ export class ListDestinationComponent implements OnInit {
     // const endIndex = startIndex + this.pageSize;
     // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
 
-    if(this.totalPages===0)
-    {
-      this.currentPage=0;
+    if (this.totalPages === 0) {
+      this.currentPage = 0;
     }
 
-    if (this.selectedStatus === "default" && this.searchedTripData === '') {
+    if (this.selectedStatus === 'default' && this.searchedTripData === '') {
       this.api$
         .getPaginated(this.currentPage, this.pageSize)
         .subscribe((data) => {
           this.tripsData = data;
         });
-    } else if (this.selectedStatus === "default") {
-
-          this.totalPages = this.maxPage;
-        
+    } else if (this.selectedStatus === 'default') {
+      this.totalPages = this.maxPage;
 
       this.api$
-        .getSearchData(this.searchedTripData,this.currentPage, this.pageSize)
+        .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
         .subscribe((data) => {
-          
           console.log(data);
           this.tripsData = data;
         });
-    } else if (this.searchedTripData === "") {
+    } else if (this.searchedTripData === '') {
       this.totalPages = this.maxPage;
       this.api$
-        .getSortData(this.selectedStatus,this.currentPage, this.pageSize)
+        .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
         .subscribe((data) => {
           this.tripsData = data;
         });
@@ -201,7 +190,7 @@ export class ListDestinationComponent implements OnInit {
 
     clearTimeout(this.searchTimeout);
 
-    if (searchedTripData === "") {
+    if (searchedTripData === '') {
       this.searchedTripData = searchedTripData;
       this.updatePagination();
       //   this.onTripUpdated();
@@ -222,7 +211,6 @@ export class ListDestinationComponent implements OnInit {
         this.updatePagination();
         // });
       }, 500);
-      
     }
   }
 }

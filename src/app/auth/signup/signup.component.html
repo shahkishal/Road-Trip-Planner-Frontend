@@ -1,0 +1,43 @@
+<div class="login-container">
+  <form [formGroup]="usersignup" (ngSubmit)="onSignUpClicked()">
+    <label for="username">Username</label>
+    <input
+      type="email"
+      placeholder="Enter email"
+      class="form-input"
+      formControlName="username"
+    />
+
+    <div class="text-danger mt-1" *ngIf="usernameIsInvalid">
+      Username is Required!
+    </div>
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      placeholder="Enter password"
+      class="form-input"
+      formControlName="password"
+    />
+
+    <div class="text-danger mt-1" *ngIf="passwordIsInvalid">
+      Password is Required!
+    </div>
+
+    <div class="mb-3">
+      <label for="role" class="form-label fw-semibold">
+        Select Travel Type:
+      </label>
+      <select class="form-control" formControlName="role">
+        <option>User</option>
+        <option>Admin</option>
+      </select>
+    </div>
+
+    <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
+      Role is Required!
+    </div>
+
+    <button class="btn-login">Sign Up</button>
+  </form>
+</div>

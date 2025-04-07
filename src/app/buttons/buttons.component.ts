@@ -1,11 +1,17 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Inject,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../shared/destination.service';
 
 @Component({
   selector: 'app-buttons',
-  imports: [ CommonModule],
+  imports: [CommonModule],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.css',
 })
@@ -22,7 +28,11 @@ export class ButtonsComponent implements AfterViewInit {
   // onClick() {
   //   console.log('button is clicked!');
   // }
-  constructor(private router: Router, private route: ActivatedRoute, private destinationService: DestinationService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private destination$: DestinationService
+  ) {}
 
   ngAfterViewInit() {
     // const modalElement = document.getElementById('addButtonCenter');
@@ -35,9 +45,9 @@ export class ButtonsComponent implements AfterViewInit {
     // console.log('browse desti click');
     // this.showBrowseDestination = !this.showBrowseDestination;
     // this.showBdBtn = false;
-    this.destinationService.addClicked();     //////here addCLicked value is false and thats what make title disappear.
-    this.router.navigate(['/browse-trips'], {relativeTo: this.route});
-
+    this.destination$.titlehide(); //////here addCLicked value is false and thats what make title disappear.
+    // this.destination$.authHide();
+    this.router.navigate(['/browse-trips'], { relativeTo: this.route });
   }
 
   onAddDestinationButtonCLicked() {
@@ -48,8 +58,9 @@ export class ButtonsComponent implements AfterViewInit {
     //   this.modalInstance.show();
     // }
     // this.showAddDestination = true;
-    this.destinationService.addClicked();
-    this.router.navigate(['/add-new-trip'], {relativeTo: this.route});
+    this.destination$.titlehide();
+    // this.destination$.authHide();
+    this.router.navigate(['/add-new-trip'], { relativeTo: this.route });
   }
 
   handleAddDestinationBtnWhenClose() {

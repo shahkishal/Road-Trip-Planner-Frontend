@@ -4,6 +4,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { BrowseDestinationComponent } from './browse-destination/browse-destination.component';
 import { ListDestinationComponent } from './list-destination/list-destination.component';
 import { TripEditComponent } from './trip-cards/trip-edit/trip-edit.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +36,14 @@ export const routes: Routes = [
   {
     path: 'browse-trips',
     component: BrowseDestinationComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SignupComponent,
+  },
+  {
+    path: 'sign-in',
+    component: SigninComponent,
   },
   {
     path: '**',

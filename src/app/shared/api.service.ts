@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Trip } from './trips.model';
 import { TravelType } from './travelType.model';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
-  private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
+  private apiUrl = 'http://localhost:5001/trips'; ////json backend url
+  // private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
+  private apiUrlAuth = 'https://localhost:5001/api/Auth';
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +26,10 @@ export class ApiService {
     // .subscribe((response) => {
     //   console.log('Response:', response);
     // });
+  }
+
+  createUser(user: User): Observable<any> {
+    return this.http.post(`${this.apiUrlAuth}/Register`, user);
   }
 
   // patch
@@ -62,20 +68,21 @@ export class ApiService {
     );
   }
 
-  getSearchData(searchData: string,
+  getSearchData(
+    searchData: string,
     currentPage: number,
-    pageSize: number ): Observable<Trip[]> {
+    pageSize: number
+  ): Observable<Trip[]> {
     return this.http.get<Trip[]>(
       `${this.apiUrl}?filterOn=Destination&filterQuery=${searchData}&pageNumber=${currentPage}&pageSize=${pageSize}`
     );
   }
 
-  getPaginated(currentPage: number,
-    pageSize: number): Observable<Trip[]> {
-      return this.http.get<Trip[]>(
-        `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
-      );
-    }
+  getPaginated(currentPage: number, pageSize: number): Observable<Trip[]> {
+    return this.http.get<Trip[]>(
+      `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
+    );
+  }
 
   getPaginatedTripData(
     selectedStatus: any,
