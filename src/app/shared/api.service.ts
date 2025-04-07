@@ -29,7 +29,7 @@ export class ApiService {
     // });
   }
 
-  createUser(user: User): Observable<any> {
+  createUser(user: User) {
     return this.http.post(`${this.apiUrlAuth}/Register`, user);
   }
 

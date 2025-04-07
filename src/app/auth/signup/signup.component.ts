@@ -118,7 +118,7 @@ export class SignupComponent implements OnInit {
         console.log(userData);
         alert('User created successfully!');
         this.usersignup.reset();
-        this.router.navigate(['dashboard'], { relativeTo: this.route });
+        this.router.navigate(['sign-in'], { relativeTo: this.route });
       } else {
         console.error('userdata not found');
       }
