@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
   usersignin = new FormGroup({
     username: new FormControl('', { validators: [Validators.required] }),
     password: new FormControl('', { validators: [Validators.required] }),
-    role: new FormControl([], { validators: [Validators.required] }),
+    roles: new FormControl<string[]>([], { validators: [Validators.required] }),
   });
 
   get usernameIsInvalid() {
@@ -47,8 +47,8 @@ export class SigninComponent implements OnInit {
 
   get roleIsInvalid() {
     return (
-      this.usersignin.controls.role.invalid &&
-      this.usersignin.controls.role.touched
+      this.usersignin.controls.roles.invalid &&
+      this.usersignin.controls.roles.touched
     );
   }
 
@@ -68,7 +68,7 @@ export class SigninComponent implements OnInit {
       const userData = {
         username: formvalues.username!,
         password: formvalues.password!,
-        role: formvalues.role!,
+        roles: formvalues.roles!,
       };
       this.api$.createUser(userData).subscribe({
         next: (res) => {
