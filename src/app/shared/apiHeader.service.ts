@@ -11,6 +11,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   const token = localStorage.getItem('loginId');
+  console.log("ksihallllllllllllll ",token);
 
   if (token) {
     const clonedReq = req.clone({

@@ -74,7 +74,9 @@ export class SigninComponent implements OnInit {
       };
       this.api$.userLogIn(userData).subscribe(
         (response) => {
-          this.loginId = response;
+          this.loginId = response.message;
+          console.log(this.loginId);
+          
           localStorage.setItem('loginId', this.loginId);
 
           this.router.navigate(['dashboard'], { relativeTo: this.route });

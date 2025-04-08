@@ -77,29 +77,40 @@ export class ListDestinationComponent implements OnInit {
     }
 
     if (this.selectedStatus === 'default' && this.searchedTripData === '') {
+      this.totalPages = this.maxPage;
+      
       this.api$
         .getPaginated(this.currentPage, this.pageSize)
         .subscribe((data) => {
           this.tripsData = data;
         });
     } else if (this.selectedStatus === 'default') {
-      this.totalPages = this.maxPage;
-
+      
+      this.api$.getSearchData(this.searchedTripData,1,1000).subscribe((data)=>{
+        this.totalPages = Math.ceil(data.length / this.pageSize);
+      });
       this.api$
         .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
         .subscribe((data) => {
+          console.log(data.length);
+         
           console.log(data);
           this.tripsData = data;
         });
+        
+
     } else if (this.searchedTripData === '') {
-      this.totalPages = this.maxPage;
+      this.totalPages = this.maxPage;      
       this.api$
         .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
         .subscribe((data) => {
+         
           this.tripsData = data;
         });
     } else {
-      this.totalPages = this.maxPage;
+      this.api$.getSearchData(this.searchedTripData,1,1000).subscribe((data)=>{
+        this.totalPages = Math.ceil(data.length / this.pageSize);
+      });
       this.api$
         .getPaginatedTripData(
           this.selectedStatus,
