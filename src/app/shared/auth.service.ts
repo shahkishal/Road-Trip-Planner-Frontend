@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +7,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class AuthService {
   public showLogout = new EventEmitter<boolean>();
 
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   logoutHandle() {
     const token = localStorage.getItem('loginId');
@@ -14,6 +15,8 @@ export class AuthService {
 
     if (token === '') {
       this.showLogout.emit(false);
+      alert('Please Register Yourself First!!');
+      this.router.navigate(['sign-up'], { relativeTo: this.route });
     } else {
       this.showLogout.emit(true);
     }
