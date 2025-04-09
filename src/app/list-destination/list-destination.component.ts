@@ -59,7 +59,7 @@ export class ListDestinationComponent implements OnInit {
 
     if (token === '') {
       alert('Please register yourself first!');
-      this.router.navigate(['sign-up'], { relativeTo: this.route });
+      this.router.navigate(['sign-up']);
     } else {
       this.auth$.showLogout.subscribe({
         next: (res: any) => {
