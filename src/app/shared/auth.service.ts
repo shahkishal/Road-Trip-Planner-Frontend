@@ -21,21 +21,30 @@ export class AuthService {
     }
   }
 
-  getUserRoleFromToken(): string | null {
+  getUserRoleFromToken(): string | string[] {
     const token = localStorage.getItem('loginId');
     if (token) {
       try {
         const decoded = jwtDecode<JwtPayload>(token);
-        return decoded.role;
+        console.log(decoded);
+        // const roles = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        const roles = decoded.role;
+
+        console.log(roles);
+        if(!roles) return [];
+        else return roles;
       } catch (err) {
         console.error('Invalid token', err);
-        return null;
+        return [];
       }
     }
-    return null;
+    return [];
   }
 }
 
 export interface JwtPayload {
-  role: string;
+  // [key: string]: any;
+  // "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"?: string | string[];
+  role  : string | string[]
 }
+
