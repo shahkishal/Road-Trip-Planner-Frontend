@@ -8,6 +8,7 @@ import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.compo
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { SearchTripsComponent } from '../search-trips/search-trips.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-destination',
@@ -41,7 +42,9 @@ export class ListDestinationComponent implements OnInit {
 
   constructor(
     private destination$: DestinationService,
-    private api$: ApiService
+    private api$: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -78,39 +81,39 @@ export class ListDestinationComponent implements OnInit {
 
     if (this.selectedStatus === 'default' && this.searchedTripData === '') {
       this.totalPages = this.maxPage;
-      
+
       this.api$
         .getPaginated(this.currentPage, this.pageSize)
         .subscribe((data) => {
           this.tripsData = data;
         });
     } else if (this.selectedStatus === 'default') {
-      
-      this.api$.getSearchData(this.searchedTripData,1,1000).subscribe((data)=>{
-        this.totalPages = Math.ceil(data.length / this.pageSize);
-      });
+      this.api$
+        .getSearchData(this.searchedTripData, 1, 1000)
+        .subscribe((data) => {
+          this.totalPages = Math.ceil(data.length / this.pageSize);
+        });
       this.api$
         .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
         .subscribe((data) => {
           console.log(data.length);
-         
+
           console.log(data);
           this.tripsData = data;
         });
-        
-
     } else if (this.searchedTripData === '') {
-      this.totalPages = this.maxPage;      
+      this.totalPages = this.maxPage;
       this.api$
         .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
         .subscribe((data) => {
-         
           this.tripsData = data;
         });
     } else {
-      this.api$.getSearchData(this.searchedTripData,1,1000).subscribe((data)=>{
-        this.totalPages = Math.ceil(data.length / this.pageSize);
-      });
+      this.api$
+        .getSearchData(this.searchedTripData, 1, 1000)
+        .subscribe((data) => {
+          this.totalPages = Math.ceil(data.length / this.pageSize);
+        });
       this.api$
         .getPaginatedTripData(
           this.selectedStatus,
@@ -223,5 +226,15 @@ export class ListDestinationComponent implements OnInit {
         // });
       }, 500);
     }
+  }
+
+  onLogout() {
+    console.log('works');
+
+    // token = '';
+    localStorage.setItem('loginId', '');
+    let token = localStorage.getItem('loginId');
+    console.log(token);
+    this.router.navigate([''], { relativeTo: this.route });
   }
 }
