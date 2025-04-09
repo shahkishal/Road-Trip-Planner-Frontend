@@ -1,13 +1,19 @@
 /* General Styling */
+.login-container-whole {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .login-container {
   width: 100%;
   max-width: 350px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
+  padding: 50px 30px;
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.7);
 }
 
 /* Labels */
@@ -21,17 +27,6 @@ label {
     justify-content: center;
     align-items: start;
     background: #f4f4f4; /* Light background for contrast */
-  }
-
-  /* General Styling */
-  .login-container {
-    width: 100%;
-    max-width: 350px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
   }
 
   /* Labels */
@@ -117,8 +112,7 @@ label {
   background: #767b80;
 }
 
-.signup_img{
-
+.signup_img {
   width: auto;
   height: 45vh;
   bottom: 0;

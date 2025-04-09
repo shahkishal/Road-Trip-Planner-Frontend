@@ -1,30 +1,31 @@
-<div class="login-container">
-  <form [formGroup]="usersignin" (ngSubmit)="onSignInClicked()">
-    <label for="username">Username</label>
-    <input
-      type="email"
-      placeholder="Enter email"
-      class="form-input"
-      formControlName="username"
-    />
+<div class="login-container-whole">
+  <div class="login-container">
+    <form [formGroup]="usersignin" (ngSubmit)="onSignInClicked()">
+      <label for="username">Username</label>
+      <input
+        type="email"
+        placeholder="Enter email"
+        class="form-input"
+        formControlName="username"
+      />
 
-    <div class="text-danger mt-1" *ngIf="usernameIsInvalid">
-      Username is Required!
-    </div>
+      <div class="text-danger mt-1" *ngIf="usernameIsInvalid">
+        Username is Required!
+      </div>
 
-    <label for="password">Password</label>
-    <input
-      type="password"
-      placeholder="Enter password"
-      class="form-input"
-      formControlName="password"
-    />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        placeholder="Enter password"
+        class="form-input"
+        formControlName="password"
+      />
 
-    <div class="text-danger mt-1" *ngIf="passwordIsInvalid">
-      Password is Required!
-    </div>
+      <div class="text-danger mt-1" *ngIf="passwordIsInvalid">
+        Password is Required!
+      </div>
 
-    <!-- <div class="mb-3">
+      <!-- <div class="mb-3">
       <label for="roles" class="form-label fw-semibold">
         Select Travel Type:
       </label>
@@ -38,10 +39,8 @@
       Role is Required!
     </div> -->
 
-    <button class="btn-login">Sign In</button>
-  </form>
-
-  
-
+      <button class="btn-login">Sign In</button>
+    </form>
+  </div>
 </div>
-<img src="assets/login_image.jpg" class="login_img"/>
+<img src="assets/login_image.jpg" class="login_img" />

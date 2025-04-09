@@ -2,8 +2,15 @@
   <app-buttons />
 </div>
 
-<div *ngIf="showLogout" class="position-absolute top-0 end-0 m-2">
-  <Button class="btn btn-outline-danger" (click)="onLogout()">Log Out</Button>
+<div class="position-absolute top-0 end-0 m-2 d-flex gap-2">
+  <div >
+    <Button class="btn btn-outline-dark" (click)="onLogout()">Admin</Button>
+  </div>
+
+  <!-- <div *ngIf="showLogout" class="position-absolute top-0 end-0 m-2"> -->
+  <div >
+    <Button class="btn btn-outline-danger" (click)="onLogout()">Log Out</Button>
+  </div>
 </div>
 
 <div class="container">

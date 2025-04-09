@@ -82,8 +82,8 @@ export class ListDestinationComponent implements OnInit {
       });
     // this.fetchTrips();
     if (token === '') {
-      alert('Please register yourself first!');
-      this.router.navigate(['sign-up']);
+      // alert('Please register yourself first!');
+      // this.router.navigate(['sign-up']);
     }
   }
 

@@ -1,41 +1,42 @@
-<div class="login-container">
-  <form [formGroup]="usersignup" (ngSubmit)="onSignUpClicked()">
-    <label for="username">Username</label>
-    <input
-      type="email"
-      placeholder="Enter email"
-      class="form-input"
-      formControlName="username"
-    />
+<div class="login-container-whole">
+  <div class="login-container">
+    <form [formGroup]="usersignup" (ngSubmit)="onSignUpClicked()">
+      <label for="username">Username</label>
+      <input
+        type="email"
+        placeholder="Enter email"
+        class="form-input"
+        formControlName="username"
+      />
 
-    <div class="text-danger mt-1" *ngIf="usernameIsInvalid">
-      Username is Required!
-    </div>
-
-    <label for="password">Password</label>
-    <input
-      type="password"
-      placeholder="Enter password"
-      class="form-input"
-      formControlName="password"
-    />
-
-    <div class="text-danger mt-1" *ngIf="passwordIsInvalid">
-      Password is Required!
-    </div>
-
-    <div class="mb-3">
-      <label for="roles" class="form-label fw-semibold"> Select Role: </label>
-      <div *ngFor="let role of roleOptions">
-        <input
-          type="checkbox"
-          [value]="role"
-          (change)="onRoleChange($event)"
-          [checked]="usersignup.value.roles?.includes(role)"
-        />
-        {{ role }}
+      <div class="text-danger mt-1" *ngIf="usernameIsInvalid">
+        Username is Required!
       </div>
-      <!-- <div class="mb-3">
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        placeholder="Enter password"
+        class="form-input"
+        formControlName="password"
+      />
+
+      <div class="text-danger mt-1" *ngIf="passwordIsInvalid">
+        Password is Required!
+      </div>
+
+      <div class="mb-3">
+        <label for="roles" class="form-label fw-semibold"> Select Role: </label>
+        <div *ngFor="let role of roleOptions">
+          <input
+            type="checkbox"
+            [value]="role"
+            (change)="onRoleChange($event)"
+            [checked]="usersignup.value.roles?.includes(role)"
+          />
+          {{ role }}
+        </div>
+        <!-- <div class="mb-3">
       <label for="roles" class="form-label fw-semibold">Select Role:</label>
       <select
         id="roles"
@@ -48,17 +49,18 @@
         </option>
       </select>
     </div> -->
-    </div>
-    <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
-      Role is Required!
-    </div>
-    <button class="btn-login">Sign Up</button>
-    <span
-      >If you are a User Please
-      <a style="color: blue; text-decoration: underline" (click)="onlogin()">
-        Log In!</a
-      ></span
-    >
-  </form>
+      </div>
+      <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
+        Role is Required!
+      </div>
+      <button class="btn-login">Sign Up</button>
+      <span
+        >If you are a User Please
+        <a style="color: blue; text-decoration: underline" (click)="onlogin()">
+          Log In!</a
+        ></span
+      >
+    </form>
+  </div>
 </div>
-<img src="assets/signup_image.jpg" class="signup_img"/>
+<img src="assets/signup_image.jpg" class="signup_img" />
