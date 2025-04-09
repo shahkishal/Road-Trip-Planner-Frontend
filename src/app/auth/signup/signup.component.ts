@@ -132,6 +132,6 @@ export class SignupComponent implements OnInit {
   }
 
   onlogin() {
-    this.router.navigate(['sign-in'], { relativeTo: this.route });
+    this.router.navigate(['sign-in']);
   }
 }
