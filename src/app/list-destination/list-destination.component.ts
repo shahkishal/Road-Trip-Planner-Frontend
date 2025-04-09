@@ -69,10 +69,13 @@ export class ListDestinationComponent implements OnInit {
     // });
     this.api$
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data) => {
+      .subscribe((data: Trip) => {
         // this.updatePagination();
-        this.tripsData = data.Data;
-        this.totalPages = data.totalTrips;
+        this.tripsData = data.data;
+        console.log( data.data);
+        this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
+        this.maxPage = this.totalPages;
+        console.log( this.totalPages);
       });
     // this.fetchTrips();
   }
@@ -93,23 +96,23 @@ export class ListDestinationComponent implements OnInit {
       this.api$
         .getPaginated(this.currentPage, this.pageSize)
         .subscribe((data) => {
-          this.tripsData = data.Data;
+          this.tripsData = data.data;
         });
     } else if (this.selectedStatus === 'default') {
       this.api$
         .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
-        .subscribe((data) => {
-          console.log(data.Data.length);
+        .subscribe((data: Trip) => {
+          console.log(data.data.length);
           this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           console.log(data);
-          this.tripsData = data.Data;
+          this.tripsData = data.data;
         });
     } else if (this.searchedTripData === '') {
       this.totalPages = this.maxPage;
       this.api$
         .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
         .subscribe((data) => {
-          this.tripsData = data.Data;
+          this.tripsData = data.data;
         });
     } else {
       this.api$
@@ -119,8 +122,8 @@ export class ListDestinationComponent implements OnInit {
           this.pageSize,
           this.searchedTripData
         )
-        .subscribe((data) => {
-          this.paginatedTrips = data.Data;
+        .subscribe((data:Trip) => {
+          this.paginatedTrips = data.data;
           this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           this.tripsData = this.paginatedTrips;
           console.log('paginated trip from backend', this.paginatedTrips);
@@ -170,8 +173,8 @@ export class ListDestinationComponent implements OnInit {
   onTripUpdated() {
     this.api$
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data) => {
-        this.tripsData = data.Data || [];
+      .subscribe((data:Trip) => {
+        this.tripsData = data.data || [];
       });
   }
 
