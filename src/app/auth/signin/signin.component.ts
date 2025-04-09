@@ -76,7 +76,7 @@ export class SigninComponent implements OnInit {
         (response) => {
           this.loginId = response.message;
           console.log(this.loginId);
-          
+
           localStorage.setItem('loginId', this.loginId);
 
           this.router.navigate(['dashboard'], { relativeTo: this.route });
@@ -85,6 +85,7 @@ export class SigninComponent implements OnInit {
         },
         (error) => {
           console.error('something happende wroing', error);
+          alert('Please enter correct values!');
         }
       );
     }

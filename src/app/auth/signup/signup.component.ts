@@ -126,7 +126,7 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['sign-in']);
         });
       } else {
-        console.error('userdata not found');
+        alert('user couldnot be registered!! Please try again.');
       }
     }
   }
