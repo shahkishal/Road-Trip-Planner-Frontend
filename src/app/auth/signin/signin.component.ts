@@ -79,7 +79,7 @@ export class SigninComponent implements OnInit {
 
           localStorage.setItem('loginId', this.loginId);
 
-          this.router.navigate(['dashboard'], { relativeTo: this.route });
+          this.router.navigate(['dashboard']);
 
           alert('Login successfull!!');
         },

@@ -57,34 +57,33 @@ export class ListDestinationComponent implements OnInit {
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
 
+    this.auth$.showLogout.subscribe({
+      next: (res: any) => {
+        this.showLogout = res;
+        this.cdr.detectChanges();
+      },
+    });
+    this.auth$.logoutHandle();
+    // this.destination$.authHide();
+    // this.destinationService.currentDestination.subscribe((data) => {
+    //   if (data) {
+    //     this.receivedData = data;
+    //   }
+    // });
+    this.api$
+      .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
+      .subscribe((data: Trip) => {
+        // this.updatePagination();
+        this.tripsData = data.data;
+        console.log(data.data);
+        this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
+        this.maxPage = this.totalPages;
+        console.log(this.totalPages);
+      });
+    // this.fetchTrips();
     if (token === '') {
       alert('Please register yourself first!');
       this.router.navigate(['sign-up']);
-    } else {
-      this.auth$.showLogout.subscribe({
-        next: (res: any) => {
-          this.showLogout = res;
-          this.cdr.detectChanges();
-        },
-      });
-      this.auth$.logoutHandle();
-      // this.destination$.authHide();
-      // this.destinationService.currentDestination.subscribe((data) => {
-      //   if (data) {
-      //     this.receivedData = data;
-      //   }
-      // });
-      this.api$
-        .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-        .subscribe((data: Trip) => {
-          // this.updatePagination();
-          this.tripsData = data.data;
-          console.log(data.data);
-          this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
-          this.maxPage = this.totalPages;
-          console.log(this.totalPages);
-        });
-      // this.fetchTrips();
     }
   }
 
