@@ -116,3 +116,13 @@ label {
 .btn-login:hover {
   background: #767b80;
 }
+
+.signup_img{
+
+  width: auto;
+  height: 45vh;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  transform: scaleX(-1);
+}
