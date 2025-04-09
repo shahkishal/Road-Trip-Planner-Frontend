@@ -246,4 +246,9 @@ export class ListDestinationComponent implements OnInit {
     console.log(token);
     this.router.navigate([''], { relativeTo: this.route });
   }
+
+  onAdminClicked() {
+    const role = this.auth$.getUserRoleFromToken();
+    console.log('User Role:', role);
+  }
 }
