@@ -15,8 +15,6 @@ export class AuthService {
 
     if (token === '') {
       this.showLogout.emit(false);
-      this.router.navigate(['sign-up'], { relativeTo: this.route });
-      alert('Please Register Yourself First!!');
     } else {
       this.showLogout.emit(true);
     }

@@ -54,30 +54,38 @@ export class ListDestinationComponent implements OnInit {
 
   ngOnInit() {
     this.destination$.titleshow();
-    this.auth$.showLogout.subscribe({
-      next: (res: any) => {
-        this.showLogout = res;
-        this.cdr.detectChanges();
-      },
-    });
-    this.auth$.logoutHandle();
-    // this.destination$.authHide();
-    // this.destinationService.currentDestination.subscribe((data) => {
-    //   if (data) {
-    //     this.receivedData = data;
-    //   }
-    // });
-    this.api$
-      .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data: Trip) => {
-        // this.updatePagination();
-        this.tripsData = data.data;
-        console.log( data.data);
-        this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
-        this.maxPage = this.totalPages;
-        console.log( this.totalPages);
+    const token = localStorage.getItem('loginId');
+    console.log('id:', token);
+
+    if (token === '') {
+      alert('Please register yourself first!');
+      this.router.navigate(['sign-up'], { relativeTo: this.route });
+    } else {
+      this.auth$.showLogout.subscribe({
+        next: (res: any) => {
+          this.showLogout = res;
+          this.cdr.detectChanges();
+        },
       });
-    // this.fetchTrips();
+      this.auth$.logoutHandle();
+      // this.destination$.authHide();
+      // this.destinationService.currentDestination.subscribe((data) => {
+      //   if (data) {
+      //     this.receivedData = data;
+      //   }
+      // });
+      this.api$
+        .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
+        .subscribe((data: Trip) => {
+          // this.updatePagination();
+          this.tripsData = data.data;
+          console.log(data.data);
+          this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
+          this.maxPage = this.totalPages;
+          console.log(this.totalPages);
+        });
+      // this.fetchTrips();
+    }
   }
 
   updatePagination() {
@@ -122,7 +130,7 @@ export class ListDestinationComponent implements OnInit {
           this.pageSize,
           this.searchedTripData
         )
-        .subscribe((data:Trip) => {
+        .subscribe((data: Trip) => {
           this.paginatedTrips = data.data;
           this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           this.tripsData = this.paginatedTrips;
@@ -173,7 +181,7 @@ export class ListDestinationComponent implements OnInit {
   onTripUpdated() {
     this.api$
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-      .subscribe((data:Trip) => {
+      .subscribe((data: Trip) => {
         this.tripsData = data.data || [];
       });
   }
