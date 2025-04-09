@@ -53,6 +53,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ApiService } from '../../shared/api.service';
 import { Trip } from '../../shared/trips.model';
+import { IndividualTrip } from '../../shared/trip.model';
 
 @Component({
   selector: 'app-trip-delete',
@@ -60,7 +61,7 @@ import { Trip } from '../../shared/trips.model';
   templateUrl: './trip-delete.component.html',
 })
 export class TripDeleteComponent {
-  @Input() trip!: Trip;
+  @Input() trip!: IndividualTrip;
   @Output() tripDeleted = new EventEmitter<string>();
   isVisible = false;
 
@@ -69,7 +70,7 @@ export class TripDeleteComponent {
   showModal(): void {
     this.isVisible = true;
   }
-  
+
   handleCancel(): void {
     // console.log('Button cancel clicked!');
     this.isVisible = false;

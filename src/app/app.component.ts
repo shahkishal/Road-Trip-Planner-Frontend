@@ -20,7 +20,6 @@ export class AppComponent {
   title = 'First-angular-p';
 
   public showTitle: any = true;
-  public showAuth: any = true;
 
   constructor(
     // private router: Router,

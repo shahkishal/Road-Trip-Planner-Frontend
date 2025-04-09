@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TravelType } from '../../shared/travelType.model';
+import { IndividualTrip } from '../../shared/trip.model';
 
 @Component({
   selector: 'app-trip-edit',
@@ -20,7 +21,7 @@ import { TravelType } from '../../shared/travelType.model';
   styleUrl: './trip-edit.component.css',
 })
 export class TripEditComponent implements OnInit {
-  @Input() trip!: Trip;
+  @Input() trip!: IndividualTrip;
   @Output() tripUpdated: EventEmitter<Trip> = new EventEmitter<Trip>();
   tripsData: Trip[] = []; // Trips fetched from backend
   form!: FormGroup;

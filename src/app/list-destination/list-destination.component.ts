@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DestinationService } from '../shared/destination.service';
 import { ButtonsComponent } from '../buttons/buttons.component';
@@ -9,6 +9,8 @@ import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { SearchTripsComponent } from '../search-trips/search-trips.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
+import { IndividualTrip } from '../shared/trip.model';
 
 @Component({
   selector: 'app-list-destination',
@@ -26,15 +28,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ListDestinationComponent implements OnInit {
   // receivedData: any = null;
 
-  tripsData: Trip[] = []; // Trips fetched from backend
-  sortedTripsList: Trip[] = [];
+  tripsData: IndividualTrip[] = []; // Trips fetched from backend
+  sortedTripsList: IndividualTrip[] = [];
   selectedStatus: string = 'default';
   searchedTripData: any = '';
+  public showLogout: any = true;
 
   searchTimeout: any;
 
-  selectedTrip: Trip | null = null;
-  paginatedTrips: Trip[] = [];
+  selectedTrip: IndividualTrip | null = null;
+  paginatedTrips: IndividualTrip[] = [];
   maxPage = 0;
   currentPage = 1;
   pageSize = 3;
@@ -43,30 +46,34 @@ export class ListDestinationComponent implements OnInit {
   constructor(
     private destination$: DestinationService,
     private api$: ApiService,
+    private auth$: AuthService,
+    private cdr: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.destination$.titleshow();
+    this.auth$.showLogout.subscribe({
+      next: (res: any) => {
+        this.showLogout = res;
+        this.cdr.detectChanges();
+      },
+    });
+    this.auth$.logoutHandle();
     // this.destination$.authHide();
     // this.destinationService.currentDestination.subscribe((data) => {
     //   if (data) {
     //     this.receivedData = data;
     //   }
     // });
-    this.api$.getTripsData(this.selectedStatus, 1, 1000).subscribe((data) => {
-      this.tripsData = data;
-      this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-      this.maxPage = this.totalPages;
-      this.api$
-        .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
-        .subscribe((data) => {
-          // this.updatePagination();
-          this.tripsData = data;
-        });
-    });
-
+    this.api$
+      .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
+      .subscribe((data) => {
+        // this.updatePagination();
+        this.tripsData = data.Data;
+        this.totalPages = data.totalTrips;
+      });
     // this.fetchTrips();
   }
 
@@ -74,6 +81,7 @@ export class ListDestinationComponent implements OnInit {
     // const startIndex = (this.currentPage - 1) * this.pageSize;
     // const endIndex = startIndex + this.pageSize;
     // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
+    this.totalPages = this.maxPage;
 
     if (this.totalPages === 0) {
       this.currentPage = 0;
@@ -85,35 +93,25 @@ export class ListDestinationComponent implements OnInit {
       this.api$
         .getPaginated(this.currentPage, this.pageSize)
         .subscribe((data) => {
-          this.tripsData = data;
+          this.tripsData = data.Data;
         });
     } else if (this.selectedStatus === 'default') {
       this.api$
-        .getSearchData(this.searchedTripData, 1, 1000)
-        .subscribe((data) => {
-          this.totalPages = Math.ceil(data.length / this.pageSize);
-        });
-      this.api$
         .getSearchData(this.searchedTripData, this.currentPage, this.pageSize)
         .subscribe((data) => {
-          console.log(data.length);
-
+          console.log(data.Data.length);
+          this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           console.log(data);
-          this.tripsData = data;
+          this.tripsData = data.Data;
         });
     } else if (this.searchedTripData === '') {
       this.totalPages = this.maxPage;
       this.api$
         .getSortData(this.selectedStatus, this.currentPage, this.pageSize)
         .subscribe((data) => {
-          this.tripsData = data;
+          this.tripsData = data.Data;
         });
     } else {
-      this.api$
-        .getSearchData(this.searchedTripData, 1, 1000)
-        .subscribe((data) => {
-          this.totalPages = Math.ceil(data.length / this.pageSize);
-        });
       this.api$
         .getPaginatedTripData(
           this.selectedStatus,
@@ -122,7 +120,8 @@ export class ListDestinationComponent implements OnInit {
           this.searchedTripData
         )
         .subscribe((data) => {
-          this.paginatedTrips = data;
+          this.paginatedTrips = data.Data;
+          this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           this.tripsData = this.paginatedTrips;
           console.log('paginated trip from backend', this.paginatedTrips);
           // if (this.selectedStatus === 'default') {
@@ -155,7 +154,7 @@ export class ListDestinationComponent implements OnInit {
   //   });
   // }
 
-  editTrip(trip: Trip) {
+  editTrip(trip: IndividualTrip) {
     this.selectedTrip = { ...trip };
   }
 
@@ -172,7 +171,7 @@ export class ListDestinationComponent implements OnInit {
     this.api$
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
       .subscribe((data) => {
-        this.tripsData = data || [];
+        this.tripsData = data.Data || [];
       });
   }
 

@@ -47,8 +47,8 @@ export class ApiService {
     selectedStatus: any,
     currentPage: number,
     pageSize: number
-  ): Observable<Trip[]> {
-    return this.http.get<Trip[]>(
+  ): Observable<Trip> {
+    return this.http.get<Trip>(
       `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
       // `${this.apiUrl}`
     );
@@ -66,8 +66,8 @@ export class ApiService {
     state: any,
     currentPage: number,
     pageSize: number
-  ): Observable<Trip[]> {
-    return this.http.get<Trip[]>(
+  ): Observable<Trip> {
+    return this.http.get<Trip>(
       `${this.apiUrl}?sortBy=Destination&isAscending=${state}&pageNumber=${currentPage}&pageSize=${pageSize}`
       // `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
     );
@@ -77,14 +77,14 @@ export class ApiService {
     searchData: string,
     currentPage: number,
     pageSize: number
-  ): Observable<Trip[]> {
-    return this.http.get<Trip[]>(
+  ): Observable<Trip> {
+    return this.http.get<Trip>(
       `${this.apiUrl}?filterOn=Destination&filterQuery=${searchData}&pageNumber=${currentPage}&pageSize=${pageSize}`
     );
   }
 
-  getPaginated(currentPage: number, pageSize: number): Observable<Trip[]> {
-    return this.http.get<Trip[]>(
+  getPaginated(currentPage: number, pageSize: number): Observable<Trip> {
+    return this.http.get<Trip>(
       `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
     );
   }
@@ -94,8 +94,8 @@ export class ApiService {
     currentPage: number,
     pageSize: number,
     searchData: any
-  ): Observable<Trip[]> {
-    return this.http.get<Trip[]>(
+  ): Observable<Trip> {
+    return this.http.get<Trip>(
       `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}&sortBy=Destination&isAscending=${selectedStatus}&filterOn=Destination&filterQuery=${searchData}`
     );
   }
