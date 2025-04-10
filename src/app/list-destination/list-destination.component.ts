@@ -56,8 +56,8 @@ export class ListDestinationComponent implements OnInit {
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
-      // alert('Please register yourself first!');
-      // this.router.navigate(['sign-up']);
+      alert('Please register yourself first!');
+      this.router.navigate(['sign-up']);
     }
 
     // this.auth$.adminPanelHandle.subscribe({
