@@ -52,7 +52,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ApiService } from '../../shared/api.service';
-import { Trip } from '../../shared/trips.model';
 import { IndividualTrip } from '../../shared/trip.model';
 
 @Component({

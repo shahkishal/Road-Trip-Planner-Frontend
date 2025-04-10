@@ -19,4 +19,9 @@ export class AdminApiService {
   getTableValues(): Observable<any> {
     return this.http.get(this.adminApiUrl);
   }
+
+  //delete
+  deleteTableValue(Id: string): Observable<any> {
+    return this.http.delete(`${this.adminApiUrl}/${Id}`);
+  }
 }

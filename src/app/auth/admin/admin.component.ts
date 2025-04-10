@@ -40,12 +40,28 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  onDelete(tableValueId: string) {
+    this.tableData = this.tableData.filter(
+      (tablevalue) => tablevalue.id !== tableValueId
+    );
+    this.adminApi$.deleteTableValue(tableValueId).subscribe(
+      () => {
+        alert('Entry deleted successfully!');
+        console.log('deleted:', tableValueId);
+      },
+      (err) => {
+        console.error('Error deleting entry:', err);
+      }
+    );
+  }
+
   onEditFormSubmitted() {
     console.log('form data:', this.adminEditForm.value);
 
     const formData = this.adminEditForm.value;
 
     const formattedData: EditFormFormat = {
+      id: '',
       type: formData.type ?? '',
       seats: Number(formData.seats),
       mileage: Number(formData.mileage),
