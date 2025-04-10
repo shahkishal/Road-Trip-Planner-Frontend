@@ -46,6 +46,8 @@ export class AdminComponent implements OnInit {
     const formData = this.adminEditForm.value;
     this.adminApi$.sendEditFormData(formData).subscribe((res) => {
       console.log('res:', res);
+      this.tableData = res;
+      this.adminEditForm.reset();
     });
   }
 }
