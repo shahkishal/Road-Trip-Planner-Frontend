@@ -57,7 +57,7 @@ export class ListDestinationComponent implements OnInit {
     console.log('id:', token);
     if (token === '') {
       alert('Please register yourself first!');
-      this.router.navigate(['sign-up']);
+      this.router.navigate(['sign-in']);
     }
 
     // this.auth$.adminPanelHandle.subscribe({
