@@ -1,1 +1,66 @@
-<p>admin works!</p>
+<div class="container mt-5">
+  <h3 class="mb-4 text-center">Edit Vehicle Form</h3>
+  <form
+    [formGroup]="adminEditForm"
+    (ngSubmit)="onEditFormSubmitted()"
+    class="p-4 border rounded shadow-sm bg-light"
+  >
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="type-of-vehicle" class="form-label">Type of Vehicle</label>
+        <input
+          id="type-of-vehicle"
+          class="form-control"
+          type="text"
+          placeholder="Enter vehicle type"
+          formControlName="type"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="seats" class="form-label">No. of Seats</label>
+        <input
+          id="seats"
+          class="form-control"
+          type="number"
+          placeholder="Enter number of seats"
+          formControlName="seats"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="mileage" class="form-label">Mileage (in kmpl)</label>
+        <input
+          id="mileage"
+          class="form-control"
+          type="number"
+          placeholder="Enter mileage"
+          formControlName="mileage"
+        />
+      </div>
+    </div>
+    <div class="text-end">
+      <button class="btn btn-outline-dark">Add</button>
+    </div>
+  </form>
+</div>
+
+<div class="container mt-5">
+  <h4 class="mb-3">Added Vehicles</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Type of Vehicle</th>
+          <th>No. of Seats</th>
+          <th>Mileage (in kmpl)</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let item of tableData">
+          <td>{{ item.type }}</td>
+          <td>{{ item.seats }}</td>
+          <td>{{ item.mileage }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

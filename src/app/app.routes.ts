@@ -6,6 +6,7 @@ import { ListDestinationComponent } from './list-destination/list-destination.co
 import { TripEditComponent } from './trip-cards/trip-edit/trip-edit.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AdminComponent } from './auth/admin/admin.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,10 @@ export const routes: Routes = [
   {
     path: 'sign-in',
     component: SigninComponent,
+  },
+  {
+    path: 'admin-panel',
+    component: AdminComponent,
   },
   {
     path: '**',

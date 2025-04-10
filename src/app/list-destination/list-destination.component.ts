@@ -263,5 +263,6 @@ export class ListDestinationComponent implements OnInit {
   onEditFormFormatClicked() {
     // const role = this.auth$.getUserRoleFromToken();
     // console.log('User Role:', role);
+    this.router.navigate(['admin-panel']);
   }
 }
