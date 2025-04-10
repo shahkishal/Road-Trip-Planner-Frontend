@@ -7,6 +7,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminApiService } from './admin-api.service';
 import { EditFormFormat } from './editFormFormat.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +19,8 @@ export class AdminComponent implements OnInit {
   tableData: EditFormFormat[] = [];
   constructor(
     private destination$: DestinationService,
-    private adminApi$: AdminApiService
+    private adminApi$: AdminApiService,
+    private router: Router
   ) {}
 
   adminEditForm = new FormGroup({
@@ -53,6 +55,10 @@ export class AdminComponent implements OnInit {
         console.error('Error deleting entry:', err);
       }
     );
+  }
+
+  onBack() {
+    this.router.navigate(['dashboard']);
   }
 
   onEditFormSubmitted() {

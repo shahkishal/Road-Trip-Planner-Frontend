@@ -1,5 +1,13 @@
 <div class="container mt-5">
-  <h3 class="mb-4 text-center">Edit Vehicle Form</h3>
+  <div class="d-flex align-items-center mb-4">
+    <img
+      src="/assets/back-btn.png"
+      class="back-btn me-2"
+      style="height: 24px"
+      (click)="onBack()"
+    />
+    <h3 class="mb-0 text-center">Edit Vehicle Form</h3>
+  </div>
   <form
     [formGroup]="adminEditForm"
     (ngSubmit)="onEditFormSubmitted()"

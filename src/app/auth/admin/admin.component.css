@@ -1,0 +1,8 @@
+.back-btn {
+  height: 8vh;
+  display: inline;
+}
+
+.back-btn:hover {
+  cursor: pointer;
+}
