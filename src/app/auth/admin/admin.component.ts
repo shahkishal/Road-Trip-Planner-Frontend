@@ -44,9 +44,15 @@ export class AdminComponent implements OnInit {
     console.log('form data:', this.adminEditForm.value);
 
     const formData = this.adminEditForm.value;
+
+    const formattedData: EditFormFormat = {
+      type: formData.type ?? '',
+      seats: Number(formData.seats),
+      mileage: Number(formData.mileage),
+    };
     this.adminApi$.sendEditFormData(formData).subscribe((res) => {
       console.log('res:', res);
-      this.tableData = res;
+      this.tableData.push(formattedData);
       this.adminEditForm.reset();
     });
   }
