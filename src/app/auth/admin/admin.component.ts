@@ -68,7 +68,11 @@ export class AdminComponent implements OnInit {
     };
     this.adminApi$.sendEditFormData(formData).subscribe((res) => {
       console.log('res:', res);
-      this.tableData.push(formattedData);
+      this.adminApi$.getTableValues().subscribe((res) => {
+        this.tableData = res;
+        console.log(this.tableData);
+      });
+      // this.tableData.push(formattedData);
       this.adminEditForm.reset();
     });
   }
