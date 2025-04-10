@@ -27,15 +27,14 @@ import { IndividualTrip } from '../shared/trip.model';
 })
 export class ListDestinationComponent implements OnInit {
   // receivedData: any = null;
+  public showLogout: any = true;
+  public adminPanelHandle: any = false;
 
   tripsData: IndividualTrip[] = []; // Trips fetched from backend
   sortedTripsList: IndividualTrip[] = [];
   selectedStatus: string = 'default';
   searchedTripData: any = '';
-  public showLogout: any = true;
-
   searchTimeout: any;
-
   selectedTrip: IndividualTrip | null = null;
   paginatedTrips: IndividualTrip[] = [];
   maxPage = 0;
@@ -56,6 +55,24 @@ export class ListDestinationComponent implements OnInit {
     this.destination$.titleshow();
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
+    if (token === '') {
+      // alert('Please register yourself first!');
+      // this.router.navigate(['sign-up']);
+    }
+
+    // this.auth$.adminPanelHandle.subscribe({
+    //   next: (res: any) => {
+    //     this.adminPanelHandle = res;
+    //     this.cdr.detectChanges();
+    //   },
+    // });
+
+    const role = this.auth$.getUserRoleFromToken();
+    console.log(role);
+
+    if (role === 'Admin') {
+      this.adminPanelHandle = true;
+    }
 
     this.auth$.showLogout.subscribe({
       next: (res: any) => {
@@ -81,10 +98,6 @@ export class ListDestinationComponent implements OnInit {
         console.log(this.totalPages);
       });
     // this.fetchTrips();
-    if (token === '') {
-      // alert('Please register yourself first!');
-      // this.router.navigate(['sign-up']);
-    }
   }
 
   updatePagination() {
@@ -247,8 +260,8 @@ export class ListDestinationComponent implements OnInit {
     this.router.navigate([''], { relativeTo: this.route });
   }
 
-  onAdminClicked() {
-    const role = this.auth$.getUserRoleFromToken();
-    console.log('User Role:', role);
+  onEditFormFormatClicked() {
+    // const role = this.auth$.getUserRoleFromToken();
+    // console.log('User Role:', role);
   }
 }

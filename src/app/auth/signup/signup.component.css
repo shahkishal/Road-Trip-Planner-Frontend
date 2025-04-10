@@ -10,10 +10,10 @@
 .login-container {
   width: 100%;
   max-width: 350px;
-  padding: 50px 30px;
+  padding: 30px 25px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
 }
 
 /* Labels */
@@ -28,6 +28,8 @@ label {
     align-items: start;
     background: #f4f4f4; /* Light background for contrast */
   }
+
+  /* General Styling */
 
   /* Labels */
   label {
@@ -81,17 +83,18 @@ label {
 .form-input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
   transition: all 0.3s ease;
+  background-color: #e5e5e5;
 }
 
 .form-input:focus {
-  border-color: #007bff;
+  border-color: #000000;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 /* Button */
@@ -105,6 +108,7 @@ label {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 20px;
   transition: background 0.3s ease;
 }
 
@@ -119,4 +123,16 @@ label {
   right: 0;
   position: absolute;
   transform: scaleX(-1);
+}
+
+.login_text {
+  height: 15vh;
+  position: absolute;
+  bottom: 18vh;
+  /* left: 32vh; */
+  right: 29vh;
+  font-size: 4vh;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-style: italic;
 }

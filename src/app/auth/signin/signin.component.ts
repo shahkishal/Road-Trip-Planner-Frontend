@@ -58,6 +58,10 @@ export class SigninComponent implements OnInit {
     this.destination$.titlehide();
   }
 
+  onRegister() {
+    this.router.navigate(['sign-up']);
+  }
+
   onSignInClicked() {
     console.log('sign in btn clicked!');
 
@@ -75,7 +79,7 @@ export class SigninComponent implements OnInit {
       this.api$.userLogIn(userData).subscribe(
         (response) => {
           this.loginId = response.message;
-          console.log(this.loginId);
+          // console.log(this.loginId);
 
           localStorage.setItem('loginId', this.loginId);
 
@@ -84,7 +88,7 @@ export class SigninComponent implements OnInit {
           alert('Login successfull!!');
         },
         (error) => {
-          console.error('something happende wroing', error);
+          // console.error('something happende wroing', error);
           alert('Please enter correct values!');
         }
       );

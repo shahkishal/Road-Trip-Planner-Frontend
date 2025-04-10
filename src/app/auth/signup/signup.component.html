@@ -25,9 +25,12 @@
         Password is Required!
       </div>
 
-      <div class="mb-3">
+      <div class="d-flex gap-2 justify-content-start align-items-center">
         <label for="roles" class="form-label fw-semibold"> Select Role: </label>
-        <div *ngFor="let role of roleOptions">
+        <div
+          *ngFor="let role of roleOptions"
+          class="d-flex gap-1 justify-content-center align-items-center"
+        >
           <input
             type="checkbox"
             [value]="role"
@@ -53,7 +56,7 @@
       <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
         Role is Required!
       </div>
-      <button class="btn-login">Sign Up</button>
+      <button class="btn-login mb-2">Sign Up</button>
       <span
         >If you are a User Please
         <a style="color: blue; text-decoration: underline" (click)="onlogin()">
@@ -64,3 +67,4 @@
   </div>
 </div>
 <img src="assets/signup_image.jpg" class="signup_img" />
+<div class="login_text">Enter your details...</div>
