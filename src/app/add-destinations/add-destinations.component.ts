@@ -48,7 +48,7 @@ export class AddDestinationsComponent implements OnInit {
     travelTypeId: new FormControl<string | null>(null, {
       validators: [Validators.required],
     }),
-    isPublic: new FormControl<boolean>(false),
+    isPublic: new FormControl(''),
   });
 
   // addDestinationData: AddDestination = {
@@ -179,6 +179,7 @@ export class AddDestinationsComponent implements OnInit {
     const checkbox = event.target as HTMLInputElement;
     const isChecked = checkbox.checked;
     console.log(isChecked);
+    return isChecked;
   }
 
   onSubmit() {
@@ -208,6 +209,7 @@ export class AddDestinationsComponent implements OnInit {
 
       console.log('submitted data', this.form.value);
 
+      // this.onIsPublicCheckboxClicked(this.form.controls.isPublic);
       // this.destinationDataService.updateDestination(this.form.value); //////stores the new data and send it to another component with the help of the method we initialised in our service.ts file.
 
       this.api$.createDestination(formData).subscribe(

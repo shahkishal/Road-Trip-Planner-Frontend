@@ -120,7 +120,11 @@
       </div>
       <div>
         <label for="isPublic" class="">Post is Public:</label>
-        <input (change)="onIsPublicCheckboxClicked($event)" type="checkbox" />
+        <input
+          (change)="onIsPublicCheckboxClicked($event)"
+          type="checkbox"
+          formControlName="isPublic"
+        />
       </div>
 
       <div class="mt-4 mb-4">
