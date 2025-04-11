@@ -8,6 +8,7 @@ export interface Trip {
     duration: string;
     description: string;
     travelTypeId: string;
+    isPublic: boolean;
   }[];
   totalTrips: number;
 }

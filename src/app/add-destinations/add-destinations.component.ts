@@ -48,6 +48,7 @@ export class AddDestinationsComponent implements OnInit {
     travelTypeId: new FormControl<string | null>(null, {
       validators: [Validators.required],
     }),
+    isPublic: new FormControl<boolean>(false),
   });
 
   // addDestinationData: AddDestination = {
@@ -172,6 +173,12 @@ export class AddDestinationsComponent implements OnInit {
 
   oncancel() {
     this.router.navigate(['/dashboard']);
+  }
+
+  onIsPublicCheckboxClicked(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const isChecked = checkbox.checked;
+    console.log(isChecked);
   }
 
   onSubmit() {

@@ -12,7 +12,7 @@ import { UserLogin } from './login.model';
 export class ApiService {
   // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
   private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
-  private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal chu
+  private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal 2
   private apiUrlAuth = 'https://localhost:5001/api/Auth';
 
   constructor(private http: HttpClient) {}
