@@ -47,7 +47,7 @@ export class ButtonsComponent implements AfterViewInit {
     // this.showBdBtn = false;
     this.destination$.titlehide(); //////here addCLicked value is false and thats what make title disappear.
     // this.destination$.authHide();
-    this.router.navigate(['/browse-trips'], { relativeTo: this.route });
+    this.router.navigate(['/browse'], { relativeTo: this.route });
   }
 
   onAddDestinationButtonCLicked() {

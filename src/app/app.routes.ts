@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AddDestinationsComponent } from './add-destinations/add-destinations.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { BrowseDestinationComponent } from './browse-destination/browse-destination.component';
+import { BrowseComponent } from './browse/browse.component';
 import { ListDestinationComponent } from './list-destination/list-destination.component';
 import { TripEditComponent } from './trip-cards/trip-edit/trip-edit.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -35,8 +35,8 @@ export const routes: Routes = [
     component: AddDestinationsComponent,
   },
   {
-    path: 'browse-trips',
-    component: BrowseDestinationComponent,
+    path: 'browse',
+    component: BrowseComponent,
   },
   {
     path: 'sign-up',
