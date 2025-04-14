@@ -7,4 +7,5 @@ export interface IndividualTrip {
   duration: string;
   description: string;
   travelTypeId: string;
+  isPublic: string;
 }
