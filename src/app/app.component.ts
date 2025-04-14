@@ -8,11 +8,14 @@ import {
 } from '@angular/router';
 // import { ButtonsComponent } from './buttons/buttons.component';
 import { DestinationService } from './shared/destination.service';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { LoadingSpinnerService } from './shared/loading-spinner.service';
+
 // import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, NzSpinModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -24,6 +27,7 @@ export class AppComponent {
   constructor(
     // private router: Router,
     private destination$: DestinationService,
+    public loading$: LoadingSpinnerService,
     // private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
@@ -40,6 +44,8 @@ export class AppComponent {
         this.cdr.detectChanges();
       },
     });
+
+    this.loading$.show();
 
     // this.destination$.showAuth.subscribe({
     //   next: (res: any) => {

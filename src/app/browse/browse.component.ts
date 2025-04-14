@@ -3,26 +3,28 @@ import { CommonModule } from '@angular/common';
 import { ApiBrowseService } from './apiBrowse.service';
 import { DestinationService } from '../shared/destination.service';
 import { IndividualTrip } from '../shared/trip.model';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-browse-destination',
-  imports: [CommonModule, NzSpinModule],
+  imports: [CommonModule],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css',
 })
 export class BrowseComponent implements OnInit {
   browseData: IndividualTrip[] = [];
 
-  isLoading = true;
+  // isLoading = true;
 
   constructor(
     private apiBrowse$: ApiBrowseService,
-    private destination$: DestinationService
+    private destination$: DestinationService,
+    private loading$: LoadingSpinnerService
   ) {}
 
   ngOnInit() {
     this.destination$.titlehide();
+    this.loading$.show();
     this.fetchData();
   }
 
@@ -30,7 +32,7 @@ export class BrowseComponent implements OnInit {
     this.apiBrowse$.getBrowseData().subscribe((res) => {
       console.log(res);
       this.browseData = res;
-      this.isLoading = false;
+      // this.isLoading = false;
     });
   }
 }
