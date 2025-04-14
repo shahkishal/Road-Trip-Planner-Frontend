@@ -48,7 +48,7 @@ export class AddDestinationsComponent implements OnInit {
     travelTypeId: new FormControl<string | null>(null, {
       validators: [Validators.required],
     }),
-    isPublic: new FormControl(''),
+    isPublic: new FormControl(false),
   });
 
   // addDestinationData: AddDestination = {
@@ -176,6 +176,8 @@ export class AddDestinationsComponent implements OnInit {
   }
 
   onIsPublicCheckboxClicked(event: Event) {
+    console.log(event);
+
     const checkbox = event.target as HTMLInputElement;
     const isChecked = checkbox.checked;
     console.log(isChecked);
