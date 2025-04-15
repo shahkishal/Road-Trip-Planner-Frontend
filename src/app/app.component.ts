@@ -45,7 +45,7 @@ export class AppComponent {
       },
     });
 
-    this.loading$.show();
+    this.loading$.hide();
 
     // this.destination$.showAuth.subscribe({
     //   next: (res: any) => {

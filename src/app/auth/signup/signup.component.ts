@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent implements OnInit {
     private destination$: DestinationService,
     private api$: ApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loading$: LoadingSpinnerService
   ) {}
 
   usersignup = new FormGroup({
@@ -86,6 +88,7 @@ export class SignupComponent implements OnInit {
 
   onSignUpClicked() {
     console.log('sign up btn clicked!');
+    this.loading$.show();
 
     if (this.usersignup.invalid) {
       this.usersignup.markAllAsTouched();
@@ -122,6 +125,7 @@ export class SignupComponent implements OnInit {
 
           console.log(userData);
           alert('User created successfully!');
+          this.loading$.hide();
           this.usersignup.reset();
           this.router.navigate(['sign-in']);
         });

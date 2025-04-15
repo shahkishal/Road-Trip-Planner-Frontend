@@ -32,7 +32,7 @@ export class BrowseComponent implements OnInit {
     this.apiBrowse$.getBrowseData().subscribe((res) => {
       console.log(res);
       this.browseData = res;
-      // this.isLoading = false;
+      this.loading$.hide();
     });
   }
 }

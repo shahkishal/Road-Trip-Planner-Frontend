@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { DestinationService } from '../shared/destination.service';
 import { ApiService } from '../shared/api.service';
 import { TravelType } from '../shared/travelType.model';
+import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-add-destinations',
@@ -35,7 +36,8 @@ export class AddDestinationsComponent implements OnInit {
   constructor(
     private router: Router,
     private destination$: DestinationService,
-    private api$: ApiService
+    private api$: ApiService,
+    private loading$: LoadingSpinnerService
   ) {}
 
   form = new FormGroup({
@@ -98,6 +100,7 @@ export class AddDestinationsComponent implements OnInit {
     //     modalInstance.show();
     //   }
     // });
+
 
     this.form
       .get('from')

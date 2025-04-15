@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-signin',
@@ -24,7 +25,8 @@ export class SigninComponent implements OnInit {
     private destination$: DestinationService,
     private api$: ApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loading$: LoadingSpinnerService
   ) {}
 
   usersignin = new FormGroup({
@@ -64,6 +66,7 @@ export class SigninComponent implements OnInit {
 
   onSignInClicked() {
     console.log('sign in btn clicked!');
+    this.loading$.show();
 
     if (this.usersignin.invalid) {
       this.usersignin.markAllAsTouched();
@@ -84,6 +87,7 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('loginId', this.loginId);
 
           this.router.navigate(['dashboard']);
+          this.loading$.hide();
 
           alert('Login successfull!!');
         },

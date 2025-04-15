@@ -8,6 +8,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminApiService } from './admin-api.service';
 import { EditFormFormat } from './editFormFormat.model';
 import { Router } from '@angular/router';
+import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +21,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private destination$: DestinationService,
     private adminApi$: AdminApiService,
-    private router: Router
+    private router: Router,
+    private loading$: LoadingSpinnerService
   ) {}
 
   adminEditForm = new FormGroup({
@@ -35,6 +37,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading$.show();
     this.destination$.titlehide();
     this.adminApi$.getTableValues().subscribe((res) => {
       this.tableData = res;

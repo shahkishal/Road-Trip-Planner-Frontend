@@ -11,6 +11,7 @@ import { SearchTripsComponent } from '../search-trips/search-trips.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { IndividualTrip } from '../shared/trip.model';
+import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-list-destination',
@@ -48,11 +49,13 @@ export class ListDestinationComponent implements OnInit {
     private auth$: AuthService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loading$: LoadingSpinnerService
   ) {}
 
   ngOnInit() {
     this.destination$.titleshow();
+    this.loading$.show();
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
@@ -93,6 +96,7 @@ export class ListDestinationComponent implements OnInit {
         // this.updatePagination();
         this.tripsData = data.data;
         console.log(data.data);
+        this.loading$.hide();
         this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
         this.maxPage = this.totalPages;
         console.log(this.totalPages);
