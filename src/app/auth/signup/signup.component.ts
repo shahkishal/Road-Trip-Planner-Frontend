@@ -58,6 +58,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.destination$.titlehide();
+    this.loading$.hide();
   }
 
   onRoleChange(event: Event) {
@@ -91,6 +92,7 @@ export class SignupComponent implements OnInit {
     this.loading$.show();
 
     if (this.usersignup.invalid) {
+      this.loading$.hide()
       this.usersignup.markAllAsTouched();
       alert('PLease fill all details correctly!');
     } else {
@@ -124,7 +126,7 @@ export class SignupComponent implements OnInit {
           console.log('response received vfrom backerdnd', backend);
 
           console.log(userData);
-          alert('User created successfully!');
+          // alert('User created successfully!');
           this.loading$.hide();
           this.usersignup.reset();
           this.router.navigate(['sign-in']);

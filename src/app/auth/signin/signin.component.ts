@@ -58,6 +58,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.destination$.titlehide();
+    this.loading$.hide();
   }
 
   onRegister() {
@@ -89,7 +90,7 @@ export class SigninComponent implements OnInit {
           this.router.navigate(['dashboard']);
           this.loading$.hide();
 
-          alert('Login successfull!!');
+          // alert('Login successfull!!');
         },
         (error) => {
           // console.error('something happende wroing', error);

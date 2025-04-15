@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../shared/destination.service';
+import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 
 @Component({
   selector: 'app-homepage',
@@ -13,11 +14,13 @@ export class HomepageComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private destination$: DestinationService
+    private destination$: DestinationService,
+    private loading$: LoadingSpinnerService
   ) {}
 
   ngOnInit() {
     this.destination$.titleshow();
+    this.loading$.hide();
   }
 
   onGetStarted() {
