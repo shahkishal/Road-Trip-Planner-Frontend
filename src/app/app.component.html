@@ -5,22 +5,24 @@
   </div>
 </div>
 
-<div class="spinner">
-  <nz-spin
-    class="loader"
-    nzSimple
-    nzSize="large"
-    *ngIf="loading$.loadingObservable | async"
-  >
-    <!--<ng-template #nzIndicator>
-      <i
-        nz-icon
-        nzType="loading"
-        nzTheme="outline"
-        style="font-size: 36px; color: red"
-      ></i>
-    </ng-template> -->
-  </nz-spin>
+<div>
+  <div class="spinner">
+    <nz-spin
+      class="loader"
+      nzSimple
+      nzSize="large"
+      *ngIf="loading$.loadingObservable | async"
+    >
+      <!--<ng-template #nzIndicator>
+        <i
+          nz-icon
+          nzType="loading"
+          nzTheme="outline"
+          style="font-size: 36px; color: red"
+        ></i>
+      </ng-template> -->
+    </nz-spin>
+  </div>
 </div>
 
 <!-- <div *ngIf="showAuth">
