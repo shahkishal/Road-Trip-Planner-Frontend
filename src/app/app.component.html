@@ -5,14 +5,9 @@
   </div>
 </div>
 
-<div class="spinner-overlay">
+<div class="spinner-overlay" *ngIf="loading$.loadingObservable | async">
   <div class="spinner">
-    <nz-spin
-      class="loader"
-      nzSimple
-      nzSize="large"
-      *ngIf="loading$.loadingObservable | async"
-    >
+    <nz-spin class="loader" nzSimple nzSize="large">
       <!--<ng-template #nzIndicator>
         <i
           nz-icon
