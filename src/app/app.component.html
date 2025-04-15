@@ -5,7 +5,23 @@
   </div>
 </div>
 
-<nz-spin *ngIf="loading$.loadingObservable | async"></nz-spin>
+<div class="spinner">
+  <nz-spin
+    class="loader"
+    nzSimple
+    nzSize="large"
+    *ngIf="loading$.loadingObservable | async"
+  >
+    <!--<ng-template #nzIndicator>
+      <i
+        nz-icon
+        nzType="loading"
+        nzTheme="outline"
+        style="font-size: 36px; color: red"
+      ></i>
+    </ng-template> -->
+  </nz-spin>
+</div>
 
 <!-- <div *ngIf="showAuth">
   <app-auth />
