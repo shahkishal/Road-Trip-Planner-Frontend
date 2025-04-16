@@ -126,6 +126,21 @@
           formControlName="isPublic"
         />
       </div>
+      <div>
+        <input
+          type="file"
+          (change)="onImgUploaded($event)"
+          accept="image/*"
+          formControlName="tripImage"
+        />
+
+        <img
+          *ngIf="previewUrl"
+          [src]="previewUrl"
+          alt="Image Preview"
+          width="200"
+        />
+      </div>
 
       <div class="mt-4 mb-4">
         <button

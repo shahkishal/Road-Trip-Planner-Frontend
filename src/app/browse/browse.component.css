@@ -1,3 +1,49 @@
 .dark-shadow {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9) !important; /* Stronger shadow */
-  }
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9) !important; /* Stronger shadow */
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin: 0 16px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.titletext {
+  color: white;
+  font-size: 18px;
+  padding: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.titletext:hover {
+  color: #ffffff9f;
+}
+
+:host ::ng-deep nz-layout {
+  min-height: 100vh;
+}

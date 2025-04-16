@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiBrowseService {
-  private apiUrl = 'https://localhost:5001/api/Browse';
+  // private apiUrl = 'https://localhost:5001/api/Browse';  /// kishal c2
+  private apiUrl = 'http://localhost:5001/trips';
 
   constructor(private http: HttpClient) {}
 
