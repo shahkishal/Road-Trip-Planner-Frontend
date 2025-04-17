@@ -1,36 +1,51 @@
-.dark-shadow {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9) !important; /* Stronger shadow */
+/* Layout container */
+:host ::ng-deep nz-layout {
+  min-height: 100vh;
+  background-color: #f0f2f5;
 }
 
-.logo {
-  height: 32px;
-  margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
+/* Header styling */
 nz-header {
   background: #fff;
-  padding: 0;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid #e8e8e8;
 }
 
+/* Content layout - full page scroll */
 nz-content {
-  margin: 0 16px;
+  margin: 0;
+  padding: 0 24px;
+  height: calc(100vh - 64px); /* Adjust based on your header height */
+  overflow-y: auto;
 }
 
-nz-breadcrumb {
-  margin: 16px 0;
-}
-
+/* Feed container */
 .inner-content {
-  padding: 24px;
-  background: #fff;
-  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
 }
 
-nz-footer {
-  text-align: center;
+/* Each Trip Card */
+.card-body {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
+.card-body:hover {
+  transform: translateY(-4px);
+}
+
+/* Title in sidebar */
 .titletext {
   color: white;
   font-size: 18px;
@@ -38,12 +53,27 @@ nz-footer {
   font-weight: bold;
   text-align: center;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .titletext:hover {
   color: #ffffff9f;
 }
 
-:host ::ng-deep nz-layout {
-  min-height: 100vh;
+/* Image style */
+.img-style img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional footer */
+nz-footer {
+  text-align: center;
+  padding: 12px 0;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
 }

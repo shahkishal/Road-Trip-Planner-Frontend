@@ -42,7 +42,6 @@ export class BrowseComponent implements OnInit {
 
   fetchData() {
     this.apiBrowse$.getBrowseData().subscribe((res) => {
-      console.log("------------------------");
       console.log(res);
       this.browseData = res;
       this.loading$.hide();

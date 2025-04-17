@@ -9,4 +9,6 @@ export interface IndividualTrip {
   travelTypeId: string;
   isPublic: string;
   tripImage: string;
+  ownerName: string;
+  ownerId: string;
 }
