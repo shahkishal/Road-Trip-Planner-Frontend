@@ -29,6 +29,7 @@ export class AddDestinationsComponent implements OnInit {
   options: { id: string; name: string }[] = [];
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  uploadedImage: File | null = null;
 
   // { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
   // { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
@@ -189,16 +190,16 @@ export class AddDestinationsComponent implements OnInit {
     return isChecked;
   }
 
-  onImgUploaded(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+  onImgUploaded(event: any) {
+    const file = event.target.files?.[0];
+    if (file) {
+      this.uploadedImage = file;
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewUrl = reader.result;
+        this.previewUrl = reader.result as string;
       };
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(file);
     }
   }
 
@@ -222,10 +223,31 @@ export class AddDestinationsComponent implements OnInit {
       //   duration: this.durationCalculation,
       // });
 
-      const formData = {
-        ...this.form.getRawValue(),
-        duration: this.form.get('duration')?.value,
-      };
+      // const formData = {
+      //   ...this.form.getRawValue(),
+      //   duration: this.form.get('duration')?.value,
+      // };
+
+      const formData = new FormData();
+
+      formData.append('source', this.form.get('source')?.value ?? '');
+      formData.append('destination', this.form.get('destination')?.value ?? '');
+      formData.append('from', this.form.get('from')?.value ?? '');
+      formData.append('to', this.form.get('to')?.value ?? '');
+      formData.append('duration', this.form.get('duration')?.value ?? '');
+      formData.append('description', this.form.get('description')?.value ?? '');
+      formData.append(
+        'travelTypeId',
+        this.form.get('travelTypeId')?.value ?? ''
+      );
+      formData.append(
+        'isPublic',
+        this.form.get('isPublic')?.value ? 'true' : 'false'
+      );
+
+      if (this.uploadedImage) {
+        formData.append('TripImage', this.uploadedImage);
+      }
 
       console.log('submitted data', this.form.value);
 
@@ -248,8 +270,8 @@ export class AddDestinationsComponent implements OnInit {
           //   this.closeForm.emit();
           // }, 1000);
 
-          if (formData.travelTypeId) {
-            this.api$.sendDropDownDataToBackend(formData.travelTypeId);
+          if (this.form.value.travelTypeId) {
+            this.api$.sendDropDownDataToBackend(this.form.value.travelTypeId);
           }
 
           this.form.reset();
@@ -264,7 +286,7 @@ export class AddDestinationsComponent implements OnInit {
         },
         (error) => {
           console.log('error', error);
-          alert('something went wrong!');
+          alert('Something went wrong!');
         }
       );
     }
