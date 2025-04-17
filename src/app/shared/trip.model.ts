@@ -8,4 +8,5 @@ export interface IndividualTrip {
   description: string;
   travelTypeId: string;
   isPublic: string;
+  image: string;
 }
