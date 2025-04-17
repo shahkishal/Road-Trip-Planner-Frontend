@@ -9,7 +9,7 @@ export interface Trip {
     description: string;
     travelTypeId: string;
     isPublic: string;
-    image: string;
+    tripImage: string;
     ownerName: string;
     ownerId: string;
   }[];
