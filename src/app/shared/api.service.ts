@@ -47,7 +47,7 @@ export class ApiService {
     selectedStatus: any,
     currentPage: number,
     pageSize: number
-  ): Observable<Trip> {
+  ): Observable<any> {
     return this.http.get<Trip>(
       `${this.apiUrl}?pageNumber=${currentPage}&pageSize=${pageSize}`
       // `${this.apiUrl}`

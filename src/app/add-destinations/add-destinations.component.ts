@@ -277,12 +277,7 @@ export class AddDestinationsComponent implements OnInit {
           this.form.reset();
 
           this.router.navigate(['/dashboard']);
-          // if (this.modalRef) {
-          //   const modalInstance = Modal.getInstance(this.modalRef.nativeElement);
-          //   modalInstance?.hide();
-          // }
-
-          // this.closeForm.emit(); ////event emit to show add destination button again when the button submit is clicked.
+          
         },
         (error) => {
           console.log('error', error);

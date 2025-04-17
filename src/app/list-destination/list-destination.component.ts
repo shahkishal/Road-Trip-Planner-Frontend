@@ -43,6 +43,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
   searchTimeout: any;
   selectedTrip: IndividualTrip | null = null;
   paginatedTrips: IndividualTrip[] = [];
+
   maxPage = 0;
   currentPage = 1;
   pageSize = 3;
@@ -64,8 +65,8 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
-      // alert('Please register yourself first!');
-      // this.router.navigate(['sign-in']);
+      alert('Please register yourself first!');
+      this.router.navigate(['sign-in']);
     }
 
     // this.auth$.adminPanelHandle.subscribe({
@@ -76,6 +77,9 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     // });
 
     const role = this.auth$.getUserRoleFromToken();
+    if (role === 'Admin') {
+      this.adminPanelHandle = true;
+    }
     console.log(role);
 
     this.auth$.showLogout.subscribe({
@@ -105,13 +109,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     // this.fetchTrips();
   }
 
-  ngAfterViewInit(): void {
-    const role = this.auth$.getUserRoleFromToken();
-    if (role === 'Admin') {
-      this.adminPanelHandle = true;
-      this.cdr.detectChanges();
-    }
-  }
+  ngAfterViewInit(): void {}
 
   updatePagination() {
     // const startIndex = (this.currentPage - 1) * this.pageSize;
