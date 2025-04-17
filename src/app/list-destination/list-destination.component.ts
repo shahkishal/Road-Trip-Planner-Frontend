@@ -51,7 +51,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
 
   constructor(
     private destination$: DestinationService,
-    private api$: ApiService,
+    public api$: ApiService,
     private auth$: AuthService,
     private cdr: ChangeDetectorRef,
     private router: Router,

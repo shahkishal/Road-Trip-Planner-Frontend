@@ -130,6 +130,21 @@
               {{ item.name }}
             </option>
           </select>
+
+          <!-- post status -->
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isPublic"
+              (change)="onIsPublicCheckboxClicked($event)"
+              formControlName="isPublic"
+            />
+            <label class="form-check-label" for="isPublic"
+              >Post is Public</label
+            >
+          </div>
+
           <div
             *ngIf="
               form.get('travelTypeId')?.invalid &&

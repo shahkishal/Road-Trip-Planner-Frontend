@@ -39,7 +39,7 @@
           <h4 class="card-title">{{ trip.source }} - {{ trip.destination }}</h4>
 
           <div class="card-body">
-            <!-- <img src="{{ trip.image }}" /> -->
+            <img class="img-style" src="{{ api$.apiUrlBrowse + `${trip.id}` }}" />
             <p class="card-text"><strong>Date From: </strong>{{ trip.from }}</p>
             <p class="card-text"><strong>To: </strong>{{ trip.to }}</p>
             <p class="card-text">

@@ -41,6 +41,7 @@ export class AdminComponent implements OnInit {
     this.destination$.titlehide();
     this.adminApi$.getTableValues().subscribe((res) => {
       this.tableData = res;
+      this.loading$.hide();
       console.log(this.tableData);
     });
   }

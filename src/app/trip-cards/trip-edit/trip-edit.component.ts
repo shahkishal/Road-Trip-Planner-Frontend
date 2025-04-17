@@ -70,6 +70,8 @@ export class TripEditComponent implements OnInit {
       duration: [''],
       description: [''],
       travelTypeId: ['', Validators.required],
+      isPublic: [''],
+      tripImage: [''],
     });
   }
 
@@ -82,6 +84,8 @@ export class TripEditComponent implements OnInit {
       duration: this.trip.duration,
       description: this.trip.description,
       travelTypeId: this.trip.travelTypeId,
+      isPublic: this.trip.isPublic,
+      tripImage: this.trip.tripImage,
     });
   }
 
@@ -132,6 +136,15 @@ export class TripEditComponent implements OnInit {
         }
       );
     }
+  }
+
+  onIsPublicCheckboxClicked(event: Event) {
+    console.log(event);
+
+    const checkbox = event.target as HTMLInputElement;
+    const isChecked = checkbox.checked;
+    console.log(isChecked);
+    return isChecked;
   }
 
   calculateDuration() {

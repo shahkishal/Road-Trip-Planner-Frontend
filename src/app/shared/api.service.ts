@@ -14,6 +14,7 @@ export class ApiService {
   private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal 2
   private apiUrlAuth = 'https://localhost:5001/api/Auth';
+  public apiUrlBrowse = 'https://localhost:5001/api/Browse/';
 
   constructor(private http: HttpClient) {}
 
@@ -53,6 +54,8 @@ export class ApiService {
       // `${this.apiUrl}`
     );
   }
+
+ 
 
   getTripById(Id: string): Observable<any> {
     return this.http.get<Trip>(`${this.apiUrl}/${Id}`);
