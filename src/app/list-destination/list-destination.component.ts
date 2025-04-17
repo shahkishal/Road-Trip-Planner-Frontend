@@ -61,7 +61,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.destination$.titleshow();
-    this.loading$.show();
+    // this.loading$.show();
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
@@ -99,9 +99,12 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
       .subscribe((data: Trip) => {
         // this.updatePagination();
-        this.tripsData = data.data;
         console.log(data.data);
-        this.loading$.hide();
+        this.loading$.show();
+        setTimeout(() => {
+          this.loading$.hide();
+          this.tripsData = data.data;
+        }, 1000);
         this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
         this.maxPage = this.totalPages;
         console.log(this.totalPages);
