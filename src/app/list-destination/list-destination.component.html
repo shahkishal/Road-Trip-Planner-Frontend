@@ -3,14 +3,11 @@
 </div>
 
 <div class="position-absolute top-0 end-0 m-2 d-flex gap-2">
-  <div>
-    <Button
-      *ngIf="adminPanelHandle"
-      class="btn btn-outline-dark"
-      (click)="onEditFormFormatClicked()"
+  <ng-container *ngIf="adminPanelHandle">
+    <Button class="btn btn-outline-dark" (click)="onEditFormFormatClicked()"
       >Edit Form Format</Button
     >
-  </div>
+  </ng-container>
 
   <div *ngIf="showLogout">
     <div>

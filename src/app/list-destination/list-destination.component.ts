@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DestinationService } from '../shared/destination.service';
 import { ButtonsComponent } from '../buttons/buttons.component';
@@ -26,7 +31,7 @@ import { LoadingSpinnerService } from '../shared/loading-spinner.service';
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
-export class ListDestinationComponent implements OnInit {
+export class ListDestinationComponent implements OnInit, AfterViewInit {
   // receivedData: any = null;
   public showLogout: any = true;
   public adminPanelHandle: any = false;
@@ -73,10 +78,6 @@ export class ListDestinationComponent implements OnInit {
     const role = this.auth$.getUserRoleFromToken();
     console.log(role);
 
-    if (role === 'Admin') {
-      this.adminPanelHandle = true;
-    }
-
     this.auth$.showLogout.subscribe({
       next: (res: any) => {
         this.showLogout = res;
@@ -102,6 +103,14 @@ export class ListDestinationComponent implements OnInit {
         console.log(this.totalPages);
       });
     // this.fetchTrips();
+  }
+
+  ngAfterViewInit(): void {
+    const role = this.auth$.getUserRoleFromToken();
+    if (role === 'Admin') {
+      this.adminPanelHandle = true;
+      this.cdr.detectChanges();
+    }
   }
 
   updatePagination() {

@@ -10,6 +10,8 @@ export interface Trip {
     travelTypeId: string;
     isPublic: string;
     image: string;
+    ownerName: string;
+    ownerId: string;
   }[];
   totalTrips: number;
 }
