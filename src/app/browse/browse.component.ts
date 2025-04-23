@@ -75,7 +75,9 @@ export class BrowseComponent implements OnInit {
 
     console.log(commentData);
 
-    this.apiBrowse$.postComment(commentData).subscribe(() => {});
+    this.apiBrowse$.postComment(commentData).subscribe(() => {
+      alert('Comment Added!')
+    });
     this.commentForm.reset();
   }
 }
