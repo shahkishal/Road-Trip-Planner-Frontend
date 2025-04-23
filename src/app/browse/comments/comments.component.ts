@@ -4,6 +4,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ApiBrowseService } from '../apiBrowse.service';
 import { CommonModule } from '@angular/common';
+import { CommentData } from './comment.model';
 
 @Component({
   selector: 'app-comments',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent {
-  commentsData: string = '';
+  commentsData: CommentData[] = [];
 
   @Input() TripId!: string;
   @Output() allComments: EventEmitter<any> = new EventEmitter();

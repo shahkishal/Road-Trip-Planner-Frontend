@@ -11,8 +11,9 @@
   (nzOnCancel)="handleClose()"
 >
   <ng-container *nzModalContent>
-    <div>
-      <p>{{}}</p>
+    <div *ngFor="let comment of commentsData">
+      <p>{{ comment.owner }}</p>
+      <p>{{ comment.message }}</p>
     </div>
   </ng-container>
 
