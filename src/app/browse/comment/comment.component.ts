@@ -1,18 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { ApiBrowseService } from '../apiBrowse.service';
+import { CommentData } from './comment.model';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { ApiBrowseService } from '../apiBrowse.service';
-import { CommonModule } from '@angular/common';
-import { CommentData } from './comment.model';
 
 @Component({
-  selector: 'app-comments',
+  selector: 'app-comment',
   imports: [CommonModule, NzButtonModule, NzModalModule],
-  templateUrl: './comments.component.html',
-  styleUrl: './comments.component.css',
+  templateUrl: './comment.component.html',
+  styleUrl: './comment.component.css',
 })
-export class CommentsComponent {
+export class CommentComponent {
   commentsData: CommentData[] = [];
 
   @Input() TripId!: string;

@@ -40,9 +40,6 @@
               <h3>{{ "@" + trip.ownerName }}</h3>
             </div>
             <h4>{{ trip.source }} - {{ trip.destination }}</h4>
-            <div class="img-style">
-              <img src="{{ trip.tripImage }}" alt="Trip Image" />
-            </div>
             <h5 class="mt-4">{{ trip.description }}</h5>
             <div class="d-flex gap-2">
               <span class="card-text"
@@ -51,6 +48,9 @@
               <span class="card-text"
                 ><strong>Date To: </strong>{{ trip.to }}</span
               >
+            </div>
+            <div class="img-style">
+              <img src="{{ trip.tripImage }}" alt="Trip Image" />
             </div>
             <div
               class="d-flex justify-content-center align-items-start gap-2 mt-2"
@@ -70,7 +70,10 @@
                 Post
               </button>
             </div>
-            <app-comments [TripId]="trip.id" />
+            <div class="d-flex gap-1">
+              <app-like class="mt-2" [TripId]="trip.id" />
+              <app-comment [TripId]="trip.id" />
+            </div>
           </div>
         </form>
       </div>

@@ -1,0 +1,17 @@
+<div>
+  <img
+    src="assets/like-logo.png"
+    alt="logo"
+    class="logo"
+    *ngIf="isUnliked"
+    (click)="onLike()"
+  />
+
+  <img
+    src="assets/liked-logo.png"
+    alt="logo"
+    class="logo"
+    *ngIf="isLiked"
+    (click)="onLike()"
+  />
+</div>

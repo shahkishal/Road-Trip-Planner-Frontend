@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
 import { ApiBrowseService } from './apiBrowse.service';
 import { DestinationService } from '../shared/destination.service';
 import { IndividualTrip } from '../shared/trip.model';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
+import { CommentComponent } from './comment/comment.component';
+
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { Router } from '@angular/router';
-import { CommentsComponent } from './comments/comments.component';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LikeComponent } from "./like/like.component";
 
 @Component({
   selector: 'app-browse-destination',
@@ -20,9 +23,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     NzIconModule,
     NzMenuModule,
     NzLayoutModule,
-    CommentsComponent,
+    CommentComponent,
     ReactiveFormsModule,
-  ],
+    LikeComponent
+],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css',
 })
@@ -76,7 +80,7 @@ export class BrowseComponent implements OnInit {
     console.log(commentData);
 
     this.apiBrowse$.postComment(commentData).subscribe(() => {
-      alert('Comment Added!')
+      alert('Comment Added!');
     });
     this.commentForm.reset();
   }
