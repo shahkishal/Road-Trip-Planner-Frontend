@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiBrowseService {
-  // private apiUrl = 'https://localhost:5001/api/Browse'; /// kishal c2
-  private apiUrl = 'http://localhost:5001/trips';
+  private apiUrl = 'https://localhost:5001/api/Browse'; /// kishal c2
+  // private apiUrl = 'http://localhost:5001/trips';
 
   constructor(private http: HttpClient) {}
 
@@ -18,11 +18,11 @@ export class ApiBrowseService {
   }
 
   getCommentData(id: string): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(`${this.apiUrl}/Comment/${id}`); /////to change
   }
 
   // post
-  postComment(id: string): Observable<any> {
-    return this.http.post(this.apiUrl,id);
+  postComment(commentData: { id: any; comment: any }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Comment`, commentData);
   }
 }

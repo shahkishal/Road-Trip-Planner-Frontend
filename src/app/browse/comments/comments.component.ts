@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ApiBrowseService } from '../apiBrowse.service';
-import { IndividualTrip } from '../../shared/trip.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-comments',
-  imports: [NzButtonModule, NzModalModule],
+  imports: [CommonModule, NzButtonModule, NzModalModule],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent {
-  browseData: IndividualTrip[] = [];
+  commentsData: string = '';
 
+  @Input() TripId!: string;
   @Output() allComments: EventEmitter<any> = new EventEmitter();
 
   constructor(private apiBrowse$: ApiBrowseService) {}
@@ -21,20 +22,18 @@ export class CommentsComponent {
   //extra
   isVisible = false;
 
-  showModal(id: string): void {
+  showModal(): void {
     this.isVisible = true;
-    this.apiBrowse$.getBrowseData().subscribe((res) => {
-      this.browseData = res;
-      console.log(this.browseData);
-      // this.browseData.values?.id;
-      console.log(this.browseData.values);
-      
+    console.log(this.TripId);
+    this.apiBrowse$.getCommentData(this.TripId).subscribe((res) => {
+      this.commentsData = res;
+      console.log(this.commentsData);
     });
-    this.apiBrowse$.getCommentData(id).subscribe((res) => {});
+    // this.apiBrowse$.getCommentData(id).subscribe((res) => {});
   }
 
   handleClose(): void {
-    console.log('Button cancel clicked!');
+    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 }

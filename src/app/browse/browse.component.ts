@@ -10,6 +10,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { Router } from '@angular/router';
 import { CommentsComponent } from './comments/comments.component';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-browse-destination',
@@ -20,6 +21,7 @@ import { CommentsComponent } from './comments/comments.component';
     NzMenuModule,
     NzLayoutModule,
     CommentsComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css',
@@ -28,6 +30,10 @@ export class BrowseComponent implements OnInit {
   browseData: IndividualTrip[] = [];
 
   // isLoading = true;
+
+  commentForm = new FormGroup({
+    comment: new FormControl(''),
+  });
 
   constructor(
     private apiBrowse$: ApiBrowseService,
@@ -44,13 +50,30 @@ export class BrowseComponent implements OnInit {
 
   fetchData() {
     this.apiBrowse$.getBrowseData().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.browseData = res;
+
+      // for (const trip of this.browseData) {
+      //   this.commentForm.addControl(trip.id, new FormControl(''));
+      // }
       this.loading$.hide();
     });
   }
 
   onTitleClicked() {
     this.router.navigate(['dashboard']);
+  }
+
+  onPost(tripId: string) {
+    const cmt = this.commentForm.controls.comment.value;
+    console.log(cmt);
+
+    
+    let commentData = {
+      id: tripId,
+      comment: cmt,
+    };
+    this.apiBrowse$.postComment(commentData).subscribe(() => {});
+    this.commentForm.reset();
   }
 }
