@@ -22,7 +22,7 @@ export class ApiBrowseService {
   }
 
   // post
-  postComment(commentData: { id: any; comment: any }): Observable<any> {
+  postComment(commentData: { TripID: any; Message: any }): Observable<any> {
     return this.http.post(`${this.apiUrl}/Comment`, commentData);
   }
 }

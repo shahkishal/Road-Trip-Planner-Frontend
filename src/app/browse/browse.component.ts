@@ -68,11 +68,13 @@ export class BrowseComponent implements OnInit {
     const cmt = this.commentForm.controls.comment.value;
     console.log(cmt);
 
-    
     let commentData = {
-      id: tripId,
-      comment: cmt,
+      TripID: tripId,
+      Message: cmt,
     };
+
+    console.log(commentData);
+
     this.apiBrowse$.postComment(commentData).subscribe(() => {});
     this.commentForm.reset();
   }
