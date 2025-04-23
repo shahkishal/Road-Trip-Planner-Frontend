@@ -1,0 +1,24 @@
+<label
+  for="view-all-comments"
+  (click)="showModal()"
+  style="cursor: pointer; margin-top: 1vh; text-decoration: underline"
+  >View all Comments</label
+>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="All Comments"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleClose()"
+>
+  <ng-container *nzModalContent>
+    <p>Comment list</p>
+  </ng-container>
+
+  <!-- Footer Template -->
+
+  <ng-template #modalFooter>
+    <button class="btn btn-outline-dark me-2" (click)="handleClose()">
+      Close
+    </button>
+  </ng-template>
+</nz-modal>

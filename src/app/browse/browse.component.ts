@@ -9,6 +9,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { Router } from '@angular/router';
+import { CommentsComponent } from './comments/comments.component';
 
 @Component({
   selector: 'app-browse-destination',
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
     NzIconModule,
     NzMenuModule,
     NzLayoutModule,
+    CommentsComponent,
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css',
