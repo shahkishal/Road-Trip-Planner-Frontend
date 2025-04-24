@@ -67,7 +67,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
-      alert('Please register yourself first!');
+      // alert('Please register yourself first!');
       this.notify$.show('warning', 'Please Register yourself first!');
       this.router.navigate(['sign-in']);
     }
