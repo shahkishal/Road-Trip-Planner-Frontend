@@ -39,19 +39,6 @@
           />
           {{ role }}
         </div>
-        <!-- <div class="mb-3">
-      <label for="roles" class="form-label fw-semibold">Select Role:</label>
-      <select
-        id="roles"
-        class="form-select"
-        multiple
-        form="usersignup.get('roles')"
-      >
-        <option *ngFor="let role of roleOptions" [value]="role">
-          {{ role }}
-        </option>
-      </select>
-    </div> -->
       </div>
       <div class="text-danger mt-1 mb-2" *ngIf="roleIsInvalid">
         Role is Required!

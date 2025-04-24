@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
 import {
   FormControl,
   FormGroup,
@@ -7,24 +6,38 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { DestinationService } from '../shared/destination.service';
 import { ApiService } from '../shared/api.service';
 import { TravelType } from '../shared/travelType.model';
-import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 import { NotificationService } from '../shared/notifications/notification.service';
+
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-add-destinations',
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NzCardModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzCheckboxModule,
+    NzButtonModule,
+  ],
   templateUrl: './add-destinations.component.html',
   styleUrl: './add-destinations.component.css',
 })
 export class AddDestinationsComponent implements OnInit {
-  // @ViewChild('addButtonCenter', { static: false }) modalRef!: ElementRef;
-
   @Output() closeForm = new EventEmitter<void>(); ///this is the event emitter that will notify parent component that close button is clicked
   travelTypeData: TravelType[] = [];
   options: { id: string; name: string }[] = [];
@@ -32,16 +45,10 @@ export class AddDestinationsComponent implements OnInit {
   selectedFile: File | null = null;
   uploadedImage: File | null = null;
 
-  // { id: '758ff8a2-255f-49f8-80c9-08dd6d1d356e', name: 'Sedan' },
-  // { id: '237rf3bh4f783hf98h348fh378fh', name: 'SUV' },
-
-  // isModalOpen = false;
-
   constructor(
     private router: Router,
     private destination$: DestinationService,
     private api$: ApiService,
-    private loading$: LoadingSpinnerService,
     private notify$: NotificationService
   ) {}
 
@@ -58,16 +65,6 @@ export class AddDestinationsComponent implements OnInit {
     isPublic: new FormControl(false),
     tripImage: new FormControl(),
   });
-
-  // addDestinationData: AddDestination = {
-  //   destination: '',
-  //   dateFrom: '',
-  //   dateTo: '',
-  //   duration: '',
-  //   description: '',
-  // };
-
-  // showSuccessAlert = false;
 
   get sourceIsInvalid() {
     return (
@@ -99,32 +96,15 @@ export class AddDestinationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.isModalOpen = true;
-    // setTimeout(() => {
-    //   if (this.modalRef) {
-    //     const modalInstance = new Modal(this.modalRef.nativeElement);
-    //     modalInstance.show();
-    //   }
-    // });
-
     this.form
       .get('from')
       ?.valueChanges.subscribe(() => this.calculateDuration());
     this.form.get('to')?.valueChanges.subscribe(() => this.calculateDuration());
 
     this.destination$.titlehide();
-    // this.destination$.authHide();
-    // this.form.get('from')?.valueChanges.subscribe(() => {
-    //   this.updateDuration();
-    // });
-
-    // this.form.get('to')?.valueChanges.subscribe(() => {
-    //   this.updateDuration();
-    // });
 
     this.api$.getTraveltypeData().subscribe((response) => {
       this.travelTypeData = response;
-      // console.log(this.travelTypeData);
       this.options = [
         { id: '', name: 'Select one' },
         ...this.travelTypeData.map(({ id, type }) => ({
@@ -140,16 +120,12 @@ export class AddDestinationsComponent implements OnInit {
     const dateFrom = this.form.get('from')?.value;
     const dateTo = this.form.get('to')?.value;
 
-    // console.log('date from:', dateFrom, 'date to:', dateTo);
-
     if (dateFrom && dateTo) {
       const fromDate = new Date(dateFrom);
       const toDate = new Date(dateTo);
       const diffInDays = Math.ceil(
         (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
       );
-
-      // console.log('calculated duration:', diffInDays);
 
       if (diffInDays >= 0) {
         this.form
@@ -160,24 +136,6 @@ export class AddDestinationsComponent implements OnInit {
       }
     }
   }
-
-  // updateDuration() {
-  //   const dateFrom = this.form.get('from')?.value;
-  //   const dateTo = this.form.get('to')?.value;
-
-  //   if (!dateFrom || !dateTo) return null;
-
-  //   const fromDate = new Date(dateFrom);
-  //   const toDate = new Date(dateTo);
-
-  //   const diffInTime = toDate.getTime() - fromDate.getTime();
-
-  //   const diffInDays = diffInTime / (1000 * 60 * 60 * 24);
-
-  //   const durationInDays = diffInDays > 0 ? `${diffInDays} days` : 'Invalid Date Range';
-
-  //   this.form.patchValue({ duration: durationInDays});
-  // }
 
   oncancel() {
     this.router.navigate(['/dashboard']);
@@ -207,32 +165,12 @@ export class AddDestinationsComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) {
-      // alert('Please fill in all required feilds correctly!');
       this.notify$.show(
         'warning',
         'Please fill in all required feilds correctly!'
       );
     } else {
       this.destination$.titleshow();
-      // this.destination$.authShow();
-      // const enteredDestination = this.form.value.add_destination;
-
-      // console.log(enteredDestination);
-
-      // console.log(
-      //   'date',
-      //   this.form.controls.from.value,
-      //   this.form.controls.to.value
-      // );
-
-      // this.form.patchValue({
-      //   duration: this.durationCalculation,
-      // });
-
-      // const formData = {
-      //   ...this.form.getRawValue(),
-      //   duration: this.form.get('duration')?.value,
-      // };
 
       const formData = new FormData();
 
@@ -257,25 +195,10 @@ export class AddDestinationsComponent implements OnInit {
 
       console.log('submitted data', this.form.value);
 
-      // this.onIsPublicCheckboxClicked(this.form.controls.isPublic);
-      // this.destinationDataService.updateDestination(this.form.value); //////stores the new data and send it to another component with the help of the method we initialised in our service.ts file.
-
       this.api$.createDestination(formData).subscribe(
         (response) => {
           console.log('trip created:', response);
-          // alert('Trip successfully added!');
           this.notify$.show('success', 'Trip successfully added!');
-
-          // this.showSuccessAlert = true;
-
-          // setTimeout(() => {
-          //   this.showSuccessAlert = false;
-          // }, 5000);
-          // console.log('toastworks');
-
-          // setTimeout(() => {
-          //   this.closeForm.emit();
-          // }, 1000);
 
           if (this.form.value.travelTypeId) {
             this.api$.sendDropDownDataToBackend(this.form.value.travelTypeId);
@@ -287,35 +210,9 @@ export class AddDestinationsComponent implements OnInit {
         },
         (error) => {
           console.log('error', error);
-          // alert('Something went wrong!');
           this.notify$.show('error', 'Something went wrong!');
         }
       );
     }
   }
-
-  // onSelectChange(event: Event) {
-  //   const target = event.target as HTMLSelectElement;
-  //   this.selectedOption = target.value;
-  // }
-
-  // closeModal() {
-  //   this.isModalOpen = false;
-  //   this.router.navigate(['/']);
-  //   this.closeForm.emit();
-  // }
-
-  // closeModal() {
-  //   if (this.modalRef) {
-  //     const modalInstance = Modal.getInstance(this.modalRef.nativeElement);
-  //     modalInstance?.hide();
-  //   }
-
-  //   this.closeForm.emit();  ////event emit to show add destination button again when cancel is clicked.
-  // }
-
-  // onCancelClickShowHomePage() {
-  //   console.log('this works')
-  //   this.showAddDestinationBtn = true;
-  // }
 }

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { DestinationService } from '../../shared/destination.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { DestinationService } from '../../shared/destination.service';
+import { AdminApiService } from './admin-api.service';
+import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
+import { NotificationService } from '../../shared/notifications/notification.service';
+
+import { EditFormFormat } from './editFormFormat.model';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { AdminApiService } from './admin-api.service';
-import { EditFormFormat } from './editFormFormat.model';
-import { Router } from '@angular/router';
-import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
-import { NotificationService } from '../../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-admin',
@@ -54,7 +56,6 @@ export class AdminComponent implements OnInit {
     );
     this.adminApi$.deleteTableValue(tableValueId).subscribe(
       () => {
-        // alert('Entry deleted successfully!');
         this.notify$.show('success', 'Entry deleted successfully!');
         console.log('deleted:', tableValueId);
       },
@@ -74,12 +75,6 @@ export class AdminComponent implements OnInit {
 
     const formData = this.adminEditForm.value;
 
-    const formattedData: EditFormFormat = {
-      id: '',
-      type: formData.type ?? '',
-      seats: formData.seats ?? '',
-      mileage: formData.mileage ?? '',
-    };
     this.adminApi$.sendEditFormData(formData).subscribe((res) => {
       console.log('res:', res);
       this.notify$.show('success', 'New type of vehicle added!');
@@ -87,7 +82,6 @@ export class AdminComponent implements OnInit {
         this.tableData = res;
         console.log(this.tableData);
       });
-      // this.tableData.push(formattedData);
       this.adminEditForm.reset();
     });
   }

@@ -48,7 +48,6 @@ export class TripEditComponent implements OnInit {
     this.api$.getTraveltypeData().subscribe((response) => {
       if (response && response.length > 0) {
         this.travelTypeData = response;
-        // console.log(this.travelTypeData);
         this.options = [
           { id: '', name: 'Select one' },
           ...this.travelTypeData.map(({ id, type }) => ({
@@ -100,28 +99,10 @@ export class TripEditComponent implements OnInit {
   }
 
   handleBack(): void {
-    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
   handleDone(): void {
-    // console.log('Button ok clicked!');
-    // if (!this.trip || !this.trip.id) {
-    //   console.error('Trip id is missing!');
-    //   return;
-    // }
-
-    // console.log('editing trip with id:', this.trip.id);
-
-    // this.api$.getTripById(this.trip.id).subscribe(
-    //   (tripData) => {
-    //     console.log('fetched trip:', tripData);
-    //   },
-    //   (error) => {
-    //     console.error('error fetching trip data:', error);
-    //   }
-    // );
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.notify$.show('warning', 'Please enter values correctly!');
@@ -158,16 +139,12 @@ export class TripEditComponent implements OnInit {
     const dateFrom = this.form.get('from')?.value;
     const dateTo = this.form.get('to')?.value;
 
-    // console.log('date from:', dateFrom, 'date to:', dateTo);
-
     if (dateFrom && dateTo) {
       const fromDate = new Date(dateFrom);
       const toDate = new Date(dateTo);
       const diffInDays = Math.ceil(
         (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
       );
-
-      // console.log('calculated duration:', diffInDays);
 
       if (diffInDays >= 0) {
         this.form

@@ -5,19 +5,22 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DestinationService } from '../shared/destination.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { ButtonsComponent } from '../buttons/buttons.component';
-import { Trip } from '../shared/trips.model';
-import { ApiService } from '../shared/api.service';
 import { TripDeleteComponent } from '../trip-cards/trip-delete/trip-delete.component';
 import { TripEditComponent } from '../trip-cards/trip-edit/trip-edit.component';
 import { SortTripsComponent } from '../sort-trips/sort-trips.component';
 import { SearchTripsComponent } from '../search-trips/search-trips.component';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { DestinationService } from '../shared/destination.service';
+import { ApiService } from '../shared/api.service';
 import { AuthService } from '../shared/auth.service';
-import { IndividualTrip } from '../shared/trip.model';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 import { NotificationService } from '../shared/notifications/notification.service';
+
+import { Trip } from '../shared/trips.model';
+import { IndividualTrip } from '../shared/trip.model';
 
 @Component({
   selector: 'app-list-destination',
@@ -33,7 +36,6 @@ import { NotificationService } from '../shared/notifications/notification.servic
   styleUrl: './list-destination.component.css',
 })
 export class ListDestinationComponent implements OnInit, AfterViewInit {
-  // receivedData: any = null;
   public showLogout: any = true;
   public adminPanelHandle: any = false;
 
@@ -63,21 +65,12 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.destination$.titleshow();
-    // this.loading$.show();
     const token = localStorage.getItem('loginId');
     console.log('id:', token);
     if (token === '') {
-      // alert('Please register yourself first!');
       this.notify$.show('warning', 'Please Register yourself first!');
       this.router.navigate(['sign-in']);
     }
-
-    // this.auth$.adminPanelHandle.subscribe({
-    //   next: (res: any) => {
-    //     this.adminPanelHandle = res;
-    //     this.cdr.detectChanges();
-    //   },
-    // });
 
     const role = this.auth$.getUserRoleFromToken();
     if (role === 'Admin') {
@@ -92,16 +85,10 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
       },
     });
     this.auth$.logoutHandle();
-    // this.destination$.authHide();
-    // this.destinationService.currentDestination.subscribe((data) => {
-    //   if (data) {
-    //     this.receivedData = data;
-    //   }
-    // });
+
     this.api$
       .getTripsData(this.selectedStatus, this.currentPage, this.pageSize)
       .subscribe((data: Trip) => {
-        // this.updatePagination();
         console.log(data.data);
         this.loading$.show();
         setTimeout(() => {
@@ -112,15 +99,11 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
         this.maxPage = this.totalPages;
         console.log(this.totalPages);
       });
-    // this.fetchTrips();
   }
 
   ngAfterViewInit(): void {}
 
   updatePagination() {
-    // const startIndex = (this.currentPage - 1) * this.pageSize;
-    // const endIndex = startIndex + this.pageSize;
-    // this.paginatedTrips = this.tripsData.slice(startIndex, endIndex);
     this.totalPages = this.maxPage;
 
     if (this.totalPages === 0) {
@@ -164,10 +147,6 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
           this.totalPages = Math.ceil(data.totalTrips / this.pageSize);
           this.tripsData = this.paginatedTrips;
           console.log('paginated trip from backend', this.paginatedTrips);
-          // if (this.selectedStatus === 'default') {
-          // } else {
-          // }
-          // this.tripsData = this.paginatedTrips;
         });
     }
   }
@@ -188,18 +167,11 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // fetchTrips() {
-  //   this.api$.getTripsData().subscribe((data) => {
-  //     this.tripsData = data;
-  //   });
-  // }
-
   editTrip(trip: IndividualTrip) {
     this.selectedTrip = { ...trip };
   }
 
   onTripDeleted(tripId: string) {
-    // this.selectedTrip = trip; ///////// Set selected trip for modal
     console.log('triped', this.selectedTrip);
 
     this.tripsData = this.tripsData.filter((trip) => trip.id !== tripId);
@@ -218,51 +190,22 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
   onTripSorted(selectedStatus: any) {
     console.log('emitted status', selectedStatus);
 
-    // if (selectedStatus === 'default') {
-    //   this.onTripUpdated(); ///reset to original
-    // } else {
-    //   this.api$
-    //     .getSortData(selectedStatus, this.currentPage, this.pageSize)
-    //     .subscribe((data) => {
-    //       this.tripsData = data;
-    //       console.log('sorted trips', this.tripsData);
-    //       // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-    //       this.currentPage = 1; //reset to first page
-    //     });
-
     this.selectedStatus = selectedStatus;
 
     this.updatePagination();
-    // this.tripsData = sortedListTrip;
-    // console.log('sorted trip:', sortedListTrip);
   }
 
   onSearchTrip(searchedTripData: any): void {
-    // this.tripsData = searchedTripData;
-    // console.log('searched trip:', searchedTripData);
-
     clearTimeout(this.searchTimeout);
 
     if (searchedTripData === '') {
       this.searchedTripData = searchedTripData;
       this.updatePagination();
-      //   this.onTripUpdated();
-      //   // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
-      //   this.currentPage = 1; //reset to first page
-
-      //   // this.searchedTripData.emit(searchedItem);
     } else {
       this.searchTimeout = setTimeout(() => {
-        // console.log('works', input);
-        // this.api$.getSearchData(searchedTripData).subscribe((data) => {
-        //   this.tripsData = data;
-        //   console.log('searched', this.tripsData);
-        // this.searchedTripData.emit(searchedItem);
         this.searchedTripData = searchedTripData;
-        // this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
         this.currentPage = 1; //reset to first page
         this.updatePagination();
-        // });
       }, 500);
     }
   }
@@ -270,7 +213,6 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
   onLogout() {
     console.log('works');
 
-    // token = '';
     localStorage.setItem('loginId', '');
     let token = localStorage.getItem('loginId');
     console.log(token);
@@ -278,8 +220,6 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
   }
 
   onEditFormFormatClicked() {
-    // const role = this.auth$.getUserRoleFromToken();
-    // console.log('User Role:', role);
     this.router.navigate(['admin-panel']);
   }
 }

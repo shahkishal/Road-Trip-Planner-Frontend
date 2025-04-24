@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { DestinationService } from '../shared/destination.service';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
 
@@ -24,7 +25,6 @@ export class HomepageComponent implements OnInit {
   }
 
   onGetStarted() {
-    // console.log('workss');
     this.router.navigate(['dashboard'], { relativeTo: this.route });
   }
 
@@ -40,5 +40,3 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['sign-up'], { relativeTo: this.route });
   }
 }
-
-///hello baby I am back.

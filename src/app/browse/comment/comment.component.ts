@@ -31,11 +31,9 @@ export class CommentComponent {
       this.commentsData = res;
       console.log(this.commentsData);
     });
-    // this.apiBrowse$.getCommentData(id).subscribe((res) => {});
   }
 
   handleClose(): void {
-    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 }

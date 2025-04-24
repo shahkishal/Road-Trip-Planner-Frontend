@@ -10,7 +10,6 @@ import { UserLogin } from './login.model';
   providedIn: 'root',
 })
 export class ApiService {
-  // private apiUrl = 'http://localhost:5001/trips'; ////json backend url
   private apiUrl = 'https://localhost:5001/api/Trip'; ////kishal backend url
   private apiUrlTravelType = 'https://localhost:5001/api/TravelType'; /////kishal 2
   private apiUrlAuth = 'https://localhost:5001/api/Auth';
@@ -55,8 +54,6 @@ export class ApiService {
     );
   }
 
- 
-
   getTripById(Id: string): Observable<any> {
     return this.http.get<Trip>(`${this.apiUrl}/${Id}`);
   }
@@ -72,7 +69,6 @@ export class ApiService {
   ): Observable<Trip> {
     return this.http.get<Trip>(
       `${this.apiUrl}?sortBy=Destination&isAscending=${state}&pageNumber=${currentPage}&pageSize=${pageSize}`
-      // `${this.apiUrl}?sortBy=Destination&isAscending=${state}`
     );
   }
 

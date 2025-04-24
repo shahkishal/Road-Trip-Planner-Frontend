@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
+import { LikeComponent } from './like/like.component';
+
 import { ApiBrowseService } from './apiBrowse.service';
 import { DestinationService } from '../shared/destination.service';
-import { IndividualTrip } from '../shared/trip.model';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
+import { NotificationService } from '../shared/notifications/notification.service';
 import { CommentComponent } from './comment/comment.component';
+
+import { IndividualTrip } from '../shared/trip.model';
 
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { LikeComponent } from './like/like.component';
-import { NotificationService } from '../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-browse-destination',
@@ -33,8 +35,6 @@ import { NotificationService } from '../shared/notifications/notification.servic
 })
 export class BrowseComponent implements OnInit {
   browseData: IndividualTrip[] = [];
-
-  // isLoading = true;
 
   commentForm = new FormGroup({
     comment: new FormControl(''),
@@ -56,12 +56,7 @@ export class BrowseComponent implements OnInit {
 
   fetchData() {
     this.apiBrowse$.getBrowseData().subscribe((res) => {
-      // console.log(res);
       this.browseData = res;
-
-      // for (const trip of this.browseData) {
-      //   this.commentForm.addControl(trip.id, new FormControl(''));
-      // }
       this.loading$.hide();
     });
   }
@@ -75,7 +70,6 @@ export class BrowseComponent implements OnInit {
     console.log(cmt);
 
     if (cmt === '') {
-      // alert('Please enter a comment first!');
       this.notify$.show('warning', 'Please enter a comment first!');
       return;
     }
@@ -88,7 +82,6 @@ export class BrowseComponent implements OnInit {
     console.log(commentData);
 
     this.apiBrowse$.postComment(commentData).subscribe(() => {
-      // alert('Comment Added!');
       this.notify$.show('success', 'Comment Added!');
     });
     this.commentForm.reset();

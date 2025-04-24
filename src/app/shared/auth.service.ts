@@ -26,7 +26,6 @@ export class AuthService {
       try {
         const decoded = jwtDecode<JwtPayload>(token);
         console.log('decode data', decoded);
-        // const roles = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
         const roles = decoded.role;
 
         console.log(roles);
@@ -42,7 +41,5 @@ export class AuthService {
 }
 
 export interface JwtPayload {
-  // [key: string]: any;
-  // "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"?: string | string[];
   role: string | string[];
 }

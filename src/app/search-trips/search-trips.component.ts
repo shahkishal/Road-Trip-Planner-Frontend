@@ -8,7 +8,6 @@ import { Trip } from '../shared/trips.model';
   styleUrl: './search-trips.component.css',
 })
 export class SearchTripsComponent {
-  // @Output() searchedTripData: EventEmitter<Trip[]> = new EventEmitter();
   @Output() searchItem: EventEmitter<string> = new EventEmitter();
 
   tripsData: Trip[] = []; // Trips fetched from backend

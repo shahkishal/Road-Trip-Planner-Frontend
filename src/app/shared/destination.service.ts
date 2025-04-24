@@ -8,7 +8,6 @@ export class DestinationService {
   private destinationData = new BehaviorSubject<any[]>([]);
 
   public showTitle = new EventEmitter<boolean>();
-  // public showAuth = new EventEmitter<boolean>();
 
   currentDestination = this.destinationData.asObservable();
 
@@ -25,13 +24,4 @@ export class DestinationService {
   titlehide() {
     this.showTitle.emit(false); ////stores false in showTitle which will hide the title
   }
-
-  // auth display functionality
-  // authShow() {
-  //   this.showAuth.emit(true); ////stores true in showTitle which will display title
-  // }
-
-  // authHide() {
-  //   this.showAuth.emit(false); ////stores false in showTitle which will hide the title
-  // }
 }

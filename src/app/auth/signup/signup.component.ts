@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DestinationService } from '../../shared/destination.service';
-import { ApiService } from '../../shared/api.service';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +8,9 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { DestinationService } from '../../shared/destination.service';
+import { ApiService } from '../../shared/api.service';
 import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
 import { NotificationService } from '../../shared/notifications/notification.service';
 
@@ -26,7 +27,6 @@ export class SignupComponent implements OnInit {
     private destination$: DestinationService,
     private api$: ApiService,
     private router: Router,
-    private route: ActivatedRoute,
     private loading$: LoadingSpinnerService,
     private notify$: NotificationService
   ) {}
@@ -96,7 +96,6 @@ export class SignupComponent implements OnInit {
     if (this.usersignup.invalid) {
       this.loading$.hide();
       this.usersignup.markAllAsTouched();
-      // alert('PLease fill all details correctly!');
       this.notify$.show('warning', 'PLease fill all details correctly!');
     } else {
       const formvalues = this.usersignup.getRawValue();
@@ -110,18 +109,6 @@ export class SignupComponent implements OnInit {
       console.log(userData);
       console.log(JSON.stringify(userData));
 
-      // this.api$.createUser(userData).subscribe(
-      //   (response) => {
-      //     console.log(userData);
-      //     alert('User created successfully!');
-      //     this.usersignup.reset();
-      //     this.router.navigate(['dashboard'], { relativeTo: this.route });
-      //   },
-      //   (error) => {
-      //     console.error('something went wrongddddd!!!');
-      //   }
-      // );
-
       if (userData) {
         this.api$.createUser(userData).subscribe((res) => {
           const backend = res;
@@ -129,14 +116,12 @@ export class SignupComponent implements OnInit {
           console.log('response received vfrom backerdnd', backend);
 
           console.log(userData);
-          // alert('User created successfully!');
           this.notify$.show('success', 'User created successfully!');
           this.loading$.hide();
           this.usersignup.reset();
           this.router.navigate(['sign-in']);
         });
       } else {
-        // alert('user could not be registered!! Please try again.');
         this.notify$.show(
           'error',
           'User could not be registered!! Please try again.'

@@ -9,7 +9,6 @@ import { LikeData } from './like/like.model';
 })
 export class ApiBrowseService {
   private apiUrl = 'https://localhost:5001/api/Browse'; /// kishal c2
-  // private apiUrl = 'http://localhost:5001/trips';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +22,7 @@ export class ApiBrowseService {
   }
 
   getCommentData(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Comment/${id}`); /////to change
+    return this.http.get(`${this.apiUrl}/Comment/${id}`);
   }
 
   // post

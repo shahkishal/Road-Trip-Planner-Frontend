@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DestinationService } from '../../shared/destination.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../shared/api.service';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { DestinationService } from '../../shared/destination.service';
+import { ApiService } from '../../shared/api.service';
 import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
 import { NotificationService } from '../../shared/notifications/notification.service';
 
@@ -26,7 +27,6 @@ export class SigninComponent implements OnInit {
     private destination$: DestinationService,
     private api$: ApiService,
     private router: Router,
-    private route: ActivatedRoute,
     private loading$: LoadingSpinnerService,
     private notify$: NotificationService
   ) {}
@@ -34,7 +34,6 @@ export class SigninComponent implements OnInit {
   usersignin = new FormGroup({
     username: new FormControl('', { validators: [Validators.required] }),
     password: new FormControl('', { validators: [Validators.required] }),
-    // roles: new FormControl<string[]>([], { validators: [Validators.required] }),
   });
 
   get usernameIsInvalid() {
@@ -51,13 +50,6 @@ export class SigninComponent implements OnInit {
     );
   }
 
-  // get roleIsInvalid() {
-  //   return (
-  //     this.usersignin.controls.roles.invalid &&
-  //     this.usersignin.controls.roles.touched
-  //   );
-  // }
-
   ngOnInit(): void {
     this.destination$.titlehide();
     this.loading$.hide();
@@ -73,7 +65,6 @@ export class SigninComponent implements OnInit {
 
     if (this.usersignin.invalid) {
       this.usersignin.markAllAsTouched();
-      // alert('PLease fill all details correctly!');
       this.notify$.show('warning', 'PLease fill all details correctly!');
     } else {
       const formvalues = this.usersignin.getRawValue();
@@ -81,24 +72,19 @@ export class SigninComponent implements OnInit {
       const userData = {
         username: formvalues.username!,
         password: formvalues.password!,
-        // roles: formvalues.roles!,
       };
       this.api$.userLogIn(userData).subscribe(
         (response) => {
           this.loginId = response.message;
-          // console.log(this.loginId);
 
           localStorage.setItem('loginId', this.loginId);
 
           this.router.navigate(['dashboard']);
           this.loading$.hide();
 
-          // alert('Login successfull!!');
           this.notify$.show('success', 'Login successfull!!');
         },
         (error) => {
-          // console.error('something happende wroing', error);
-          // alert('Please enter correct values!');
           this.notify$.show('warning', 'Please enter correct values!');
         }
       );
