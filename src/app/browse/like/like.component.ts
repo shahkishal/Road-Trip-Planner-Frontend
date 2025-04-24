@@ -40,7 +40,7 @@ export class LikeComponent implements OnInit {
     this.isLiked = !this.isLiked;
     this.isUnliked = !this.isUnliked;
 
-    this.apiBrowse$.postLike(this.TripId).subscribe((res) => {});
+    this.apiBrowse$.postLike({ TripsId: this.TripId }).subscribe((res) => {});
 
     this.apiBrowse$.getLikeCountnStatus(this.TripId).subscribe((res) => {
       this.likeCount = res.count;

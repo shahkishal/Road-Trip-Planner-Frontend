@@ -8,8 +8,8 @@ import { LikeData } from './like/like.model';
   providedIn: 'root',
 })
 export class ApiBrowseService {
-  private apiUrl = 'https://localhost:5001/api/Browse'; /// kishal c2
-  // private apiUrl = 'http://localhost:5001/trips';
+  // private apiUrl = 'https://localhost:5001/api/Browse'; /// kishal c2
+  private apiUrl = 'http://localhost:5001/trips';
 
   constructor(private http: HttpClient) {}
 
@@ -27,8 +27,8 @@ export class ApiBrowseService {
   }
 
   // post
-  postLike(TripsId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Like`, TripsId);
+  postLike(likeData: { TripsId: any }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Like`, likeData);
   }
 
   postComment(commentData: { TripID: any; Message: any }): Observable<any> {
