@@ -13,7 +13,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { LikeComponent } from "./like/like.component";
+import { LikeComponent } from './like/like.component';
 
 @Component({
   selector: 'app-browse-destination',
@@ -25,8 +25,8 @@ import { LikeComponent } from "./like/like.component";
     NzLayoutModule,
     CommentComponent,
     ReactiveFormsModule,
-    LikeComponent
-],
+    LikeComponent,
+  ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css',
 })
@@ -71,6 +71,10 @@ export class BrowseComponent implements OnInit {
   onPost(tripId: string) {
     const cmt = this.commentForm.controls.comment.value;
     console.log(cmt);
+
+    if (cmt === '') {
+      alert('Please enter a comment first!');
+    }
 
     let commentData = {
       TripID: tripId,

@@ -1,6 +1,9 @@
 <nz-layout>
-  <nz-sider nzCollapsible nzWidth="200px">
-    <p class="titletext" (click)="onTitleClicked()">Road Trip Planner</p>
+  <!-- Sidebar -->
+  <nz-sider nzCollapsible nzWidth="200px" class="sider-style">
+    <p class="titletext text-center mb-4 mt-2" (click)="onTitleClicked()">
+      Road Trip Planner
+    </p>
     <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-submenu nzTitle="User" nzIcon="user">
         <ul>
@@ -12,55 +15,49 @@
         <nz-icon nzType="pie-chart" />
         <span>Your Trips</span>
       </li>
-      <!-- <li nz-menu-item>
-        <nz-icon nzType="desktop" />
-        <span>Option 2</span>
-      </li> -->
-      <!-- <li nz-submenu nzTitle="Team" nzIcon="team">
-        <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
-        </ul>
-      </li> -->
-      <!-- <li nz-menu-item>
-        <nz-icon nzType="file" />
-        <span>File</span>
-      </li> -->
     </ul>
   </nz-sider>
-  <nz-layout>
-    <nz-header>Explore Trips WorldWide</nz-header>
-    <nz-content>
-      <div class="inner-content">
-        <!-- <nz-breadcrumb> ... </nz-breadcrumb> -->
 
-        <form [formGroup]="commentForm">
-          <div class="card-body" *ngFor="let trip of browseData">
-            <div>
-              <h3>{{ "@" + trip.ownerName }}</h3>
+  <!-- Main Layout -->
+  <nz-layout>
+    <nz-header class="header-style text-white text-center">
+      <h3 class="m-0">Explore Trips Worldwide</h3>
+    </nz-header>
+
+    <nz-content class="p-4 content-style">
+      <form [formGroup]="commentForm">
+        <div class="card-body" *ngFor="let trip of browseData">
+          <div class="trip-card p-3 shadow-sm mb-4 rounded border bg-white">
+            <h4 class="fw-bold">{{ "@" + trip.ownerName }}</h4>
+            <h5 class="text-muted">
+              {{ trip.source }} → {{ trip.destination }}
+            </h5>
+            <div class="img-style mb-3">
+              <img
+                [src]="trip.tripImage"
+                alt="Trip Image"
+                class="img-fluid rounded shadow-sm"
+              />
             </div>
-            <h4>{{ trip.source }} - {{ trip.destination }}</h4>
-            <h5 class="mt-4">{{ trip.description }}</h5>
-            <div class="d-flex gap-2">
-              <span class="card-text"
-                ><strong>Date From: </strong>{{ trip.from }}</span
-              >-
-              <span class="card-text"
-                ><strong>Date To: </strong>{{ trip.to }}</span
-              >
+
+            <p class="text-dark">{{ trip.description }}</p>
+
+            <div class="d-flex gap-2 mb-2">
+              <span class="badge bg-primary-subtle text-dark">
+                <strong>From:</strong> {{ trip.from }}
+              </span>
+              <span class="badge bg-secondary-subtle text-dark">
+                <strong>To:</strong> {{ trip.to }}
+              </span>
             </div>
-            <div class="img-style">
-              <img src="{{ trip.tripImage }}" alt="Trip Image" />
-            </div>
-            <div
-              class="d-flex justify-content-center align-items-start gap-2 mt-2"
-            >
+
+            <!-- Comment Input -->
+            <div class="d-flex gap-2 align-items-center mt-3">
               <input
-                id="comment"
-                class="form-control"
                 type="text"
-                placeholder="Enter a Comment."
+                class="form-control"
                 formControlName="comment"
+                placeholder="Leave a comment..."
               />
               <button
                 type="submit"
@@ -70,13 +67,15 @@
                 Post
               </button>
             </div>
-            <div class="d-flex gap-1">
-              <app-like class="mt-2" [TripId]="trip.id" />
+
+            <!-- Like & Comments -->
+            <div class="d-flex gap-3 mt-3 align-items-center">
+              <app-like [TripId]="trip.id" />
               <app-comment [TripId]="trip.id" />
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </nz-content>
   </nz-layout>
 </nz-layout>
