@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { TravelType } from '../../shared/travelType.model';
 import { IndividualTrip } from '../../shared/trip.model';
+import { NotificationService } from '../../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-trip-edit',
@@ -31,7 +32,11 @@ export class TripEditComponent implements OnInit {
 
   isVisible = false;
 
-  constructor(private api$: ApiService, private fb: FormBuilder) {}
+  constructor(
+    private api$: ApiService,
+    private fb: FormBuilder,
+    private notify$: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -119,6 +124,7 @@ export class TripEditComponent implements OnInit {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.notify$.show('warning', 'Please enter values correctly!');
       return;
     }
 
@@ -127,12 +133,13 @@ export class TripEditComponent implements OnInit {
       this.api$.sendEditData(this.trip.id, this.form.value).subscribe(
         (updatedTrip) => {
           console.log('trip updated successfully:', updatedTrip);
-
+          this.notify$.show('success', 'Trip Updated Successfully!');
           this.tripUpdated.emit(updatedTrip);
           this.isVisible = false;
         },
         (error) => {
           console.error('Error updating trip.', error);
+          this.notify$.show('error', 'Error updating trip!');
         }
       );
     }
