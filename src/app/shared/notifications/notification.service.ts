@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export interface Notification {
   type: 'success' | 'error' | 'info' | 'warning';
@@ -9,5 +10,10 @@ export interface Notification {
   providedIn: 'root',
 })
 export class NotificationService {
-  constructor() {}
+  private notificationSubject = new Subject<Notification>();
+  notification$ = this.notificationSubject.asObservable();
+
+  show(type: 'success' | 'error' | 'info' | 'warning', message: string) {
+    this.notificationSubject.next({ type, message });
+  }
 }

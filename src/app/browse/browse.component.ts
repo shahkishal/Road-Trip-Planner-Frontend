@@ -14,6 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { LikeComponent } from './like/like.component';
+import { NotificationService } from '../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-browse-destination',
@@ -43,7 +44,8 @@ export class BrowseComponent implements OnInit {
     private apiBrowse$: ApiBrowseService,
     private destination$: DestinationService,
     private loading$: LoadingSpinnerService,
-    private router: Router
+    private router: Router,
+    private notify$: NotificationService
   ) {}
 
   ngOnInit() {
@@ -73,7 +75,9 @@ export class BrowseComponent implements OnInit {
     console.log(cmt);
 
     if (cmt === '') {
-      alert('Please enter a comment first!');
+      // alert('Please enter a comment first!');
+      this.notify$.show('warning', 'Please enter a comment first!');
+      return;
     }
 
     let commentData = {
@@ -84,7 +88,8 @@ export class BrowseComponent implements OnInit {
     console.log(commentData);
 
     this.apiBrowse$.postComment(commentData).subscribe(() => {
-      alert('Comment Added!');
+      // alert('Comment Added!');
+      this.notify$.show('success', 'Comment Added!');
     });
     this.commentForm.reset();
   }

@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { IndividualTrip } from '../shared/trip.model';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
+import { NotificationService } from '../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-list-destination',
@@ -56,7 +57,8 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
-    private loading$: LoadingSpinnerService
+    private loading$: LoadingSpinnerService,
+    private notify$: NotificationService
   ) {}
 
   ngOnInit() {
@@ -66,6 +68,7 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
     console.log('id:', token);
     if (token === '') {
       alert('Please register yourself first!');
+      this.notify$.show('warning', 'Please Register yourself first!');
       this.router.navigate(['sign-in']);
     }
 

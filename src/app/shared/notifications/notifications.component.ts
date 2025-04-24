@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Notification, NotificationService } from './notification.service';
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
-export class NotificationsComponent {
-  constructor(private notification: NzNotificationService) {}
+export class NotificationsComponent implements OnInit {
+  notification: Notification = { type: 'success', message: '' };
+  show = false;
 
-  createNotification(type: string): void {
-    this.notification.create(
-      type,
-      'Notification Title',
-      'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
-    );
+  constructor(private notify: NotificationService) {}
+
+  ngOnInit() {
+    this.notify.notification$.subscribe((noti) => {
+      this.notification = noti;
+      this.show = true;
+
+      setTimeout(() => (this.show = false), 3000);
+    });
   }
 }

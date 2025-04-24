@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
+import { NotificationService } from '../../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-signin',
@@ -26,7 +27,8 @@ export class SigninComponent implements OnInit {
     private api$: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private loading$: LoadingSpinnerService
+    private loading$: LoadingSpinnerService,
+    private notify$: NotificationService
   ) {}
 
   usersignin = new FormGroup({
@@ -71,7 +73,8 @@ export class SigninComponent implements OnInit {
 
     if (this.usersignin.invalid) {
       this.usersignin.markAllAsTouched();
-      alert('PLease fill all details correctly!');
+      // alert('PLease fill all details correctly!');
+      this.notify$.show('warning', 'PLease fill all details correctly!');
     } else {
       const formvalues = this.usersignin.getRawValue();
 
@@ -94,7 +97,8 @@ export class SigninComponent implements OnInit {
         },
         (error) => {
           // console.error('something happende wroing', error);
-          alert('Please enter correct values!');
+          // alert('Please enter correct values!');
+          this.notify$.show('warning', 'Please enter correct values!');
         }
       );
     }

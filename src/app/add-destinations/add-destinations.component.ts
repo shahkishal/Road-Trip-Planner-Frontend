@@ -14,6 +14,7 @@ import { DestinationService } from '../shared/destination.service';
 import { ApiService } from '../shared/api.service';
 import { TravelType } from '../shared/travelType.model';
 import { LoadingSpinnerService } from '../shared/loading-spinner.service';
+import { NotificationService } from '../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-add-destinations',
@@ -40,7 +41,8 @@ export class AddDestinationsComponent implements OnInit {
     private router: Router,
     private destination$: DestinationService,
     private api$: ApiService,
-    private loading$: LoadingSpinnerService
+    private loading$: LoadingSpinnerService,
+    private notify$: NotificationService
   ) {}
 
   form = new FormGroup({
@@ -205,7 +207,11 @@ export class AddDestinationsComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) {
-      alert('Please fill in all required feilds correctly!');
+      // alert('Please fill in all required feilds correctly!');
+      this.notify$.show(
+        'warning',
+        'Please fill in all required feilds correctly!'
+      );
     } else {
       this.destination$.titleshow();
       // this.destination$.authShow();
@@ -257,7 +263,8 @@ export class AddDestinationsComponent implements OnInit {
       this.api$.createDestination(formData).subscribe(
         (response) => {
           console.log('trip created:', response);
-          alert('Trip successfully added!');
+          // alert('Trip successfully added!');
+          this.notify$.show('success', 'Trip successfully added!');
 
           // this.showSuccessAlert = true;
 
@@ -277,11 +284,11 @@ export class AddDestinationsComponent implements OnInit {
           this.form.reset();
 
           this.router.navigate(['/dashboard']);
-          
         },
         (error) => {
           console.log('error', error);
-          alert('Something went wrong!');
+          // alert('Something went wrong!');
+          this.notify$.show('error', 'Something went wrong!');
         }
       );
     }

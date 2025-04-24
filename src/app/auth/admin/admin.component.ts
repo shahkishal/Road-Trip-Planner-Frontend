@@ -9,6 +9,7 @@ import { AdminApiService } from './admin-api.service';
 import { EditFormFormat } from './editFormFormat.model';
 import { Router } from '@angular/router';
 import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
+import { NotificationService } from '../../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-admin',
@@ -22,7 +23,8 @@ export class AdminComponent implements OnInit {
     private destination$: DestinationService,
     private adminApi$: AdminApiService,
     private router: Router,
-    private loading$: LoadingSpinnerService
+    private loading$: LoadingSpinnerService,
+    private notify$: NotificationService
   ) {}
 
   adminEditForm = new FormGroup({
@@ -52,7 +54,8 @@ export class AdminComponent implements OnInit {
     );
     this.adminApi$.deleteTableValue(tableValueId).subscribe(
       () => {
-        alert('Entry deleted successfully!');
+        // alert('Entry deleted successfully!');
+        this.notify$.show('success', 'Entry deleted successfully!');
         console.log('deleted:', tableValueId);
       },
       (err) => {

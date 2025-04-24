@@ -10,12 +10,13 @@ import {
 import { DestinationService } from './shared/destination.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { LoadingSpinnerService } from './shared/loading-spinner.service';
+import { NotificationsComponent } from "./shared/notifications/notifications.component";
 
 // import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, NzSpinModule],
+  imports: [RouterOutlet, CommonModule, NzSpinModule, NotificationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

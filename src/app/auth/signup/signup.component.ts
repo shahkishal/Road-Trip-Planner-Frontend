@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingSpinnerService } from '../../shared/loading-spinner.service';
+import { NotificationService } from '../../shared/notifications/notification.service';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,8 @@ export class SignupComponent implements OnInit {
     private api$: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private loading$: LoadingSpinnerService
+    private loading$: LoadingSpinnerService,
+    private notify$: NotificationService
   ) {}
 
   usersignup = new FormGroup({
@@ -92,9 +94,10 @@ export class SignupComponent implements OnInit {
     this.loading$.show();
 
     if (this.usersignup.invalid) {
-      this.loading$.hide()
+      this.loading$.hide();
       this.usersignup.markAllAsTouched();
-      alert('PLease fill all details correctly!');
+      // alert('PLease fill all details correctly!');
+      this.notify$.show('warning', 'PLease fill all details correctly!');
     } else {
       const formvalues = this.usersignup.getRawValue();
 
@@ -127,12 +130,17 @@ export class SignupComponent implements OnInit {
 
           console.log(userData);
           // alert('User created successfully!');
+          this.notify$.show('success', 'User created successfully!');
           this.loading$.hide();
           this.usersignup.reset();
           this.router.navigate(['sign-in']);
         });
       } else {
-        alert('user couldnot be registered!! Please try again.');
+        // alert('user could not be registered!! Please try again.');
+        this.notify$.show(
+          'error',
+          'User could not be registered!! Please try again.'
+        );
       }
     }
   }
