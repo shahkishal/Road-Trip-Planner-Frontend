@@ -60,6 +60,7 @@ export class AdminComponent implements OnInit {
       },
       (err) => {
         console.error('Error deleting entry:', err);
+        this.notify$.show('error', 'Error deleting entry!');
       }
     );
   }
@@ -81,6 +82,7 @@ export class AdminComponent implements OnInit {
     };
     this.adminApi$.sendEditFormData(formData).subscribe((res) => {
       console.log('res:', res);
+      this.notify$.show('success', 'New type of vehicle added!');
       this.adminApi$.getTableValues().subscribe((res) => {
         this.tableData = res;
         console.log(this.tableData);

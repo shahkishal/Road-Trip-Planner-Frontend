@@ -94,6 +94,7 @@ export class SigninComponent implements OnInit {
           this.loading$.hide();
 
           // alert('Login successfull!!');
+          this.notify$.show('success', 'Login successfull!!');
         },
         (error) => {
           // console.error('something happende wroing', error);
