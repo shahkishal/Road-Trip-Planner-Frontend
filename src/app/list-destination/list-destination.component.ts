@@ -35,7 +35,7 @@ import { IndividualTrip } from '../shared/trip.model';
   templateUrl: './list-destination.component.html',
   styleUrl: './list-destination.component.css',
 })
-export class ListDestinationComponent implements OnInit, AfterViewInit {
+export class ListDestinationComponent implements OnInit {
   public showLogout: any = true;
   public adminPanelHandle: any = false;
 
@@ -100,8 +100,6 @@ export class ListDestinationComponent implements OnInit, AfterViewInit {
         console.log(this.totalPages);
       });
   }
-
-  ngAfterViewInit(): void {}
 
   updatePagination() {
     this.totalPages = this.maxPage;
