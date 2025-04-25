@@ -12,10 +12,14 @@
   (nzOnCancel)="handleClose()"
 >
   <ng-container *nzModalContent>
+    <div *ngIf="commentsData.length == 0">
+      <p>No comments Yet.</p>
+    </div>
     <div *ngFor="let comment of commentsData" class="comment-box">
       <div class="comment-header">
         <div class="avatar">{{ comment.owner[0] | uppercase }}</div>
         <div class="comment-body">
+          
           <h6 class="comment-owner">{{ comment.owner }}</h6>
           <p class="comment-message">{{ comment.message }}</p>
         </div>
