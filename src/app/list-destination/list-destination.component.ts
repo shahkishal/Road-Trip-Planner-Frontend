@@ -173,7 +173,7 @@ export class ListDestinationComponent implements OnInit {
     console.log('triped', this.selectedTrip);
 
     this.tripsData = this.tripsData.filter((trip) => trip.id !== tripId);
-    this.totalPages = Math.ceil(this.tripsData.length / this.pageSize);
+    this.maxPage--;
     this.updatePagination();
   }
 
